@@ -1,0 +1,79 @@
+// Setiap soal ditandai `level` (CEFR: A1, A2, B1, B2, C1, C2) supaya bisa
+// dipakai untuk Solo Challenge, Speed Round, dan Tes Level (CEFR tracker).
+
+export const QUIZ_BANK = [
+  // --- A1: kata & pola paling dasar ---
+  { level: 'A1', tag: 'vocab', q: "Apa arti kata 'cat'?", opts: ['Anjing', 'Kucing', 'Burung', 'Ikan'], a: 1 },
+  { level: 'A1', tag: 'vocab', q: "Apa arti 'book'?", opts: ['Buku', 'Meja', 'Kursi', 'Pintu'], a: 0 },
+  { level: 'A1', tag: 'grammar', q: 'She ___ a teacher.', opts: ['am', 'is', 'are', 'be'], a: 1 },
+  { level: 'A1', tag: 'grammar', q: 'I ___ from Indonesia.', opts: ['is', 'am', 'are', 'be'], a: 1 },
+  { level: 'A1', tag: 'vocab', q: "'Big' lawan katanya adalah...", opts: ['Small', 'Tall', 'Fast', 'Long'], a: 0 },
+  { level: 'A1', tag: 'grammar', q: 'They ___ students.', opts: ['is', 'am', 'are', 'be'], a: 2 },
+  { level: 'A1', tag: 'vocab', q: "Apa arti 'water'?", opts: ['Api', 'Air', 'Tanah', 'Udara'], a: 1 },
+  { level: 'A1', tag: 'grammar', q: 'This is ___ apple.', opts: ['a', 'an', 'the', '-'], a: 1 },
+  { level: 'A1', tag: 'vocab', q: "'Happy' artinya...", opts: ['Sedih', 'Senang', 'Marah', 'Takut'], a: 1 },
+  { level: 'A1', tag: 'grammar', q: 'He ___ to school every day.', opts: ['go', 'goes', 'going', 'went'], a: 1 },
+
+  // --- A2: kosakata sehari-hari, tense sederhana ---
+  { level: 'A2', tag: 'vocab', q: "Apa arti 'to borrow'?", opts: ['Meminjam', 'Meminjamkan', 'Membeli', 'Menjual'], a: 0 },
+  { level: 'A2', tag: 'grammar', q: 'She ___ to the market yesterday.', opts: ['go', 'goes', 'went', 'going'], a: 2 },
+  { level: 'A2', tag: 'vocab', q: "'Crowded' artinya...", opts: ['Sepi', 'Ramai', 'Bersih', 'Kotor'], a: 1 },
+  { level: 'A2', tag: 'grammar', q: 'We ___ watching a movie now.', opts: ['is', 'are', 'am', 'be'], a: 1 },
+  { level: 'A2', tag: 'synonym', q: "Sinonim dari 'fast' adalah...", opts: ['Slow', 'Quick', 'Heavy', 'Loud'], a: 1 },
+  { level: 'A2', tag: 'vocab', q: "'Expensive' lawan katanya...", opts: ['Cheap', 'Costly', 'Rare', 'Old'], a: 0 },
+  { level: 'A2', tag: 'grammar', q: 'I have two ___.', opts: ['child', 'childs', 'children', 'childrens'], a: 2 },
+  { level: 'A2', tag: 'vocab', q: "'Nervous' artinya perasaan...", opts: ['Tenang', 'Gugup', 'Senang', 'Lapar'], a: 1 },
+  { level: 'A2', tag: 'grammar', q: 'Can you ___ me the salt?', opts: ['pass', 'passed', 'passing', 'to pass'], a: 0 },
+  { level: 'A2', tag: 'vocab', q: "Apa arti 'to arrive'?", opts: ['Berangkat', 'Tiba', 'Menunggu', 'Pulang'], a: 1 },
+
+  // --- B1: percakapan lebih kompleks, tense campuran ---
+  { level: 'B1', tag: 'vocab', q: "Apa arti kata 'generous'?", opts: ['Pelit', 'Murah hati', 'Pemalu', 'Cepat'], a: 1 },
+  { level: 'B1', tag: 'synonym', q: "Sinonim dari 'happy' adalah...", opts: ['Sad', 'Angry', 'Joyful', 'Tired'], a: 2 },
+  { level: 'B1', tag: 'grammar', q: 'She ___ to the market every morning.', opts: ['go', 'goes', 'going', 'gone'], a: 1 },
+  { level: 'B1', tag: 'vocab', q: "'Reluctant' paling dekat artinya dengan...", opts: ['Enggan', 'Bersemangat', 'Yakin', 'Cepat'], a: 0 },
+  { level: 'B1', tag: 'grammar', q: 'I have ___ finished my homework.', opts: ['already', 'yet', 'still', 'never mind'], a: 0 },
+  { level: 'B1', tag: 'synonym', q: "Sinonim dari 'difficult' adalah...", opts: ['Easy', 'Simple', 'Challenging', 'Boring'], a: 2 },
+  { level: 'B1', tag: 'vocab', q: "Apa arti 'to procrastinate'?", opts: ['Menunda-nunda', 'Bergegas', 'Merencanakan', 'Menyelesaikan'], a: 0 },
+  { level: 'B1', tag: 'grammar', q: 'They ___ dinner when I arrived.', opts: ['cook', 'were cooking', 'cooked yesterday', 'cooking'], a: 1 },
+  { level: 'B1', tag: 'synonym', q: "Sinonim dari 'beautiful' adalah...", opts: ['Ugly', 'Gorgeous', 'Plain', 'Dull'], a: 1 },
+  { level: 'B1', tag: 'vocab', q: "'Curious' artinya orang yang...", opts: ['Malas', 'Ingin tahu', 'Marah', 'Takut'], a: 1 },
+  { level: 'B1', tag: 'grammar', q: 'If it rains, I ___ stay home.', opts: ['will', 'would', 'was', 'am'], a: 0 },
+  { level: 'B1', tag: 'vocab', q: "'Grateful' artinya...", opts: ['Bersyukur', 'Kecewa', 'Bingung', 'Sombong'], a: 0 },
+
+  // --- B2: idiom ringan, klausa relatif, conditional ---
+  { level: 'B2', tag: 'synonym', q: "Sinonim dari 'begin' adalah...", opts: ['End', 'Start', 'Stop', 'Pause'], a: 1 },
+  { level: 'B2', tag: 'grammar', q: "He doesn't like coffee, ___?", opts: ['does he', "doesn't he", 'is he', "isn't he"], a: 0 },
+  { level: 'B2', tag: 'synonym', q: "Sinonim dari 'huge' adalah...", opts: ['Tiny', 'Enormous', 'Narrow', 'Short'], a: 1 },
+  { level: 'B2', tag: 'vocab', q: "'Ambitious' berarti seseorang yang...", opts: ['Berambisi tinggi', 'Pemalas', 'Rendah hati', 'Pelupa'], a: 0 },
+  { level: 'B2', tag: 'grammar', q: 'This is the book ___ I told you about.', opts: ['who', 'which', 'whose', 'where'], a: 1 },
+  { level: 'B2', tag: 'vocab', q: "'Diligent' artinya orang yang...", opts: ['Rajin', 'Malas', 'Ceroboh', 'Cerewet'], a: 0 },
+  { level: 'B2', tag: 'grammar', q: 'Neither of them ___ ready.', opts: ['is', 'are', 'were', 'have been'], a: 0 },
+  { level: 'B2', tag: 'synonym', q: "Sinonim dari 'angry' adalah...", opts: ['Calm', 'Furious', 'Happy', 'Sleepy'], a: 1 },
+  { level: 'B2', tag: 'vocab', q: "'Humble' artinya...", opts: ['Sombong', 'Rendah hati', 'Kasar', 'Pemarah'], a: 1 },
+  { level: 'B2', tag: 'grammar', q: 'I wish I ___ more time.', opts: ['have', 'had', 'has', 'having'], a: 1 },
+  { level: 'B2', tag: 'vocab', q: "'To give up' artinya...", opts: ['Menyerah', 'Berjuang', 'Merayakan', 'Menunda'], a: 0 },
+  { level: 'B2', tag: 'grammar', q: 'By next year, I ___ graduated.', opts: ['will have', 'will', 'have', 'had'], a: 0 },
+
+  // --- C1: kosakata akademik, nuansa formal ---
+  { level: 'C1', tag: 'vocab', q: "'Meticulous' paling dekat artinya...", opts: ['Ceroboh', 'Sangat teliti', 'Malas', 'Cepat'], a: 1 },
+  { level: 'C1', tag: 'vocab', q: "'Ubiquitous' artinya...", opts: ['Langka', 'Ada di mana-mana', 'Berbahaya', 'Kecil'], a: 1 },
+  { level: 'C1', tag: 'grammar', q: 'Rarely ___ such dedication.', opts: ['I have seen', 'have I seen', 'I saw', 'I did see'], a: 1 },
+  { level: 'C1', tag: 'vocab', q: "'Ambiguous' artinya...", opts: ['Jelas', 'Bermakna ganda', 'Sederhana', 'Pasti'], a: 1 },
+  { level: 'C1', tag: 'synonym', q: "Sinonim dari 'inevitable' adalah...", opts: ['Avoidable', 'Unavoidable', 'Optional', 'Unlikely'], a: 1 },
+  { level: 'C1', tag: 'grammar', q: 'Had I known earlier, I ___ differently.', opts: ['would act', 'would have acted', 'act', 'acted'], a: 1 },
+  { level: 'C1', tag: 'vocab', q: "'Candid' artinya seseorang yang...", opts: ['Berterus terang', 'Tertutup', 'Pembohong', 'Pemalu'], a: 0 },
+  { level: 'C1', tag: 'vocab', q: "'Redundant' dalam konteks kerja berarti...", opts: ['Dipromosikan', 'Diberhentikan (berlebih)', 'Ditransfer', 'Dinaikkan gaji'], a: 1 },
+
+  // --- C2: nuansa halus, idiom akademik/sastra ---
+  { level: 'C2', tag: 'vocab', q: "'Ephemeral' artinya sesuatu yang...", opts: ['Abadi', 'Sementara/cepat hilang', 'Kuat', 'Berat'], a: 1 },
+  { level: 'C2', tag: 'vocab', q: "'Ostensibly' paling dekat artinya...", opts: ['Sebenarnya', 'Kelihatannya (padahal belum tentu)', 'Selamanya', 'Sama sekali tidak'], a: 1 },
+  { level: 'C2', tag: 'grammar', q: 'Not only ___ late, but he also forgot the documents.', opts: ['he was', 'was he', 'he is', 'is he'], a: 1 },
+  { level: 'C2', tag: 'vocab', q: "'Vindicate' artinya...", opts: ['Menyalahkan', 'Membuktikan tidak bersalah', 'Menghukum', 'Mengabaikan'], a: 1 },
+  { level: 'C2', tag: 'vocab', q: "'Cognizant' artinya...", opts: ['Tidak sadar', 'Menyadari/mengetahui', 'Bingung', 'Lupa'], a: 1 },
+]
+
+export const CEFR_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+export function questionsForLevel(level) {
+  return QUIZ_BANK.filter((q) => q.level === level)
+}
