@@ -1,62 +1,70 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import { 
-  signInWithPopup, 
-  signOut, 
-  onAuthStateChanged 
+import { create } from 'zustand'
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
 } from 'firebase/auth'
 import { doc, getDoc, setDoc, updateDoc, onSnapshot, deleteDoc } from 'firebase/firestore'
 import { auth as firebaseAuth, googleProvider, db } from '@/firebase-config'
 
-export const useAuthStore = defineStore('auth', () => {
-  const currentUser = ref(null)
-  const userData = ref(null)
-  const partnerData = ref(null)
-  const authReady = ref(false)
-  const loading = ref(false)
-  const error = ref(null)
-  
-  let userUnsub = null
-  let partnerUnsub = null
+let userUnsub = null
+let partnerUnsub = null
 
-  function watchUserData(uid) {
-    if (userUnsub) userUnsub()
-    userUnsub = onSnapshot(doc(db, 'users', uid), (snap) => {
-      if (snap.exists()) {
-        userData.value = snap.data()
-        if (userData.value.partnerUid && !partnerUnsub) {
-          watchPartnerData(userData.value.partnerUid)
-        }
+function watchPartnerData(partnerUid) {
+  if (partnerUnsub) partnerUnsub()
+  partnerUnsub = onSnapshot(doc(db, 'users', partnerUid), (snap) => {
+    if (snap.exists()) {
+      useAuthStore.setState({ partnerData: snap.data() })
+    }
+  })
+}
+
+function watchUserData(uid) {
+  if (userUnsub) userUnsub()
+  userUnsub = onSnapshot(doc(db, 'users', uid), (snap) => {
+    if (snap.exists()) {
+      const userData = snap.data()
+      useAuthStore.setState({ userData })
+      if (userData.partnerUid && !partnerUnsub) {
+        watchPartnerData(userData.partnerUid)
       }
-    })
-  }
+    }
+  })
+}
 
-  function watchPartnerData(partnerUid) {
-    if (partnerUnsub) partnerUnsub()
-    partnerUnsub = onSnapshot(doc(db, 'users', partnerUid), (snap) => {
-      if (snap.exists()) {
-        partnerData.value = snap.data()
-      }
-    })
-  }
+function stopWatching() {
+  if (userUnsub) userUnsub()
+  if (partnerUnsub) partnerUnsub()
+  userUnsub = null
+  partnerUnsub = null
+  useAuthStore.setState({ userData: null, partnerData: null })
+}
 
-  function stopWatching() {
-    if (userUnsub) userUnsub()
-    if (partnerUnsub) partnerUnsub()
-    userUnsub = null
-    partnerUnsub = null
-    userData.value = null
-    partnerData.value = null
+// Initialize Firebase Auth listener — runs once on module load, same as Pinia's setup()
+onAuthStateChanged(firebaseAuth, (user) => {
+  useAuthStore.setState({ currentUser: user, authReady: true })
+  if (user) {
+    watchUserData(user.uid)
+  } else {
+    stopWatching()
   }
+})
 
-  async function loginWithGoogle() {
-    loading.value = true
-    error.value = null
+export const useAuthStore = create((set, get) => ({
+  currentUser: null,
+  userData: null,
+  partnerData: null,
+  authReady: false,
+  loading: false,
+  error: null,
+
+  async loginWithGoogle() {
+    set({ loading: true, error: null })
     try {
       const result = await signInWithPopup(firebaseAuth, googleProvider)
       const user = result.user
-      
-      // Ensure user document exists
+
+      // Ensure user document exists in Firestore
       const userRef = doc(db, 'users', user.uid)
       const snap = await getDoc(userRef)
       if (!snap.exists()) {
@@ -66,7 +74,6 @@ export const useAuthStore = defineStore('auth', () => {
           photoURL: user.photoURL,
           partnerUid: null,
           createdAt: new Date().toISOString(),
-          // Default player stats
           streak: 0,
           lastDate: null,
           xp: 0,
@@ -82,54 +89,55 @@ export const useAuthStore = defineStore('auth', () => {
         })
       }
     } catch (err) {
-      console.error("Login failed", err)
-      error.value = err.message
-      alert("Google Login Error: " + err.message + "\n\nPastikan Google Auth diaktifkan di Firebase Console dan domain ini di-whitelist.")
+      console.error('Login failed', err)
+      set({ error: err.message })
+      alert('Google Login Error: ' + err.message + '\n\nPastikan Google Auth diaktifkan di Firebase Console dan domain ini di-whitelist.')
     } finally {
-      loading.value = false
+      set({ loading: false })
     }
-  }
+  },
 
-  async function logout() {
+  async logout() {
     await signOut(firebaseAuth)
     stopWatching()
-  }
+  },
 
-  async function generateInviteCode() {
-    if (!currentUser.value) return null
+  async generateInviteCode() {
+    const { currentUser } = get()
+    if (!currentUser) return null
     // Generate 6 digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString()
     const inviteRef = doc(db, 'invites', code)
     await setDoc(inviteRef, {
-      creatorUid: currentUser.value.uid,
+      creatorUid: currentUser.uid,
       createdAt: new Date().toISOString()
     })
     return code
-  }
+  },
 
-  async function linkWithCode(code) {
-    if (!currentUser.value) throw new Error("Not logged in")
-    loading.value = true
-    error.value = null
+  async linkWithCode(code) {
+    const { currentUser } = get()
+    if (!currentUser) throw new Error('Not logged in')
+    set({ loading: true, error: null })
     try {
       const inviteRef = doc(db, 'invites', code)
       const snap = await getDoc(inviteRef)
       if (!snap.exists()) {
-        throw new Error("Invalid or expired code")
+        throw new Error('Invalid or expired code')
       }
       const data = snap.data()
-      if (data.creatorUid === currentUser.value.uid) {
-        throw new Error("You cannot use your own code")
+      if (data.creatorUid === currentUser.uid) {
+        throw new Error('You cannot use your own code')
       }
 
       const partnerUid = data.creatorUid
 
       // Link both users
-      const myRef = doc(db, 'users', currentUser.value.uid)
+      const myRef = doc(db, 'users', currentUser.uid)
       const partnerRef = doc(db, 'users', partnerUid)
 
       await updateDoc(myRef, { partnerUid })
-      await updateDoc(partnerRef, { partnerUid: currentUser.value.uid })
+      await updateDoc(partnerRef, { partnerUid: currentUser.uid })
 
       // Clean up invite
       await deleteDoc(inviteRef)
@@ -138,35 +146,11 @@ export const useAuthStore = defineStore('auth', () => {
       watchPartnerData(partnerUid)
 
     } catch (err) {
-      console.error("Link failed", err)
-      error.value = err.message
+      console.error('Link failed', err)
+      set({ error: err.message })
       throw err
     } finally {
-      loading.value = false
+      set({ loading: false })
     }
-  }
-
-  // Initialize Auth state listener
-  onAuthStateChanged(firebaseAuth, (user) => {
-    currentUser.value = user
-    if (user) {
-      watchUserData(user.uid)
-    } else {
-      stopWatching()
-    }
-    authReady.value = true
-  })
-
-  return {
-    currentUser,
-    userData,
-    partnerData,
-    authReady,
-    loading,
-    error,
-    loginWithGoogle,
-    logout,
-    generateInviteCode,
-    linkWithCode
-  }
-})
+  },
+}))

@@ -1,0 +1,99 @@
+.profile-eyebrow {
+  display: inline-block;
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--text-caption-tracking);
+  color: var(--brand-primary);
+  margin-bottom: var(--space-2);
+}
+
+.profile-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.profile-card--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.profile-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+}
+
+.profile-setting-row--bordered {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.profile-select {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  font-size: var(--text-body-sm-size);
+}
+
+/* Toggle switch */
+.profile-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.profile-toggle__track {
+  width: 44px;
+  height: 24px;
+  background-color: var(--bg-subtle);
+  border-radius: 9999px;
+  border: 1px solid var(--border-default);
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.profile-toggle__track[data-checked="true"] {
+  background-color: var(--brand-primary);
+}
+
+.profile-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #ccc;
+  transition: transform 0.2s;
+}
+
+.profile-toggle__track[data-checked="true"]::after {
+  transform: translateX(20px);
+  border-color: white;
+}
+
+.profile-logout-btn {
+  color: var(--semantic-error) !important;
+}

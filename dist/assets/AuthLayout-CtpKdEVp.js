@@ -1,1 +1,0 @@
-import{A as e,C as t,O as n,b as r,s as i}from"./index-ss6p-57H.js";var a={class:`wb-auth-layout`},o={class:`wb-auth-layout__panel`},s=i({__name:`AuthLayout`,setup(i){return(i,s)=>(n(),t(`div`,a,[r(`div`,o,[e(i.$slots,`default`,{},void 0,!0)])]))}},[[`__scopeId`,`data-v-95ba241f`]]);export{s as t};

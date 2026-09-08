@@ -1,0 +1,46 @@
+.echo-page { display: flex; flex-direction: column; gap: var(--space-4); max-width: 32rem; margin: 0 auto; }
+.echo-header { text-align: center; }
+.echo-eyebrow { display: block; font-size: var(--text-caption-size); font-weight: var(--font-weight-semibold); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: var(--space-1); }
+.echo-title { font-family: var(--font-display); font-size: var(--text-heading-xl-size); color: var(--text-primary); margin: 0; }
+.echo-card { background-color: var(--surface-card); border-radius: var(--radius-xl); border: 1px solid var(--border-default); padding: var(--space-6); }
+.echo-card--center { text-align: center; }
+.echo-card--padded { padding: var(--space-8) var(--space-6); }
+.echo-emoji { font-size: 2.5rem; margin-bottom: var(--space-2); }
+.echo-result-title { font-family: var(--font-display); font-size: var(--text-heading-lg-size); color: var(--text-primary); margin: 0 0 var(--space-3); }
+.echo-hint { color: var(--text-secondary); margin-bottom: var(--space-3); }
+.echo-level-note { font-size: var(--text-caption-size); color: var(--text-secondary); margin-bottom: var(--space-6); }
+.echo-btn-row { display: flex; gap: var(--space-3); margin-top: var(--space-4); justify-content: center; }
+.echo-btn-link { color: inherit; text-decoration: none; }
+.echo-progress-bar { height: 0.375rem; border-radius: var(--radius-full); background-color: var(--bg-subtle); overflow: hidden; margin-bottom: var(--space-4); }
+.echo-progress-fill { height: 100%; background-color: var(--color-amber-500); border-radius: var(--radius-full); transition: width var(--duration-moderate) var(--ease-standard); }
+.echo-pills-row { display: flex; justify-content: center; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.echo-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--radius-full); background-color: var(--bg-subtle); color: var(--text-secondary); }
+.echo-pill--gold { color: var(--color-amber-500); }
+.echo-pill--glow { color: var(--color-amber-500); background-color: rgba(217, 164, 65, 0.15); }
+.echo-speaker-wrap { display: flex; flex-direction: column; align-items: center; margin: var(--space-6) 0; }
+.echo-speaker-btn {
+  width: 84px; height: 84px; border-radius: 50%; border: none; font-size: 2rem; cursor: pointer;
+  background: radial-gradient(circle at 30% 30%, var(--color-amber-500), #b8820a);
+  box-shadow: 0 8px 24px rgba(217, 164, 65, 0.4);
+  animation: speakerPulse 1.8s ease-in-out infinite;
+}
+@keyframes speakerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.echo-speaker-note { font-size: var(--text-caption-size); color: var(--text-secondary); margin-top: var(--space-2); }
+.echo-input {
+  width: 100%; border: 1.5px solid var(--border-default); border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); text-align: center;
+  font-family: var(--font-mono); letter-spacing: 0.08em; background-color: var(--surface-sunken);
+  color: var(--text-primary); outline: none; transition: border-color var(--duration-fast) var(--ease-standard);
+  box-sizing: border-box;
+}
+.echo-input:focus { border-color: var(--border-focus); }
+.echo-result-box { border-radius: var(--radius-lg); padding: var(--space-4); background-color: var(--bg-subtle); margin-bottom: var(--space-4); }
+.echo-result-box--correct { background-color: rgba(var(--state-success-rgb, 34, 197, 94), 0.15); }
+.echo-result-box--close { background-color: rgba(var(--color-amber-rgb, 217, 164, 65), 0.15); }
+.echo-result-box--wrong { background-color: rgba(var(--state-error-rgb, 239, 68, 68), 0.1); }
+.echo-result-emoji { font-size: 1.5rem; margin-bottom: var(--space-1); }
+.echo-result-word { font-family: var(--font-mono); font-size: var(--text-heading-md-size); margin: 0 0 var(--space-1); color: var(--text-primary); }
+.echo-result-meaning { font-size: var(--text-body-sm-size); color: var(--text-secondary); margin: 0 0 var(--space-1); }
+.echo-result-your { font-size: var(--text-caption-size); color: var(--text-secondary); margin: 0; }
+.echo-next-btn { margin-top: var(--space-4); }
+.echo-back-link { background: none; border: none; padding: 0; cursor: pointer; display: block; text-align: center; font-size: var(--text-body-sm-size); color: var(--text-secondary); text-decoration: underline; text-underline-offset: 2px; margin-top: var(--space-4); }

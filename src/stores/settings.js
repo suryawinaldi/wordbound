@@ -1,102 +1,80 @@
 // settings store — user preferences: theme, sound, notifications.
-// Persisted under the same per-player Firestore document used by the
-// `auth` store (players/{name}), consistent with the "no breaking
-// Firestore schema change" scope established when auth.js was narrowed
-// in Step 13. Every change here is applied optimistically — a settings
-// change should never appear to "wait" on the network, per the Pinia
-// Store Plan's explicit guidance for this store.
+// Persisted under the same per-player Firestore document used by the auth store.
+// Every change is applied optimistically — a settings change should never
+// appear to "wait" on the network.
 
-import { ref, watch } from 'vue'
-import { defineStore } from 'pinia'
+import { create } from 'zustand'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase-config'
 import { useAuthStore } from './auth'
 import { useAudioStore } from './audio'
 
 const DEFAULT_SETTINGS = {
-  theme: 'system',
+  theme: 'dark',
   soundEnabled: true,
   notificationsEnabled: true,
 }
 
-export const useSettingsStore = defineStore('settings', () => {
-  const theme = ref(DEFAULT_SETTINGS.theme)
-  const soundEnabled = ref(DEFAULT_SETTINGS.soundEnabled)
-  const notificationsEnabled = ref(DEFAULT_SETTINGS.notificationsEnabled)
-  const loaded = ref(false)
+async function persistSettings(settings) {
+  const { currentUser } = useAuthStore.getState()
+  if (!currentUser) return
+  try {
+    await setDoc(doc(db, 'users', currentUser.uid), { settings }, { merge: true })
+  } catch (e) {
+    // Falls back to silently retrying on the next change — a settings
+    // write failure should never interrupt the app.
+    console.warn('[settings] Failed to persist settings:', e)
+  }
+}
 
-  function applyFromPlayerData(data) {
+function applyThemeToDom(value) {
+  if (value === 'dark') {
+    document.documentElement.classList.add('dark')
+  } else if (value === 'light') {
+    document.documentElement.classList.remove('dark')
+  } else {
+    // 'system' — defer to the OS preference.
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    document.documentElement.classList.toggle('dark', prefersDark)
+  }
+  try { localStorage.setItem('wb-theme', value) } catch (e) {}
+}
+
+export const useSettingsStore = create((set, get) => ({
+  theme: DEFAULT_SETTINGS.theme,
+  soundEnabled: DEFAULT_SETTINGS.soundEnabled,
+  notificationsEnabled: DEFAULT_SETTINGS.notificationsEnabled,
+  loaded: false,
+
+  applyFromPlayerData(data) {
     const s = { ...DEFAULT_SETTINGS, ...(data?.settings || {}) }
-    theme.value = s.theme
-    soundEnabled.value = s.soundEnabled
-    notificationsEnabled.value = s.notificationsEnabled
-    loaded.value = true
-  }
+    set({
+      theme: s.theme,
+      soundEnabled: s.soundEnabled,
+      notificationsEnabled: s.notificationsEnabled,
+      loaded: true,
+    })
+    applyThemeToDom(s.theme)
+  },
 
-  async function persist() {
-    const auth = useAuthStore()
-    const uid = auth.currentUser?.uid
-    if (!uid) return
-    const patch = {
-      settings: {
-        theme: theme.value,
-        soundEnabled: soundEnabled.value,
-        notificationsEnabled: notificationsEnabled.value,
-      },
-    }
-    // Optimistic: local refs are already updated by the caller before
-    // this runs; the Firestore write happens in the background and is
-    // not awaited by the UI-facing setter functions below.
-    try {
-      await setDoc(doc(db, 'users', uid), patch, { merge: true })
-    } catch (e) {
-      // Falls back to silently retrying on the next change — a settings
-      // write failure should never interrupt the app the way a failed
-      // game-session write might.
-      console.warn('[settings] Failed to persist settings:', e)
-    }
-  }
+  setTheme(value) {
+    set({ theme: value })
+    applyThemeToDom(value)
+    const { soundEnabled, notificationsEnabled } = get()
+    persistSettings({ theme: value, soundEnabled, notificationsEnabled })
+  },
 
-  function setTheme(value) {
-    theme.value = value
-    document.documentElement.classList.toggle('dark', value === 'dark')
-    persist()
-  }
+  setSoundEnabled(value) {
+    const muted = !value
+    set({ soundEnabled: !!value })
+    useAudioStore.getState().setMute(muted)
+    const { theme, notificationsEnabled } = get()
+    persistSettings({ theme, soundEnabled: !!value, notificationsEnabled })
+  },
 
-  function setSoundEnabled(value) {
-    soundEnabled.value = !!value
-    const audio = useAudioStore()
-    audio.setMute(!value)
-    persist()
-  }
-
-  function setNotificationsEnabled(value) {
-    notificationsEnabled.value = !!value
-    persist()
-  }
-
-  // Keep the document-level `.dark` class in sync if theme is loaded
-  // from Firestore after initial mount (e.g. session restored).
-  watch(theme, (value) => {
-    if (value === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else if (value === 'light') {
-      document.documentElement.classList.remove('dark')
-    } else {
-      // 'system' — defer to the OS preference.
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      document.documentElement.classList.toggle('dark', prefersDark)
-    }
-  })
-
-  return {
-    theme,
-    soundEnabled,
-    notificationsEnabled,
-    loaded,
-    applyFromPlayerData,
-    setTheme,
-    setSoundEnabled,
-    setNotificationsEnabled,
-  }
-})
+  setNotificationsEnabled(value) {
+    set({ notificationsEnabled: !!value })
+    const { theme, soundEnabled } = get()
+    persistSettings({ theme, soundEnabled, notificationsEnabled: !!value })
+  },
+}))

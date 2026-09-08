@@ -1,39 +1,33 @@
-// audio store — a thin Pinia wrapper around the existing procedural
-// sound module (src/lib/sound.js). Promoted to a store specifically so
-// the mute state can be read reactively from anywhere in the component
-// tree (e.g. a future NavigationShell's mute control) without prop-
-// drilling, per the Frontend Architecture Blueprint's store plan.
+// audio store — Zustand wrapper around the procedural sound module (src/lib/sound.js).
+// Keeps mute state reactive globally without prop-drilling,
+// per the Frontend Architecture Blueprint's store plan.
 //
 // Owns no Firestore sync directly — it mirrors into the `settings`
 // store's `soundEnabled` field for cross-device persistence (see
 // settings.js), but keeps this fast, synchronous local copy so toggling
 // mute during gameplay never waits on a network round-trip.
 
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import { create } from 'zustand'
 import { isMuted, setMuted, toggleMuted as toggleMutedInLib, sfx, speak } from '@/lib/sound'
 
-export const useAudioStore = defineStore('audio', () => {
-  const muted = ref(isMuted())
+export const useAudioStore = create((set) => ({
+  muted: isMuted(),
 
-  function toggleMute() {
-    muted.value = toggleMutedInLib()
-    return muted.value
-  }
+  toggleMute() {
+    const newMuted = toggleMutedInLib()
+    set({ muted: newMuted })
+    return newMuted
+  },
 
-  function setMute(value) {
-    muted.value = !!value
-    setMuted(muted.value)
-  }
+  setMute(value) {
+    const muted = !!value
+    setMuted(muted)
+    set({ muted })
+  },
 
-  return {
-    muted,
-    toggleMute,
-    setMute,
-    // Re-exported so components can play sounds/speech through the
-    // store instead of importing the lib module directly, keeping a
-    // single, discoverable entry point for audio behavior.
-    sfx,
-    speak,
-  }
-})
+  // Re-exported so components can play sounds/speech through the
+  // store instead of importing the lib module directly, keeping a
+  // single, discoverable entry point for audio behavior.
+  sfx,
+  speak,
+}))

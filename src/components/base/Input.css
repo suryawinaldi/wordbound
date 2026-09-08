@@ -1,0 +1,100 @@
+.wb-field { display: flex; flex-direction: column; gap: var(--space-2); width: 100%; }
+
+.wb-field__label {
+  font-family: var(--text-body-sm-family);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.wb-field__required { color: var(--state-error); margin-left: var(--space-1); }
+
+.wb-field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  background-color: var(--surface-sunken);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-3);
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.wb-field__control--sm { height: 2.25rem; padding: 0 var(--space-3); }
+.wb-field__control--md { height: 2.75rem; padding: 0 var(--space-4); }
+.wb-field__control--lg { height: 3.25rem; padding: 0 var(--space-5); }
+
+.wb-field__control--success { border-color: var(--state-success); }
+.wb-field__control--warning { border-color: var(--state-warning); }
+.wb-field__control--error { border-color: var(--state-error); }
+
+.wb-field__control--focused { border-color: var(--border-focus); box-shadow: var(--shadow-focus-ring); }
+.wb-field__control--focused.wb-field__control--success,
+.wb-field__control--focused.wb-field__control--warning,
+.wb-field__control--focused.wb-field__control--error { border-color: currentColor; }
+
+.wb-field__control--disabled { opacity: 0.5; cursor: not-allowed; }
+.wb-field__control--readonly { background-color: var(--surface-card); color: var(--text-secondary); }
+
+.wb-field__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--text-body-lg-family);
+}
+
+.wb-field--sm .wb-field__input { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+.wb-field--md .wb-field__input,
+.wb-field--lg .wb-field__input { font-size: var(--text-body-lg-size); line-height: var(--text-body-lg-leading); }
+
+.wb-field__input::placeholder { color: var(--text-secondary); opacity: 0.8; }
+.wb-field__input:disabled, .wb-field__input:read-only { cursor: inherit; }
+
+.wb-field__adornment { display: inline-flex; align-items: center; color: var(--text-secondary); flex-shrink: 0; }
+
+.wb-field__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+.wb-field__action:hover { color: var(--brand-primary); }
+.wb-field__action:focus { outline: none; }
+.wb-field__action:focus-visible { outline: none; box-shadow: var(--shadow-focus-ring); }
+.wb-field__action svg { width: 1.125rem; height: 1.125rem; }
+
+.wb-field__spinner {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--text-secondary);
+  border-top-color: transparent;
+  animation: wb-field-spin 0.7s linear infinite;
+}
+
+@keyframes wb-field-spin { to { transform: rotate(360deg); } }
+
+.wb-field__message { font-family: var(--text-body-sm-family); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); margin: 0; }
+.wb-field__message--helper { color: var(--text-secondary); }
+.wb-field__message--error { color: var(--state-error); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-field__control { transition: border-color var(--duration-fast) linear; }
+  .wb-field__spinner { animation: none; opacity: 0.6; }
+}

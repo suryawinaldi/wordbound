@@ -2,16 +2,9 @@
 // current responsive breakpoint. Deliberately holds no domain data and
 // is never read by domain stores (player/progress/auth), only by
 // components — the one-way dependency rule from the Frontend
-// Architecture Blueprint's store plan that keeps presentation and
-// domain state from circularly depending on each other.
-//
-// Does not track modal/toast queues — ModalLayer.vue and
-// OverlayLayer.vue (Step 12) already own that state locally via
-// provide/inject, which is the right scope for it while no Pinia-backed
-// notifications store exists yet.
+// Architecture Blueprint's store plan.
 
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { create } from 'zustand'
 
 const BREAKPOINTS = {
   mobile: 0,
@@ -19,51 +12,49 @@ const BREAKPOINTS = {
   desktop: 1024,
 }
 
-export const useUiStore = defineStore('ui', () => {
-  const loadingFlags = ref({})
-  const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : BREAKPOINTS.desktop)
+function getBreakpoint(width) {
+  if (width >= BREAKPOINTS.desktop) return 'desktop'
+  if (width >= BREAKPOINTS.tablet) return 'tablet'
+  return 'mobile'
+}
 
-  const activeBreakpoint = computed(() => {
-    if (viewportWidth.value >= BREAKPOINTS.desktop) return 'desktop'
-    if (viewportWidth.value >= BREAKPOINTS.tablet) return 'tablet'
-    return 'mobile'
-  })
+const initialWidth = typeof window !== 'undefined' ? window.innerWidth : BREAKPOINTS.desktop
 
-  const isDesktop = computed(() => activeBreakpoint.value === 'desktop')
-  const isMobile = computed(() => activeBreakpoint.value === 'mobile')
-
-  function setLoading(key, value) {
-    loadingFlags.value = { ...loadingFlags.value, [key]: !!value }
-  }
-
-  function isLoading(key) {
-    return !!loadingFlags.value[key]
-  }
-
-  const isAnyLoading = computed(() => Object.values(loadingFlags.value).some(Boolean))
-
-  function handleResize() {
-    viewportWidth.value = window.innerWidth
-  }
-
-  // Registered once per store instance (Pinia stores are singletons per
-  // app, so this listener is never duplicated). No onMounted/
-  // onBeforeUnmount pairing issue here since a store's setup() runs once
-  // outside any component's lifecycle — these hooks are only meaningful
-  // if this store happens to be used inside a component's own setup, so
-  // the listener is attached directly instead.
+export const useUiStore = create((set, get) => {
+  // Registered once per store instance (Zustand stores are singletons).
+  // No cleanup needed since the store lives for the app's entire lifetime.
   if (typeof window !== 'undefined') {
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', () => {
+      set({ viewportWidth: window.innerWidth })
+    })
   }
 
   return {
-    loadingFlags,
-    viewportWidth,
-    activeBreakpoint,
-    isDesktop,
-    isMobile,
-    isAnyLoading,
-    setLoading,
-    isLoading,
+    loadingFlags: {},
+    viewportWidth: initialWidth,
+
+    get activeBreakpoint() {
+      return getBreakpoint(get().viewportWidth)
+    },
+
+    get isDesktop() {
+      return get().viewportWidth >= BREAKPOINTS.desktop
+    },
+
+    get isMobile() {
+      return get().viewportWidth < BREAKPOINTS.tablet
+    },
+
+    setLoading(key, value) {
+      set((state) => ({ loadingFlags: { ...state.loadingFlags, [key]: !!value } }))
+    },
+
+    isLoading(key) {
+      return !!get().loadingFlags[key]
+    },
+
+    get isAnyLoading() {
+      return Object.values(get().loadingFlags).some(Boolean)
+    },
   }
 })

@@ -1,0 +1,119 @@
+.link-hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.link-hero__title {
+  font-family: var(--text-heading-lg-family);
+  font-size: var(--text-heading-lg-size);
+  font-weight: var(--text-heading-lg-weight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.link-hero__subtitle {
+  font-size: var(--text-body-sm-size);
+  color: var(--text-secondary);
+}
+
+.link-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.link-card {
+  background: var(--surface-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-default);
+  text-align: center;
+}
+
+.link-card__title {
+  font-family: var(--text-heading-md-family);
+  font-size: var(--text-heading-md-size);
+  font-weight: var(--text-heading-md-weight);
+  margin-bottom: var(--space-2);
+}
+
+.link-card__desc {
+  font-size: var(--text-body-sm-size);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.link-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.code-input {
+  text-align: center;
+  font-family: var(--text-numeric-lg-family);
+  font-size: var(--text-numeric-lg-size);
+  letter-spacing: 4px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-bold);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.divider span {
+  padding: 0 var(--space-3);
+}
+
+.generated-code-box {
+  background: var(--bg-default);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-default);
+}
+
+.the-code {
+  display: block;
+  font-family: var(--text-numeric-lg-family);
+  font-size: var(--text-numeric-lg-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 8px;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-2);
+}
+
+.waiting-text {
+  font-size: var(--text-caption-size);
+  color: var(--text-secondary);
+  margin: 0;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.error-msg {
+  color: var(--semantic-error);
+  font-size: var(--text-body-sm-size);
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.link-footer {
+  margin-top: var(--space-8);
+  text-align: center;
+}

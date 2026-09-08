@@ -1,0 +1,135 @@
+.wb-avatar {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-full);
+  box-sizing: border-box;
+}
+
+.wb-avatar__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+
+/* Sizes */
+.wb-avatar--xs { width: 1.5rem; height: 1.5rem; }
+.wb-avatar--xs .wb-avatar__initials { font-size: var(--text-caption-size); }
+.wb-avatar--xs .wb-avatar__icon svg { width: 0.875rem; height: 0.875rem; }
+
+.wb-avatar--sm { width: 2rem; height: 2rem; }
+.wb-avatar--sm .wb-avatar__initials { font-size: var(--text-caption-size); }
+.wb-avatar--sm .wb-avatar__icon svg { width: 1.125rem; height: 1.125rem; }
+
+.wb-avatar--md { width: 2.75rem; height: 2.75rem; }
+.wb-avatar--md .wb-avatar__initials { font-size: var(--text-body-sm-size); }
+.wb-avatar--md .wb-avatar__icon svg { width: 1.5rem; height: 1.5rem; }
+
+.wb-avatar--lg { width: 3.5rem; height: 3.5rem; }
+.wb-avatar--lg .wb-avatar__initials { font-size: var(--text-heading-md-size); }
+.wb-avatar--lg .wb-avatar__icon svg { width: 2rem; height: 2rem; }
+
+.wb-avatar--xl { width: 4.5rem; height: 4.5rem; }
+.wb-avatar--xl .wb-avatar__initials { font-size: var(--text-heading-lg-size); }
+.wb-avatar--xl .wb-avatar__icon svg { width: 2.5rem; height: 2.5rem; }
+
+/* Content tiers */
+.wb-avatar__image { width: 100%; height: 100%; object-fit: cover; }
+
+.wb-avatar__initials {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.wb-avatar__icon { display: inline-flex; align-items: center; justify-content: center; }
+
+/* Loading skeleton */
+.wb-avatar__skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    var(--bg-subtle) 30%,
+    var(--surface-card) 50%,
+    var(--bg-subtle) 70%
+  );
+  background-size: 200% 100%;
+  animation: wb-avatar-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes wb-avatar-shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -50% 0; }
+}
+
+/* Ring */
+.wb-avatar--ring .wb-avatar__frame {
+  box-shadow: 0 0 0 2px var(--surface-card), 0 0 0 4px var(--brand-secondary);
+}
+
+/* Status indicator */
+.wb-avatar__status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28%;
+  height: 28%;
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--surface-card);
+  box-sizing: content-box;
+}
+
+.wb-avatar__status--online { background-color: var(--state-success); }
+.wb-avatar__status--away { background-color: var(--state-warning); }
+.wb-avatar__status--offline { background-color: var(--text-secondary); }
+
+/* Clickable */
+.wb-avatar--clickable {
+  cursor: pointer;
+  transition:
+    transform var(--duration-instant) var(--ease-standard),
+    filter var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wb-avatar--clickable:hover:not(:disabled) .wb-avatar__frame { filter: brightness(0.96); }
+}
+
+.wb-avatar--clickable:active:not(:disabled) { transform: scale(0.96); }
+.wb-avatar--clickable:focus { outline: none; }
+.wb-avatar--clickable:focus-visible { outline: none; box-shadow: var(--shadow-focus-ring); }
+.wb-avatar--clickable:disabled { cursor: not-allowed; opacity: 0.5; }
+
+/* Visually hidden (screen-reader only) */
+.wb-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wb-avatar__skeleton { animation: none; background: var(--bg-subtle); }
+  .wb-avatar--clickable { transition: filter var(--duration-fast) linear; }
+  .wb-avatar--clickable:active:not(:disabled) { transform: none; opacity: 0.85; }
+}

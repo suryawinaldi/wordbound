@@ -1,0 +1,118 @@
+.wb-modal-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.wb-modal-scrim__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-green-900);
+  opacity: 0.45;
+}
+
+.wb-modal {
+  position: relative;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 28rem;
+  max-height: calc(100vh - var(--space-12));
+  overflow-y: auto;
+  padding: var(--space-6);
+  background-color: var(--surface-elevated);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.wb-modal:focus {
+  outline: none;
+}
+
+.wb-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.wb-modal__close:hover {
+  color: var(--text-primary);
+}
+
+.wb-modal__close:focus {
+  outline: none;
+}
+.wb-modal__close:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-ring);
+}
+
+.wb-modal__close svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.wb-modal__header {
+  padding-right: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.wb-modal__title {
+  font-family: var(--text-heading-lg-family);
+  font-size: var(--text-heading-lg-size);
+  line-height: var(--text-heading-lg-leading);
+  font-weight: var(--text-heading-lg-weight);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.wb-modal__description {
+  font-family: var(--text-body-sm-family);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.wb-modal__body {
+  font-family: var(--text-body-lg-family);
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-leading);
+  color: var(--text-primary);
+}
+
+.wb-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+/* --------------------------------------------------------------------
+   Reduced motion — degrade to instant, non-moving state changes.
+   (Framer Motion reads prefers-reduced-motion natively when configured.)
+   -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wb-modal__close {
+    transition: none;
+  }
+}

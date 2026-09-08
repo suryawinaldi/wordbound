@@ -1,0 +1,155 @@
+.wb-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 24rem;
+  padding: var(--space-4);
+  background-color: var(--surface-elevated);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  animation: wb-toast-in var(--duration-slow) var(--ease-out);
+}
+
+/* --------------------------------------------------------------------
+   Variant accent — a colored left rule plus a matching icon color,
+   rather than tinting the whole surface, keeps every variant legible
+   in both light and dark mode without needing per-variant background
+   token pairs.
+   -------------------------------------------------------------------- */
+.wb-toast--success {
+  border-left: 3px solid var(--state-success);
+}
+.wb-toast--success .wb-toast__icon {
+  color: var(--state-success);
+}
+
+.wb-toast--warning {
+  border-left: 3px solid var(--state-warning);
+}
+.wb-toast--warning .wb-toast__icon {
+  color: var(--state-warning);
+}
+
+.wb-toast--error {
+  border-left: 3px solid var(--state-error);
+}
+.wb-toast--error .wb-toast__icon {
+  color: var(--state-error);
+}
+
+.wb-toast--info {
+  border-left: 3px solid var(--brand-primary);
+}
+.wb-toast--info .wb-toast__icon {
+  color: var(--brand-primary);
+}
+
+.wb-toast__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: var(--space-1);
+}
+.wb-toast__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.wb-toast__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.wb-toast__title {
+  font-family: var(--text-body-sm-family);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.wb-toast__description {
+  font-family: var(--text-body-sm-family);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.wb-toast__action {
+  flex-shrink: 0;
+}
+
+.wb-toast__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.wb-toast__dismiss:hover {
+  color: var(--text-primary);
+}
+
+.wb-toast__dismiss:focus {
+  outline: none;
+}
+.wb-toast__dismiss:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-ring);
+}
+
+.wb-toast__dismiss svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* --------------------------------------------------------------------
+   Entrance animation — runs once when the element is inserted into the
+   DOM, regardless of how the parent mounts it.
+   -------------------------------------------------------------------- */
+@keyframes wb-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------
+   Reduced motion — degrade to a simple opacity-only appearance.
+   -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wb-toast {
+    animation: wb-toast-in-reduced var(--duration-fast) linear;
+  }
+  .wb-toast__dismiss {
+    transition: none;
+  }
+}
+
+@keyframes wb-toast-in-reduced {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,32 @@
+.wb-dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.wb-dashboard-layout__primary,
+.wb-dashboard-layout__secondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .wb-dashboard-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  .wb-dashboard-layout__primary {
+    flex: 1 1 60%;
+  }
+
+  .wb-dashboard-layout__secondary {
+    flex: 1 1 40%;
+    max-width: 24rem;
+  }
+}

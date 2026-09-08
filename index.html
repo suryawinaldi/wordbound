@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="id" class="dark">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordbound — Surya & Almira</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2E8B5F" />
+    <meta name="description" content="WordBound — belajar bareng, tebak bareng. Kuis, duel Wordle, dan speed round bersama pasangan." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>WordBound</title>
+    <script>
+      // Apply dark mode immediately to prevent FOUC. Default = dark mode.
+      (function () {
+        try {
+          var stored = localStorage.getItem('wb-theme');
+          var dark = stored ? stored === 'dark' : true;
+          if (dark) document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

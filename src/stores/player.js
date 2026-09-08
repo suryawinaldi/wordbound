@@ -1,5 +1,4 @@
-import { computed } from 'vue'
-import { defineStore } from 'pinia'
+import { create } from 'zustand'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase-config'
 import { useAuthStore } from './auth'
@@ -19,7 +18,7 @@ function xpThresholdForLevel(level) {
   return Math.round(100 * Math.pow(level, 1.3))
 }
 
-function levelFromXp(xp) {
+export function levelFromXp(xp) {
   let level = 1
   while (xpThresholdForLevel(level + 1) <= xp) {
     level += 1
@@ -27,89 +26,73 @@ function levelFromXp(xp) {
   return level
 }
 
-export const usePlayerStore = defineStore('player', () => {
-  const auth = useAuthStore()
-
-  const currentData = computed(() => auth.userData)
-
-  const xp = computed(() => currentData.value?.xp || 0)
-  const coins = computed(() => currentData.value?.coins || 0)
-  const streak = computed(() => currentData.value?.streak || 0)
-  const streakFreezeCount = computed(() => currentData.value?.streakFreezeCount || 0)
-  const level = computed(() => levelFromXp(xp.value))
-
-  const xpToNextLevel = computed(() => {
-    const nextThreshold = xpThresholdForLevel(level.value + 1)
-    const currentThreshold = xpThresholdForLevel(level.value)
-    return {
-      current: xp.value - currentThreshold,
-      needed: nextThreshold - currentThreshold,
-    }
-  })
-
-  const isStreakAtRisk = computed(() => {
-    const data = currentData.value
-    if (!data?.lastDate) return false
-    return data.lastDate !== todayStr() && data.lastDate !== yesterdayStr()
-  })
-
-  async function persistPatch(patch) {
-    const uid = auth.currentUser?.uid
-    if (!uid) return
-    const merged = { ...currentData.value, ...patch }
-    await setDoc(doc(db, 'users', uid), patch, { merge: true })
-    // Local state is updated via firestore onSnapshot in auth.js
-    return merged
+export function xpToNextLevel(xp) {
+  const level = levelFromXp(xp)
+  const nextThreshold = xpThresholdForLevel(level + 1)
+  const currentThreshold = xpThresholdForLevel(level)
+  return {
+    current: xp - currentThreshold,
+    needed: nextThreshold - currentThreshold,
   }
+}
 
-  async function recordActivity(extraPatch = {}) {
-    const uid = auth.currentUser?.uid
-    if (!uid) return
-    const data = currentData.value || {}
+export function isStreakAtRisk(userData) {
+  if (!userData?.lastDate) return false
+  return userData.lastDate !== todayStr() && userData.lastDate !== yesterdayStr()
+}
+
+export const usePlayerStore = create(() => ({
+  async persistPatch(patch) {
+    const { currentUser } = useAuthStore.getState()
+    if (!currentUser) return
+    await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true })
+  },
+
+  async recordActivity(extraPatch = {}) {
+    const { currentUser, userData } = useAuthStore.getState()
+    if (!currentUser) return
+    const data = userData || {}
     const today = todayStr()
     let nextStreak = data.streak || 0
     if (data.lastDate !== today) {
       nextStreak = data.lastDate === yesterdayStr() ? nextStreak + 1 : 1
     }
+    const { persistPatch } = usePlayerStore.getState()
     return persistPatch({ ...extraPatch, streak: nextStreak, lastDate: today })
-  }
+  },
 
-  async function awardXP(amount) {
+  async awardXP(amount) {
     if (!amount) return
-    const nextXp = xp.value + amount
-    return persistPatch({ xp: nextXp })
-  }
+    const { userData } = useAuthStore.getState()
+    const currentXp = userData?.xp || 0
+    const { persistPatch } = usePlayerStore.getState()
+    return persistPatch({ xp: currentXp + amount })
+  },
 
-  async function awardCoins(amount) {
+  async awardCoins(amount) {
     if (!amount) return
-    return persistPatch({ coins: coins.value + amount })
-  }
+    const { userData } = useAuthStore.getState()
+    const currentCoins = userData?.coins || 0
+    const { persistPatch } = usePlayerStore.getState()
+    return persistPatch({ coins: currentCoins + amount })
+  },
 
-  async function spendCoins(amount) {
+  async spendCoins(amount) {
     if (amount <= 0) return true
-    if (coins.value < amount) return false
-    await persistPatch({ coins: coins.value - amount })
+    const { userData } = useAuthStore.getState()
+    const currentCoins = userData?.coins || 0
+    if (currentCoins < amount) return false
+    const { persistPatch } = usePlayerStore.getState()
+    await persistPatch({ coins: currentCoins - amount })
     return true
-  }
+  },
 
-  async function consumeStreakFreeze() {
-    if (streakFreezeCount.value <= 0) return false
-    await persistPatch({ streakFreezeCount: streakFreezeCount.value - 1, lastDate: todayStr() })
+  async consumeStreakFreeze() {
+    const { userData } = useAuthStore.getState()
+    const count = userData?.streakFreezeCount || 0
+    if (count <= 0) return false
+    const { persistPatch } = usePlayerStore.getState()
+    await persistPatch({ streakFreezeCount: count - 1, lastDate: todayStr() })
     return true
-  }
-
-  return {
-    xp,
-    coins,
-    streak,
-    streakFreezeCount,
-    level,
-    xpToNextLevel,
-    isStreakAtRisk,
-    recordActivity,
-    awardXP,
-    awardCoins,
-    spendCoins,
-    consumeStreakFreeze,
-  }
-})
+  },
+}))
