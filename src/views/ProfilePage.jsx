@@ -49,7 +49,8 @@ export default function ProfilePage() {
       displayName: userData?.displayName || currentUser?.displayName || '',
       gender: userData?.gender || '',
       bio: userData?.bio || '',
-      mlbbRank: userData?.mlbbRank || ''
+      mlbbRank: userData?.mlbbRank || '',
+      mlbbStars: userData?.mlbbStars || ''
     })
     setEditMode(true)
   }
@@ -62,7 +63,8 @@ export default function ProfilePage() {
       displayName: formData.displayName,
       gender: formData.gender,
       bio: formData.bio,
-      mlbbRank: formData.mlbbRank
+      mlbbRank: formData.mlbbRank,
+      mlbbStars: formData.mlbbStars
     })
     setSaving(false)
     setEditMode(false)
@@ -98,7 +100,7 @@ export default function ProfilePage() {
             </span>
             {userData?.mlbbRank && (
               <span className="inline-flex items-center gap-1 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-400">
-                <Flame className="w-3 h-3" /> {userData.mlbbRank}
+                <Flame className="w-3 h-3" /> {userData.mlbbRank} {userData.mlbbStars ? `★ ${userData.mlbbStars}` : ''}
               </span>
             )}
           </div>
@@ -215,6 +217,25 @@ export default function ProfilePage() {
                     {MLBB_RANKS.map(r => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </div>
+
+                {formData.mlbbRank && formData.mlbbRank.includes('Mythic') && (
+                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
+                    <label className="text-xs font-semibold text-muted-foreground ml-1 flex justify-between">
+                      Jumlah Bintang
+                      {formData.mlbbRank === 'Mythic' && <span className="text-[0.65rem] opacity-70">1 - 24 Bintang</span>}
+                      {formData.mlbbRank === 'Mythical Honor' && <span className="text-[0.65rem] opacity-70">25 - 49 Bintang</span>}
+                      {formData.mlbbRank === 'Mythical Glory' && <span className="text-[0.65rem] opacity-70">50 - 99 Bintang</span>}
+                      {formData.mlbbRank === 'Mythical Immortal' && <span className="text-[0.65rem] opacity-70">100+ Bintang</span>}
+                    </label>
+                    <input 
+                      type="number"
+                      min="1"
+                      value={formData.mlbbStars || ''} onChange={e => setFormData(d => ({ ...d, mlbbStars: parseInt(e.target.value) || '' }))}
+                      className="w-full mt-1 bg-background rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-sm"
+                      placeholder="Contoh: 25"
+                    />
+                  </motion.div>
+                )}
 
                 <div>
                   <label className="text-xs font-semibold text-muted-foreground ml-1">Bio / Status</label>
