@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Search, Trophy, ArrowRight, User, Users } from 'lucide-react'
+import { Heart, Search, Trophy, ArrowRight, User, Users, Swords } from 'lucide-react'
 import { ML_HEROES } from '@/data/ml-heroes'
 import { usePlayerStore } from '@/stores/player'
 import { useAuthStore } from '@/stores/auth'
@@ -83,6 +83,7 @@ export default function MLGuessPage() {
     )
   }
 
+  // If Solo or Duo (Local), user must pick difficulty
   if (!difficulty) {
     return (
       <GameLayout title="Tebak Hero ML" onBack={() => setMode(null)}>
@@ -154,7 +155,7 @@ function MLGuessGame({ mode, difficulty, onBack }) {
   const config = diffConfig[difficulty] || diffConfig.easy
 
   const [lives, setLives] = useState(config.startHp)
-  const [score, setScore] = useState(0) // Now tracks 'streak' correctly
+  const [score, setScore] = useState(0)
 
   const hero = heroes[idx]
 
@@ -214,7 +215,6 @@ function MLGuessGame({ mode, difficulty, onBack }) {
     setGuess('')
     setClueIndex(0)
     
-    // Remove hero from pool
     const newHeroes = [...heroes]
     newHeroes.splice(idx, 1)
     
@@ -225,82 +225,90 @@ function MLGuessGame({ mode, difficulty, onBack }) {
 
     setHeroes(newHeroes)
     setIdx(Math.floor(Math.random() * newHeroes.length))
+    if (mode === 'duo') setTurn(t => t === 0 ? 1 : 0)
+    setTimeout(() => inputRef.current?.focus(), 100)
   }
 
-  function handleNextClue() {
-    sfx.click()
-    if (clueIndex < 4) {
-      setClueIndex(c => c + 1)
-      if (mode === 'duo') setTurn(t => (t === 0 ? 1 : 0))
-    }
-  }
-
-  function buyPremiumClue() {
-    sfx.click()
+  function handleOpenClue() {
+    if (clueIndex >= 6 || gameOver) return
+    const nextClue = clueIndex + 1
+    
+    if (config.clueCost && (nextClue === 5 || nextClue === 6)) { // 5 and 6 are Clue 6 and 7 (0-indexed)
+      if (lives <= 1) {
+        sfx.wrong()
+        return // Can't suicide to open clue
+      }
       setLives(l => l - 1)
-      setClueIndex(c => c + 1)
-      if (mode === 'duo') setTurn(t => (t === 0 ? 1 : 0))
     }
-  }
-
-  function nextHero() {
+    
     sfx.click()
-    if (idx + 1 >= heroes.length) {
-      setGameOver(true)
-    } else {
-      setIdx(i => i + 1)
-      setClueIndex(0)
-      setGuess('')
-      setFeedback(null)
-      if (mode === 'duo') setTurn(t => (t === 0 ? 1 : 0))
-      setTimeout(() => inputRef.current?.focus(), 100)
-    }
+    setClueIndex(nextClue)
+    if (mode === 'duo') setTurn(t => (t === 0 ? 1 : 0))
   }
 
   if (gameOver) {
     return (
-      <GameLayout title="Tebak Hero ML" right={<span className="text-sm font-bold text-sky">{score} XP</span>}>
-        <GlassCard strong className="p-8 text-center relative overflow-hidden max-w-sm mx-auto">
-          {lives > 0 && <Confetti fire={true} />}
-          <div className={`grid place-items-center w-20 h-20 rounded-3xl text-white mx-auto mb-4 shadow-glow ${lives > 0 ? 'bg-gradient-to-br from-growth to-sky' : 'bg-gradient-to-br from-destructive to-orange-500'}`}>
-            {lives > 0 ? <Trophy className="w-10 h-10" /> : <Heart className="w-10 h-10 break-heart" />}
+      <GameLayout title="Game Over" onBack={onBack}>
+        <GlassCard className="p-8 text-center max-w-sm mx-auto mt-8 relative overflow-hidden">
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent"></div>
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-rose-500 to-orange-500 text-white grid place-items-center mb-6 shadow-glow">
+            <Trophy className="w-10 h-10" />
           </div>
-          <h2 className="font-display text-2xl font-extrabold">{lives > 0 ? 'Selesai! 🎉' : 'Game Over! 😭'}</h2>
-          <p className="text-muted-foreground mt-1">Total skor yang didapat:</p>
-          <p className="mt-4 text-3xl font-display font-extrabold text-gradient">+{score} XP</p>
-          <Link to="/games" className="inline-block mt-6 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold">Kembali ke Games</Link>
+          <h2 className="text-3xl font-display font-black mb-2">Game Over!</h2>
+          <p className="text-muted-foreground mb-6">
+            Hero terakhir adalah <strong className="text-foreground">{hero.name}</strong>
+          </p>
+          <div className="bg-background/50 rounded-2xl p-6 mb-6">
+            <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-1">Total Streak Beruntun</p>
+            <p className="text-5xl font-black text-primary drop-shadow-md">{score}</p>
+          </div>
+          <button onClick={onBack} className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90">
+            Kembali
+          </button>
         </GlassCard>
       </GameLayout>
     )
   }
 
+  const clues = [
+    { label: 'Role/Lane', value: hero.role },
+    { label: 'Ciri Fisik', value: hero.appearance },
+    { label: 'Senjata/Kekuatan', value: hero.weapon },
+    { label: 'Teman/Lawan', value: hero.synergy },
+    { label: 'Mekanik/Skill', value: hero.mechanics },
+    { label: 'Cerita/Asal', value: hero.lore },
+    { label: 'Suara', value: 'Audio' }
+  ]
+
+  const isPremiumClue = config.clueCost && (clueIndex === 4 || clueIndex === 5)
+
   return (
-    <GameLayout 
-      title="Tebak Hero ML" 
-      right={
-        <div className="flex items-center gap-1">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <Heart key={i} className={`w-5 h-5 ${i < lives ? 'text-destructive fill-destructive' : 'text-muted-foreground opacity-30'}`} />
-          ))}
+    <GameLayout title="Tebak Hero ML" subtitle={`Mode: ${difficulty.toUpperCase()} | Streak: ${score}`} onBack={onBack}>
+      {feedback === 'correct' && <Confetti />}
+
+      <div className="max-w-md mx-auto mt-4 space-y-4">
+        {/* Status Bar */}
+        <div className="flex items-center justify-between px-4 py-3 bg-background/40 rounded-2xl border border-border">
+          <div className="flex items-center gap-2">
+            <Heart className="w-5 h-5 text-rose-500 fill-rose-500 animate-pulse" />
+            <span className="font-bold text-lg">{lives} <span className="text-xs text-muted-foreground font-normal">/ {config.startHp}</span></span>
+          </div>
+          <div className="flex gap-1">
+            {Array(config.startHp).fill(0).map((_, i) => (
+              <div key={i} className={`w-2 h-4 rounded-full ${i < lives ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]' : 'bg-muted'}`} />
+            ))}
+          </div>
         </div>
-      }
-    >
-      <div className="relative max-w-md mx-auto space-y-4">
-        {feedback === 'correct' && <Confetti fire={true} count={40} />}
-        
-        {mode === 'duo' && !feedback && (
+
+        {/* Turn indicator */}
+        {mode === 'duo' && (
           <div className="text-center py-2">
-            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${turn === 0 ? 'bg-sky/20 text-sky' : 'bg-couple/20 text-couple'}`}>
-              Giliran: {turn === 0 ? 'Pemain 1' : 'Pemain 2 (Pasangan)'}
+            <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+              Giliran Player {turn + 1}
             </span>
           </div>
         )}
 
-        <GlassCard className="p-6">
-          <div className="space-y-4 mb-6">
-            <AnimatePresence>
-              {hero.clues.map((clue, i) => (
-                i <= clueIndex && (
         {/* Clues */}
         <GlassCard className="p-5 space-y-4">
           <div className="flex justify-between items-end mb-4">
@@ -375,7 +383,7 @@ function MLGuessGame({ mode, difficulty, onBack }) {
                     disabled={isPremiumClue && lives <= 1}
                     className={`w-full py-3 rounded-xl glass text-sm font-semibold transition ${isPremiumClue ? 'border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 disabled:opacity-30' : 'text-muted-foreground hover:text-foreground'}`}
                   >
-                    {isPremiumClue ? (lives <= 1 ? "Nyawa tidak cukup untuk clue selanjutnya" : "Buka Clue Selanjutnya (Bayar 1 Nyawa)") : "Buka Clue Selanjutnya (Gratis)"}
+                    {isPremiumClue ? (lives <= 1 ? "Nyawa tidak cukup" : "Buka Clue (Bayar 1 HP)") : "Buka Clue (Gratis)"}
                   </button>
                 )}
               </motion.div>
