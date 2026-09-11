@@ -9,6 +9,8 @@ const GAMES = [
   { to: '/listen', title: 'Listen & Type', desc: 'Dengarkan kalimat, lalu ketik ulang dengan tepat.', icon: Headphones, grad: 'from-sky to-couple', xp: '+25 XP', tag: 'Solo' },
   { to: '/ml-guess', title: 'Tebak Hero ML', desc: 'Tebak hero Mobile Legends dari petunjuk (clue).', icon: Swords, grad: 'from-couple to-sun', xp: '+50 XP', tag: 'Duo/Solo' },
   { to: '/rps', title: 'Suit Batu Gunting Kertas', desc: 'Duel adu hoki secara Real-Time dengan temanmu.', icon: Zap, grad: 'from-orange-500 to-rose-500', xp: '+15 XP', tag: 'Duo Real-Time' },
+  { to: '/xoxo', title: 'XOXO Gomoku', desc: 'Main Tic-Tac-Toe versi hardcore (10x10). Sambung 5 menang!', icon: Repeat, grad: 'from-fuchsia-500 to-purple-500', xp: '+30 XP', tag: 'Duo Real-Time' },
+  { to: '/wordle', title: 'Wordle Duel Racing', desc: 'Balapan menebak kata bahasa Inggris 5 huruf. Siapa cepat dia menang!', icon: Zap, grad: 'from-emerald-400 to-cyan-500', xp: '+40 XP', tag: 'Duo Real-Time' },
 ]
 
 export default function GamesPage() {

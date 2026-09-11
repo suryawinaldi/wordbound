@@ -14,6 +14,8 @@ const QuizSoloPage = lazy(() => import('./views/QuizSoloPage.jsx'))
 const MLGuessPage = lazy(() => import('./views/MLGuessPage.jsx'))
 const GamesPage = lazy(() => import('./views/GamesPage.jsx'))
 const RPSGamePage = lazy(() => import('./views/games/RPSGamePage.jsx'))
+const XOXOGamePage = lazy(() => import('./views/games/XOXOGamePage.jsx'))
+const WordleDuelPage = lazy(() => import('./views/games/WordleDuelPage.jsx'))
 
 function PageLoader() {
   return (
@@ -74,6 +76,8 @@ export const router = createBrowserRouter([
       { path: 'quiz', element: withSuspense(QuizSoloPage) },
       { path: 'ml-guess', element: withSuspense(MLGuessPage) },
       { path: 'rps', element: withSuspense(RPSGamePage) },
+      { path: 'xoxo', element: withSuspense(XOXOGamePage) },
+      { path: 'wordle', element: withSuspense(WordleDuelPage) },
     ]
   },
   {
