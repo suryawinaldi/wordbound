@@ -8,6 +8,7 @@ const GAMES = [
   { to: '/quiz', title: 'English Quiz', desc: 'Soal pilihan ganda seputar kosakata & grammar.', icon: HelpCircle, grad: 'from-growth to-sky', xp: '+20 XP', tag: 'Duo/Solo' },
   { to: '/listen', title: 'Listen & Type', desc: 'Dengarkan kalimat, lalu ketik ulang dengan tepat.', icon: Headphones, grad: 'from-sky to-couple', xp: '+25 XP', tag: 'Solo' },
   { to: '/ml-guess', title: 'Tebak Hero ML', desc: 'Tebak hero Mobile Legends dari petunjuk (clue).', icon: Swords, grad: 'from-couple to-sun', xp: '+50 XP', tag: 'Duo/Solo' },
+  { to: '/rps', title: 'Suit Batu Gunting Kertas', desc: 'Duel adu hoki secara Real-Time dengan temanmu.', icon: Zap, grad: 'from-orange-500 to-rose-500', xp: '+15 XP', tag: 'Duo Real-Time' },
 ]
 
 export default function GamesPage() {
