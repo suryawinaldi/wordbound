@@ -1,53 +1,44 @@
-# Implementation Plan: Sistem Kesulitan & Achievement (ML Guess + Multiplayer)
+# Implementation Plan: Mabar Tebak Hero ML (Co-op & Duel)
 
-Misi ini akan merombak game "Tebak Hero ML" menjadi 4 tingkat kesulitan yang menantang, serta menambahkan sistem Papan Prestasi (Achievements) dan Statistik Mabar untuk game lainnya.
+Permintaan ini akan membawa mode "Tebak Hero ML" ke tingkat selanjutnya dengan menambahkan sistem *Online Multiplayer* (Room Code) khusus untuk Hero MLBB.
 
 ## User Review Required
 > [!IMPORTANT]
-> **Masukan Desain: Sistem "Kartu" vs "Pasif"**
-> Memilih kartu di tengah permainan yang cepat (seperti kuis) bisa membuat laju game menjadi lambat dan mengganggu fokus. 
-> **Usulan Saya:** Kita jadikan efek kartu tersebut sebagai **"Kemampuan Pasif" (Passive Buff/Debuff)** yang otomatis aktif berdasarkan tingkat kesulitan yang dipilih.
+> Karena logika game *Solo* dan *Online* sangat berbeda, saya akan membuat sistem ini menjadi mode terpisah agar tidak merusak game Solo yang sudah stabil. Ada dua mode Online yang akan dibangun:
 
 ## Proposed Changes
 
-### 1. Merombak Aturan Tebak Hero ML (Difficulty Rules)
+### 1. Mode 1: Co-op (Kerja Sama Tim)
+- **Konsep:** Host dan Guest bermain di layar masing-masing, tapi menggunakan **nyawa yang sama** dan **streak yang sama**.
+- **Mekanik:** 
+  - Host memilih tingkat kesulitan (Easy/Medium/Hard/Nightmare) saat membuat Room.
+  - Jika pemain A menekan "Buka Clue", clue di layar pemain B juga akan terbuka.
+  - Keduanya bisa mengetik jawaban. Siapa yang mengetik dengan benar, poin/streak tim akan bertambah.
+  - Jika jawaban salah, nyawa tim berkurang.
+- **Achievement Bersama:** Jika tim mencapai *Streak 30* atau *Perfect 133*, **kedua pemain** akan mendapatkan Medali (*Badge*) tersebut di Profil masing-masing! Persahabatan (atau percintaan) yang sesungguhnya!
+
+### 2. Mode 2: Duel (Balapan Hero)
+- **Konsep:** Adu mekanik murni. Siapa yang paling banyak dan paling cepat menebak hero dengan benar.
+- **Mekanik:**
+  - Tidak ada sistem nyawa (HP). Targetnya adalah: **Siapa yang mencapai 10 Poin pertama kali, dia menang.**
+  - Kedua pemain melihat hero dan *clue* yang sama.
+  - **Sistem Clue:** Siapapun bisa menekan tombol "Buka Clue" dan clue itu akan terbuka untuk keduanya.
+  - **Sistem Penebakan:** Jika pemain A menebak benar, A dapat 1 poin, dan hero langsung berganti ke hero berikutnya untuk kedua pemain.
+  - **Hukuman:** Jika menebak SALAH, pemain tersebut terkena efek *Stun* (layarnya beku/tidak bisa menebak selama 3 detik), memberikan kesempatan lawan untuk menebak!
+
+### 3. Pembaruan Halaman Menu & Statistik
 #### [MODIFY] `src/views/MLGuessPage.jsx`
-Sebelum mulai, pemain akan memilih 1 dari 4 tingkat kesulitan:
-1. **🟢 Easy (Santai):** Modal **10 HP**. Semua Clue gratis. *Pasif: "Fast Learner"* (Jika menebak benar di Clue 1, 2, atau 3, dapat +1 HP. Maksimal HP 10).
-2. **🟡 Medium (Menantang):** Modal **7 HP**. Semua Clue gratis. *Pasif: "Fast Learner"* (+1 HP jika tebak cepat, Maksimal HP 10).
-3. **🔴 Hard (Keras):** Modal **5 HP**. Clue 6 & 7 **bayar 1 HP** untuk membukanya. *Pasif: "Fast Learner"* (+1 HP jika tebak cepat).
-4. **💀 Nightmare (Neraka):** Modal **5 HP**. Clue 6 & 7 **bayar 1 HP**. **TIDAK ADA HEALING** (Tidak bisa nambah nyawa sama sekali). Sekali salah, nyawa melayang permanen.
+- Merombak menu awal:
+  - **Main Solo**
+  - **Main Mabar (Online Room)** -> Cabang ke *Co-op Tim* atau *Duel Balapan*.
 
-- Jika HP habis (0), game berakhir (Game Over), dan *Streak* (rentetan benar beruntun) akan dievaluasi untuk mendapatkan *Achievement*.
-
-### 2. Sistem Database Statistik & Achievement
-#### [MODIFY] `src/stores/player.js`
-Menambahkan data baru di Firestore pengguna:
-- `stats`: `{ mlGuessMaxStreak: { easy: 0, medium: 0, hard: 0, nightmare: 0 }, rpsWins: 0, xoxoWins: 0, wordleWins: 0 }`
-- `achievements`: Objek yang menghitung berapa kali sebuah medali didapatkan. Contoh: `{ 'ml-streak30-easy': 2, 'ml-perfect-nightmare': 1, 'xoxo-win10': 1 }`
-- Membuat fungsi `addAchievement(badgeId)` dan `incrementStat(statId)`.
-
-### 3. Evaluasi Achievement (Penghargaan)
-#### [NEW LOGIC] Evaluasi di setiap akhir game:
-**Tebak Hero ML:**
-- Jika mati di atas/sama dengan *Streak 30*: Dapat medali **"30-Streak [Difficulty]"**.
-- Jika berhasil menebak 133 hero tanpa mati: Dapat medali tertinggi **"Perfect 133 [Difficulty]"**.
-*Catatan: Medali Nightmare akan dibuat dengan warna efek api hitam/merah yang sangat sangar.*
-
-**Multiplayer (RPS, XOXO, Wordle):**
-- Menambahkan pemanggilan `incrementStat('xoxoWins')` dsb di layar kemenangan `XOXOGamePage`, `RPSGamePage`, dan `WordleDuelPage` untuk pemain yang menang.
-- Jika mencapai 10/50 Kemenangan, berikan medali Mabar.
-
-### 4. Halaman Profil / Statistik (Hall of Fame)
 #### [MODIFY] `src/views/StatsPage.jsx`
-Merombak halaman statistik agar menampilkan:
-1. **Statistik Mabar:** Jumlah kemenangan RPS, XOXO, dan Wordle.
-2. **Rekor Tebak Hero ML:** Menampilkan *High Score* / *Max Streak* untuk masing-masing kesulitan.
-3. **Papan Prestasi (Badges):** Menampilkan medali-medali yang sudah dikoleksi (dan jumlah tumpukannya, misal `x2`, `x5`). Medali yang belum didapatkan akan dibuat abu-abu (*silhouetted*).
+- Menambahkan statistik baru di menu Mabar:
+  - **Menang ML Duel** (Jumlah kemenangan di mode Balapan).
+  - **Co-op Max Streak** (Rekor streak tertinggi saat bermain mode Tim).
 
 ## Verification Plan
-1. Menguji *Difficulty Select Screen* di ML Guess.
-2. Sengaja menebak di Clue 1 untuk melihat apakah nyawa bertambah (di Easy/Med/Hard) dan tidak bertambah di Nightmare.
-3. Sengaja mengklik Clue 6 di Hard/Nightmare untuk melihat nyawa berkurang.
-4. Membuat *script* curang untuk menang 30x agar bisa memverifikasi *Badge* masuk ke `StatsPage`.
-5. Memenangkan game XOXO untuk melihat jumlah `xoxoWins` bertambah di `StatsPage`.
+1. Membuat antarmuka Lobby khusus untuk Mode Mabar ML.
+2. Memverifikasi sinkronisasi state Firebase (Clue sinkron, Hero sinkron).
+3. Menguji efek *Stun* (beku 3 detik) di Mode Duel jika tebakan salah.
+4. Memverifikasi bahwa di mode Co-op, memenangkan *Streak 30* akan menembakkan perintah `awardAchievement` ke *database* kedua pemain sekaligus.

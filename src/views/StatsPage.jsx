@@ -84,7 +84,7 @@ export default function StatsPage() {
       {/* Statistik Mabar */}
       <GlassCard className="p-5 space-y-4">
         <h3 className="font-bold flex items-center gap-2">⚔️ Statistik Mabar (Duo)</h3>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
             <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang RPS</p>
             <p className="text-2xl font-black text-rose-500">{userData?.stats?.rpsWins || 0}</p>
@@ -96,6 +96,10 @@ export default function StatsPage() {
           <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
             <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang Wordle</p>
             <p className="text-2xl font-black text-growth">{userData?.stats?.wordleWins || 0}</p>
+          </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang ML Duel</p>
+            <p className="text-2xl font-black text-sun">{userData?.stats?.mlDuelWins || 0}</p>
           </div>
         </div>
       </GlassCard>

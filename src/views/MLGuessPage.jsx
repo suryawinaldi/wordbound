@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heart, Search, Trophy, ArrowRight, User, Users } from 'lucide-react'
 import { ML_HEROES } from '@/data/ml-heroes'
@@ -17,10 +17,11 @@ const XP_REWARD = {
 }
 
 export default function MLGuessPage() {
+  const navigate = useNavigate()
   const userData = useAuthStore((s) => s.userData)
   const hasPartner = !!userData?.partnerUid
 
-  const [mode, setMode] = useState(null) // 'solo' or 'duo'
+  const [mode, setMode] = useState(null) // 'solo', 'duo' (local), 'online'
   const [difficulty, setDifficulty] = useState(null)
   
   if (!mode) {
@@ -32,7 +33,7 @@ export default function MLGuessPage() {
           </div>
           <h2 className="font-display font-bold text-2xl mb-2">Pilih Mode Main</h2>
           <p className="text-sm text-muted-foreground mb-8">
-            Kamu bisa main sendiri, atau main gantian bareng pasanganmu di satu layar!
+            Main sendiri, atau uji kekompakan & kecepatanmu bersama teman!
           </p>
           <div className="space-y-3">
             <button
@@ -41,15 +42,42 @@ export default function MLGuessPage() {
             >
               <User className="w-5 h-5 text-sky" /> Main Sendiri (Solo)
             </button>
+            <button
+              onClick={() => { sfx.click(); setMode('online') }}
+              className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-rose-500/10"></div>
+              <Users className="w-5 h-5 text-primary" /> Mabar Online (Room)
+            </button>
             {hasPartner && (
               <button
                 onClick={() => { sfx.click(); setMode('duo') }}
                 className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition"
               >
-                <Users className="w-5 h-5 text-couple" /> Bareng Pasangan (Duo)
+                <Users className="w-5 h-5 text-couple" /> Gantian (1 Layar)
               </button>
             )}
           </div>
+        </GlassCard>
+      </GameLayout>
+    )
+  }
+
+  if (mode === 'online') {
+    return (
+      <GameLayout title="Tebak Hero ML" onBack={() => setMode(null)}>
+        <GlassCard className="p-6 max-w-md mx-auto mt-4 space-y-4 text-center">
+          <h2 className="font-display font-bold text-2xl mb-6">Pilih Tipe Mabar</h2>
+          
+          <button onClick={() => { sfx.click(); navigate('/ml-coop') }} className="w-full p-6 rounded-2xl border border-primary/30 bg-primary/5 hover:bg-primary/10 transition">
+            <h3 className="font-bold text-primary text-xl mb-2">🤝 Co-op (Kerja Sama)</h3>
+            <p className="text-sm text-muted-foreground">Berbagi Nyawa, Clue, dan Rekor Streak bersama-sama. Mampukah tim kalian mencapai God of MLBB?</p>
+          </button>
+
+          <button onClick={() => { sfx.click(); navigate('/ml-duel') }} className="w-full p-6 rounded-2xl border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 transition">
+            <h3 className="font-bold text-rose-500 text-xl mb-2">⚔️ Duel (Balapan)</h3>
+            <p className="text-sm text-muted-foreground">Adu cepat mengetik! Siapa yang mencapai 10 Poin duluan, dia yang menang. Salah ketik = Stun 3 Detik!</p>
+          </button>
         </GlassCard>
       </GameLayout>
     )
