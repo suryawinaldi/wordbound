@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Circle, X } from 'lucide-react'
@@ -10,16 +10,49 @@ import GameLayout from '@/components/GameLayout'
 import GlassCard from '@/components/GlassCard'
 import Confetti from '@/components/Confetti'
 
-const GRID_SIZE = 10
-
 export default function XOXOGamePage() {
   const navigate = useNavigate()
   const { room } = useRoomStore()
 
+  const [gridSize, setGridSize] = useState(10)
+  const [winCondition, setWinCondition] = useState(5)
+
   if (!room || room.status === 'waiting') {
     return (
-      <div className="pt-4">
-        <MultiplayerLobby gameId="xoxo" gameName="XOXO Gomoku (10x10)" onBack={() => navigate('/games')} />
+      <div className="pt-4 pb-8 overflow-y-auto">
+        <MultiplayerLobby 
+          gameId="xoxo" 
+          gameName="XOXO Custom" 
+          customSettings={{ gridSize, winCondition }}
+          settingsUI={
+            <div className="bg-background/40 p-4 rounded-2xl border border-border space-y-4">
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground flex justify-between">
+                  Luas Papan (Grid) <span>{gridSize}x{gridSize}</span>
+                </label>
+                <input 
+                  type="range" min="6" max="15" step="1" 
+                  value={gridSize} onChange={(e) => setGridSize(parseInt(e.target.value))}
+                  className="w-full mt-2 accent-primary"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground flex justify-between">
+                  Syarat Menang (Sambung) <span>{winCondition} Simbol</span>
+                </label>
+                <input 
+                  type="range" min="3" max="7" step="1" 
+                  value={winCondition} onChange={(e) => setWinCondition(parseInt(e.target.value))}
+                  className="w-full mt-2 accent-primary"
+                />
+                {winCondition > gridSize && (
+                  <p className="text-[0.65rem] text-destructive mt-1">Syarat menang tidak boleh lebih besar dari luas papan!</p>
+                )}
+              </div>
+            </div>
+          }
+          onBack={() => navigate('/games')} 
+        />
       </div>
     )
   }
@@ -36,6 +69,9 @@ function XOXOBoard() {
   const opponent = isHost ? room.guest : room.host
   const role = isHost ? 'host' : 'guest'
 
+  const GRID_SIZE = room.settings?.gridSize || 10
+  const WIN_CONDITION = room.settings?.winCondition || 5
+
   // Initialize state
   const state = room.state || {}
   const board = state.board || Array(GRID_SIZE * GRID_SIZE).fill(null)
@@ -50,7 +86,7 @@ function XOXOBoard() {
     if (isHost && !state.board) {
       updateState({ board: Array(GRID_SIZE * GRID_SIZE).fill(null), turn: 'host', winner: null })
     }
-  }, [isHost, state])
+  }, [isHost, state, GRID_SIZE])
 
   function checkWin(newBoard, index, playerStr) {
     const x = index % GRID_SIZE
@@ -81,7 +117,7 @@ function XOXOBoard() {
         curY -= dy
       }
 
-      if (count >= 5) return true
+      if (count >= WIN_CONDITION) return true
     }
     return false
   }
@@ -114,10 +150,13 @@ function XOXOBoard() {
     navigate('/games')
   }
 
+  // Calculate dynamic tailwind classes based on grid size
+  const maxCellSize = GRID_SIZE > 10 ? 'w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8' : 'w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10'
+
   return (
     <GameLayout 
-      title="XOXO (Gomoku)" 
-      subtitle="Sambung 5 untuk Menang" 
+      title={`XOXO Custom (${GRID_SIZE}x${GRID_SIZE})`} 
+      subtitle={`Sambung ${WIN_CONDITION} untuk Menang`} 
       onBack={handleQuit}
     >
       {amIWinner && <Confetti />}
@@ -136,10 +175,10 @@ function XOXOBoard() {
         </div>
 
         {/* Board */}
-        <div className="relative my-4">
-          <GlassCard className="p-2 sm:p-4 border-2 border-primary/20 shadow-glow-primary">
+        <div className="relative my-4 overflow-x-auto w-full max-w-full flex justify-center">
+          <GlassCard className="p-2 sm:p-4 border-2 border-primary/20 shadow-glow-primary inline-block">
             <div 
-              className="grid gap-1 sm:gap-1.5"
+              className="grid gap-1 sm:gap-1.5 mx-auto"
               style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))` }}
             >
               {board.map((cell, i) => {
@@ -150,13 +189,13 @@ function XOXOBoard() {
                     key={i}
                     onClick={() => handleCellClick(i)}
                     disabled={!isMyTurn || cell !== null || !!winner}
-                    className={`w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-sm sm:rounded-md flex items-center justify-center transition-colors
+                    className={`${maxCellSize} rounded-sm sm:rounded-md flex items-center justify-center transition-colors
                       ${cell === null && isMyTurn ? 'hover:bg-primary/20 bg-muted/30' : 'bg-muted/50'}
                       ${cell === null && !isMyTurn ? 'cursor-not-allowed' : ''}
                     `}
                   >
-                    {isX && <X className="w-4 h-4 sm:w-6 sm:h-6 text-sky-400 drop-shadow-md" />}
-                    {isO && <Circle className="w-4 h-4 sm:w-5 sm:h-5 text-rose-400 drop-shadow-md" />}
+                    {isX && <X className="w-[60%] h-[60%] text-sky-400 drop-shadow-md" />}
+                    {isO && <Circle className="w-[60%] h-[60%] text-rose-400 drop-shadow-md" />}
                   </button>
                 )
               })}

@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/auth'
 import GlassCard from '@/components/GlassCard'
 import { sfx } from '@/lib/sound'
 
-export default function MultiplayerLobby({ gameId, gameName, onBack }) {
+export default function MultiplayerLobby({ gameId, gameName, customSettings = {}, settingsUI = null, onBack }) {
   const { room, roomId, createRoom, joinRoom, startGame, leaveRoom, loading, error } = useRoomStore()
   const currentUser = useAuthStore(s => s.currentUser)
   const [joinCode, setJoinCode] = useState('')
@@ -15,15 +15,12 @@ export default function MultiplayerLobby({ gameId, gameName, onBack }) {
   // Auto-leave room on unmount if we didn't start playing
   useEffect(() => {
     return () => {
-      // We don't leave room on unmount if game is playing, only if we are just leaving the lobby
-      // But actually, we should manage leaveRoom at a higher level, so we won't auto-leave here
-      // unless we explicitly hit back.
     }
   }, [])
 
   async function handleCreate() {
     sfx.click()
-    await createRoom(gameId)
+    await createRoom(gameId, customSettings)
   }
 
   async function handleJoin(e) {
@@ -123,6 +120,8 @@ export default function MultiplayerLobby({ gameId, gameName, onBack }) {
           <h2 className="font-display text-2xl font-bold mb-2">{gameName}</h2>
           <p className="text-sm text-muted-foreground">Main berdua bareng teman atau pasangan secara langsung!</p>
         </div>
+
+        {settingsUI}
 
         <button 
           onClick={handleCreate}
