@@ -32,19 +32,9 @@ export default function GamesPage() {
           return (
             <motion.div
               key={g.to}
-              initial={{ opacity: 0, y: 24, scale: 0.96 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0, 
-                scale: 1, 
-                transition: { delay: i * 0.07, type: 'spring', stiffness: 260, damping: 20 } 
-              }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.02, 
-                transition: { type: 'spring', stiffness: 400, damping: 25 } 
-              }}
+              whileHover={{ y: -8, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               className="h-full"
             >
               <Link to={g.to} onClick={() => sfx.whoosh()} className="group relative block h-full rounded-3xl">
