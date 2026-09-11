@@ -150,16 +150,22 @@ export default function CoupleLinkPage() {
       <GlassCard className="p-5">
         <h3 className="font-bold mb-1 flex items-center gap-2"><Link2 className="w-4 h-4" /> Punya Kode?</h3>
         <p className="text-xs text-muted-foreground mb-4">Masukkan kode dari pasanganmu</p>
-        <form onSubmit={handleLink} className="flex gap-3">
-          <input
-            value={code} onChange={(e) => setCode(e.target.value)}
-            placeholder="000000" inputMode="numeric" maxLength={6}
-            className="flex-1 bg-background/60 rounded-2xl px-4 py-3 text-center text-xl font-display font-bold tracking-[0.25em] outline-none border border-border focus:border-primary"
-          />
-          <button type="submit" disabled={loading || code.length < 6} className="px-6 rounded-2xl bg-primary text-primary-foreground font-semibold disabled:opacity-50">
-            Hubungkan
-          </button>
-        </form>
+            <form onSubmit={handleLink} className="flex flex-col sm:flex-row gap-3 relative z-10">
+              <input
+                value={code}
+                onChange={e => setCode(e.target.value.toUpperCase())}
+                placeholder="0 0 0 0 0 0"
+                maxLength={6}
+                className="w-full sm:flex-1 bg-background/60 rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-center tracking-[0.3em] sm:tracking-[0.5em] font-display text-xl"
+              />
+              <button
+                type="submit"
+                disabled={loading || code.length !== 6}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-growth text-growth-foreground font-semibold shadow-glow-growth disabled:opacity-50"
+              >
+                Hubungkan
+              </button>
+            </form>
         {err && <p className="mt-3 text-sm text-destructive bg-destructive/10 rounded-xl px-3 py-2">{err}</p>}
       </GlassCard>
     </div>

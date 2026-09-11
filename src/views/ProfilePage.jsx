@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { Sun, Moon, Monitor, Volume2, VolumeX, Bell, LogOut, Flame, Droplets, Sun as SunIcon, Coins, Award } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Sun, Moon, Monitor, Volume2, VolumeX, Bell, LogOut, Flame, Droplets, Coins, Award, Edit2, X } from 'lucide-react'
 import { useAuthStore } from '@/stores/auth'
+import { usePlayerStore } from '@/stores/player'
 import { useSettingsStore } from '@/stores/settings'
 import { useAudioStore } from '@/stores/audio'
 import { sfx } from '@/lib/sound'
@@ -14,13 +16,26 @@ const THEMES = [
   { value: 'system', label: 'Sistem', icon: Monitor },
 ]
 
+const MLBB_RANKS = ['Warrior', 'Elite', 'Master', 'Grandmaster', 'Epic', 'Legend', 'Mythic', 'Mythical Honor', 'Mythical Glory', 'Mythical Immortal']
+
 export default function ProfilePage() {
   const navigate = useNavigate()
   const currentUser = useAuthStore((s) => s.currentUser)
   const userData = useAuthStore((s) => s.userData)
   const logout = useAuthStore((s) => s.logout)
+  const persistPatch = usePlayerStore((s) => s.persistPatch)
+  
   const { theme, setTheme, soundEnabled, setSoundEnabled, notificationsEnabled, setNotificationsEnabled } = useSettingsStore()
   const muted = useAudioStore((s) => s.muted)
+
+  const [editMode, setEditMode] = useState(false)
+  const [formData, setFormData] = useState({
+    displayName: '',
+    gender: '',
+    bio: '',
+    mlbbRank: ''
+  })
+  const [saving, setSaving] = useState(false)
 
   async function handleLogout() {
     sfx.click()
@@ -28,21 +43,65 @@ export default function ProfilePage() {
     navigate('/')
   }
 
+  function openEdit() {
+    sfx.click()
+    setFormData({
+      displayName: userData?.displayName || currentUser?.displayName || '',
+      gender: userData?.gender || '',
+      bio: userData?.bio || '',
+      mlbbRank: userData?.mlbbRank || ''
+    })
+    setEditMode(true)
+  }
+
+  async function saveProfile(e) {
+    e.preventDefault()
+    sfx.correct()
+    setSaving(true)
+    await persistPatch({
+      displayName: formData.displayName,
+      gender: formData.gender,
+      bio: formData.bio,
+      mlbbRank: formData.mlbbRank
+    })
+    setSaving(false)
+    setEditMode(false)
+  }
+
   const cefr = getCefrEstimate(userData)
 
   return (
-    <div className="space-y-6">
-      <h1 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">Profil</h1>
+    <div className="space-y-6 relative">
+      <div className="flex items-center justify-between">
+        <h1 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">Profil</h1>
+        <button onClick={openEdit} className="p-2.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition">
+          <Edit2 className="w-5 h-5" />
+        </button>
+      </div>
 
       {/* Identity */}
       <GlassCard strong className="p-6 flex items-center gap-4">
-        <img src={currentUser?.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${currentUser?.displayName}`} className="w-16 h-16 rounded-2xl object-cover" alt="" />
+        <img src={currentUser?.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${userData?.displayName || currentUser?.displayName}`} className="w-16 h-16 rounded-2xl object-cover shrink-0" alt="" />
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-lg truncate">{currentUser?.displayName || 'Pemain'}</p>
-          <p className="text-sm text-muted-foreground truncate">{currentUser?.email}</p>
-          <span className="inline-flex items-center gap-1.5 mt-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-couple/15 text-couple">
-            <Award className="w-3.5 h-3.5" /> Level CEFR: {cefr}
-          </span>
+          <p className="font-bold text-lg truncate">{userData?.displayName || currentUser?.displayName || 'Pemain'}</p>
+          <p className="text-xs text-muted-foreground truncate mb-1">
+            {userData?.gender ? `${userData.gender} • ` : ''}{currentUser?.email}
+          </p>
+          
+          {userData?.bio && (
+            <p className="text-sm italic text-muted-foreground line-clamp-2 mt-1">"{userData.bio}"</p>
+          )}
+
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full bg-couple/15 text-couple">
+              <Award className="w-3 h-3" /> CEFR: {cefr}
+            </span>
+            {userData?.mlbbRank && (
+              <span className="inline-flex items-center gap-1 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-400">
+                <Flame className="w-3 h-3" /> {userData.mlbbRank}
+              </span>
+            )}
+          </div>
         </div>
       </GlassCard>
 
@@ -55,8 +114,8 @@ export default function ProfilePage() {
         ].map((s) => (
           <GlassCard key={s.label} className="p-4 text-center">
             <s.icon className={`w-5 h-5 mx-auto mb-1.5 ${s.tone}`} />
-            <p className="font-bold">{s.value}</p>
-            <p className="text-[0.65rem] text-muted-foreground uppercase tracking-wider">{s.label}</p>
+            <p className="font-bold text-sm sm:text-base">{s.value}</p>
+            <p className="text-[0.6rem] sm:text-[0.65rem] text-muted-foreground uppercase tracking-wider">{s.label}</p>
           </GlassCard>
         ))}
       </div>
@@ -105,6 +164,81 @@ export default function ProfilePage() {
       <button onClick={handleLogout} className="w-full glass rounded-2xl px-5 py-3.5 flex items-center justify-center gap-2 text-destructive font-semibold hover:bg-destructive/10 transition">
         <LogOut className="w-4 h-4" /> Keluar
       </button>
+
+      {/* Edit Profile Modal */}
+      <AnimatePresence>
+        {editMode && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm grid place-items-center p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
+              className="w-full max-w-sm bg-card border border-border shadow-2xl rounded-3xl p-6 relative overflow-hidden"
+            >
+              <button onClick={() => { sfx.click(); setEditMode(false) }} className="absolute top-4 right-4 p-2 rounded-full bg-muted text-muted-foreground hover:text-foreground">
+                <X className="w-4 h-4" />
+              </button>
+              
+              <h3 className="font-display text-xl font-bold mb-6">Edit Profil</h3>
+              
+              <form onSubmit={saveProfile} className="space-y-4">
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground ml-1">Nama Panggilan</label>
+                  <input 
+                    value={formData.displayName} onChange={e => setFormData(d => ({ ...d, displayName: e.target.value }))}
+                    className="w-full mt-1 bg-background rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-sm"
+                    placeholder="Nama keren kamu"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground ml-1">Jenis Kelamin</label>
+                  <select 
+                    value={formData.gender} onChange={e => setFormData(d => ({ ...d, gender: e.target.value }))}
+                    className="w-full mt-1 bg-background rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-sm appearance-none"
+                  >
+                    <option value="">Rahasia</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground ml-1">Rank Mobile Legends</label>
+                  <select 
+                    value={formData.mlbbRank} onChange={e => setFormData(d => ({ ...d, mlbbRank: e.target.value }))}
+                    className="w-full mt-1 bg-background rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-sm appearance-none"
+                  >
+                    <option value="">Belum Punya Rank</option>
+                    {MLBB_RANKS.map(r => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground ml-1">Bio / Status</label>
+                  <textarea 
+                    value={formData.bio} onChange={e => setFormData(d => ({ ...d, bio: e.target.value }))}
+                    className="w-full mt-1 bg-background rounded-xl px-4 py-3 outline-none border border-border focus:border-primary text-sm resize-none"
+                    placeholder="Tulis status galau/keren kamu di sini..."
+                    rows={2}
+                    maxLength={100}
+                  />
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={saving || !formData.displayName.trim()} 
+                  className="w-full py-3.5 mt-2 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center justify-center disabled:opacity-50"
+                >
+                  {saving ? 'Menyimpan...' : 'Simpan Perubahan'}
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
