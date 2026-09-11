@@ -191,7 +191,7 @@ function MLGuessGame({ mode }) {
                     </div>
                     {i === 6 && hero.audioUrl && (
                       <div className="mt-2 sm:mt-0 w-full sm:w-auto">
-                        <audio src={`https://corsproxy.io/?${encodeURIComponent(hero.audioUrl)}`} referrerPolicy="no-referrer" controls autoPlay className="h-10 w-full sm:w-48 outline-none rounded-full" />
+                        <audio src={`/api/proxy-audio?url=${encodeURIComponent(hero.audioUrl)}`} controls autoPlay className="h-10 w-full sm:w-48 outline-none rounded-full" />
                       </div>
                     )}
                   </motion.div>
