@@ -25,7 +25,7 @@ function Logo({ compact }) {
       </div>
       {!compact && (
         <div className="leading-tight">
-          <p className="font-display font-extrabold tracking-tight text-[1.05rem]">Almirya</p>
+          <p className="font-display font-extrabold tracking-tight text-[1.05rem]">DuoQuest</p>
           <p className="text-[0.62rem] uppercase tracking-[0.2em] text-muted-foreground">Life Estate</p>
         </div>
       )}
