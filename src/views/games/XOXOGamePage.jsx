@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Circle, X } from 'lucide-react'
 import { useRoomStore } from '@/stores/room'
 import { useAuthStore } from '@/stores/auth'
+import { usePlayerStore } from '@/stores/player'
 import { sfx } from '@/lib/sound'
 import MultiplayerLobby from '@/components/MultiplayerLobby'
 import GameLayout from '@/components/GameLayout'
@@ -133,6 +134,7 @@ function XOXOBoard() {
     if (checkWin(newBoard, index, role)) {
       newWinner = role
       sfx.correct()
+      usePlayerStore.getState().incrementStat('xoxoWins')
     } else if (!newBoard.includes(null)) {
       newWinner = 'draw'
     }

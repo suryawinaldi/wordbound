@@ -80,6 +80,128 @@ export default function StatsPage() {
           )
         })}
       </GlassCard>
+
+      {/* Statistik Mabar */}
+      <GlassCard className="p-5 space-y-4">
+        <h3 className="font-bold flex items-center gap-2">⚔️ Statistik Mabar (Duo)</h3>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang RPS</p>
+            <p className="text-2xl font-black text-rose-500">{userData?.stats?.rpsWins || 0}</p>
+          </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang XOXO</p>
+            <p className="text-2xl font-black text-sky-500">{userData?.stats?.xoxoWins || 0}</p>
+          </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang Wordle</p>
+            <p className="text-2xl font-black text-growth">{userData?.stats?.wordleWins || 0}</p>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Rekor Tebak Hero */}
+      <GlassCard className="p-5 space-y-4">
+        <h3 className="font-bold flex items-center gap-2">🛡️ Rekor Tebak Hero ML</h3>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-growth/10 p-4 rounded-xl flex items-center justify-between border border-growth/20">
+            <div>
+              <p className="text-xs text-growth font-bold uppercase tracking-wider">Easy</p>
+              <p className="text-xs text-muted-foreground">Max Streak</p>
+            </div>
+            <p className="text-2xl font-black text-growth">{userData?.stats?.mlGuessMaxStreak?.easy || 0}</p>
+          </div>
+          <div className="bg-sun/10 p-4 rounded-xl flex items-center justify-between border border-sun/20">
+            <div>
+              <p className="text-xs text-sun font-bold uppercase tracking-wider">Medium</p>
+              <p className="text-xs text-muted-foreground">Max Streak</p>
+            </div>
+            <p className="text-2xl font-black text-sun">{userData?.stats?.mlGuessMaxStreak?.medium || 0}</p>
+          </div>
+          <div className="bg-orange-500/10 p-4 rounded-xl flex items-center justify-between border border-orange-500/20">
+            <div>
+              <p className="text-xs text-orange-500 font-bold uppercase tracking-wider">Hard</p>
+              <p className="text-xs text-muted-foreground">Max Streak</p>
+            </div>
+            <p className="text-2xl font-black text-orange-500">{userData?.stats?.mlGuessMaxStreak?.hard || 0}</p>
+          </div>
+          <div className="bg-rose-500/10 p-4 rounded-xl flex items-center justify-between border border-rose-500/20 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')] opacity-10"></div>
+            <div className="relative">
+              <p className="text-xs text-rose-500 font-black uppercase tracking-wider">Nightmare</p>
+              <p className="text-xs text-rose-500/70">Max Streak</p>
+            </div>
+            <p className="text-2xl font-black text-rose-500 relative">{userData?.stats?.mlGuessMaxStreak?.nightmare || 0}</p>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Papan Prestasi / Badges */}
+      <GlassCard className="p-5">
+        <h3 className="font-bold flex items-center gap-2 mb-4">🏆 Papan Prestasi</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <BadgeItem 
+            id="ml-streak30-easy" 
+            title="Savage (Easy)" 
+            desc="Streak 30 di kesulitan Easy" 
+            emoji="🟢" 
+            color="bg-growth/20 text-growth border-growth/30" 
+            userData={userData} 
+          />
+          <BadgeItem 
+            id="ml-streak30-medium" 
+            title="Savage (Medium)" 
+            desc="Streak 30 di kesulitan Medium" 
+            emoji="🟡" 
+            color="bg-sun/20 text-sun border-sun/30" 
+            userData={userData} 
+          />
+          <BadgeItem 
+            id="ml-streak30-hard" 
+            title="Savage (Hard)" 
+            desc="Streak 30 di kesulitan Hard" 
+            emoji="🔴" 
+            color="bg-orange-500/20 text-orange-500 border-orange-500/30" 
+            userData={userData} 
+          />
+          <BadgeItem 
+            id="ml-streak30-nightmare" 
+            title="Maniac (Nightmare)" 
+            desc="Streak 30 di kesulitan Nightmare" 
+            emoji="💀" 
+            color="bg-rose-500 text-white border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.5)] bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')]" 
+            userData={userData} 
+          />
+          <BadgeItem 
+            id="ml-perfect-nightmare" 
+            title="GOD OF MLBB" 
+            desc="Menebak 133 Hero di Nightmare!" 
+            emoji="👑" 
+            color="bg-gradient-to-br from-rose-600 via-orange-500 to-yellow-500 text-white border-yellow-300 shadow-[0_0_20px_rgba(234,179,8,0.6)]" 
+            userData={userData} 
+          />
+        </div>
+      </GlassCard>
+    </div>
+  )
+}
+
+function BadgeItem({ id, title, desc, emoji, color, userData }) {
+  const count = userData?.achievements?.[id] || 0
+  const isUnlocked = count > 0
+
+  return (
+    <div className={`p-3 rounded-2xl border flex flex-col items-center text-center transition-all ${isUnlocked ? color : 'bg-muted/50 border-border opacity-50 grayscale'}`}>
+      <div className="text-3xl mb-2 relative">
+        {emoji}
+        {count > 1 && (
+          <span className="absolute -top-2 -right-3 bg-primary text-primary-foreground text-[0.6rem] font-black px-1.5 py-0.5 rounded-full">
+            x{count}
+          </span>
+        )}
+      </div>
+      <p className={`text-xs font-bold leading-tight mb-1 ${isUnlocked && color.includes('text-white') ? 'text-white' : ''}`}>{title}</p>
+      <p className={`text-[0.6rem] leading-tight ${isUnlocked && color.includes('text-white') ? 'text-white/80' : 'text-muted-foreground'}`}>{desc}</p>
     </div>
   )
 }

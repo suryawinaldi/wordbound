@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, increment } from 'firebase/firestore'
 import { db } from '@/firebase-config'
 import { useAuthStore } from './auth'
 
@@ -103,4 +103,34 @@ export const usePlayerStore = create(() => ({
     await persistPatch({ streakFreezeCount: count - 1, lastDate: todayStr() })
     return true
   },
+
+  async incrementStat(statKey, amount = 1) {
+    const { currentUser } = useAuthStore.getState()
+    if (!currentUser) return
+    const statPath = `stats.${statKey}`
+    await setDoc(doc(db, 'users', currentUser.uid), {
+      [statPath]: increment(amount)
+    }, { merge: true })
+  },
+
+  async awardAchievement(badgeId) {
+    const { currentUser } = useAuthStore.getState()
+    if (!currentUser) return
+    const achPath = `achievements.${badgeId}`
+    await setDoc(doc(db, 'users', currentUser.uid), {
+      [achPath]: increment(1)
+    }, { merge: true })
+  },
+
+  async updateMaxStreak(difficulty, newStreak) {
+    const { currentUser, userData } = useAuthStore.getState()
+    if (!currentUser) return
+    const currentMax = userData?.stats?.mlGuessMaxStreak?.[difficulty] || 0
+    if (newStreak > currentMax) {
+      const statPath = `stats.mlGuessMaxStreak.${difficulty}`
+      await setDoc(doc(db, 'users', currentUser.uid), {
+        [statPath]: newStreak
+      }, { merge: true })
+    }
+  }
 }))

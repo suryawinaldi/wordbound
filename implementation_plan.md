@@ -1,63 +1,53 @@
-# Implementation Plan: Real-Time Multiplayer & New Games
+# Implementation Plan: Sistem Kesulitan & Achievement (ML Guess + Multiplayer)
 
-Misi kali ini adalah mengubah DuoQuest menjadi platform mabar sejati dengan fitur Multiplayer Real-Time dan memperluas game menjadi 6, serta menambahkan detail Bintang Mythic di Profil.
+Misi ini akan merombak game "Tebak Hero ML" menjadi 4 tingkat kesulitan yang menantang, serta menambahkan sistem Papan Prestasi (Achievements) dan Statistik Mabar untuk game lainnya.
 
 ## User Review Required
 > [!IMPORTANT]
-> Penambahan fitur *Real-Time Multiplayer* membutuhkan koleksi *database* baru di Firestore.
-> Kita akan membuat sistem **Room Code** (Kode Ruangan) di mana pemain bisa membuat ruang (*Host*) dan pemain lain bisa masuk dengan kode tersebut (*Join*). Ini akan menjadi pondasi untuk game Gunting Batu Kertas, XOXO (Tic-Tac-Toe), dan Duel Listen & Type.
+> **Masukan Desain: Sistem "Kartu" vs "Pasif"**
+> Memilih kartu di tengah permainan yang cepat (seperti kuis) bisa membuat laju game menjadi lambat dan mengganggu fokus. 
+> **Usulan Saya:** Kita jadikan efek kartu tersebut sebagai **"Kemampuan Pasif" (Passive Buff/Debuff)** yang otomatis aktif berdasarkan tingkat kesulitan yang dipilih.
 
 ## Proposed Changes
 
-### 1. Pembaruan Profil (Bintang Mythic)
-#### [MODIFY] `src/views/ProfilePage.jsx`
-- Tambahkan logika *conditional*: Jika *dropdown* Rank ML dipilih mengandung kata "Mythic", munculkan *input* angka untuk "Jumlah Bintang".
-- Tambahkan teks bantuan rentang bintang (Mythic 1-24, Honor 25-49, Glory 50-99, Immortal 100+).
-- Simpan data `mlbbStars` ke Firestore.
+### 1. Merombak Aturan Tebak Hero ML (Difficulty Rules)
+#### [MODIFY] `src/views/MLGuessPage.jsx`
+Sebelum mulai, pemain akan memilih 1 dari 4 tingkat kesulitan:
+1. **🟢 Easy (Santai):** Modal **10 HP**. Semua Clue gratis. *Pasif: "Fast Learner"* (Jika menebak benar di Clue 1, 2, atau 3, dapat +1 HP. Maksimal HP 10).
+2. **🟡 Medium (Menantang):** Modal **7 HP**. Semua Clue gratis. *Pasif: "Fast Learner"* (+1 HP jika tebak cepat, Maksimal HP 10).
+3. **🔴 Hard (Keras):** Modal **5 HP**. Clue 6 & 7 **bayar 1 HP** untuk membukanya. *Pasif: "Fast Learner"* (+1 HP jika tebak cepat).
+4. **💀 Nightmare (Neraka):** Modal **5 HP**. Clue 6 & 7 **bayar 1 HP**. **TIDAK ADA HEALING** (Tidak bisa nambah nyawa sama sekali). Sekali salah, nyawa melayang permanen.
 
-### 2. Arsitektur Multiplayer Real-Time
-#### [NEW] `src/stores/room.js`
-- *State manager* untuk Multiplayer. Akan menggunakan `onSnapshot` ke koleksi Firestore `rooms`.
-- Fungsi: `createRoom(gameId)`, `joinRoom(code)`, `leaveRoom()`, `updateRoomState(patch)`.
-- Struktur Dokumen `rooms/{roomCode}`:
-  - `gameId`: string (contoh: 'rps', 'xoxo')
-  - `host`: { uid, displayName, photoURL }
-  - `guest`: { uid, displayName, photoURL } | null
-  - `status`: 'waiting' | 'playing' | 'finished'
-  - `gameData`: objek kustom setiap game.
+- Jika HP habis (0), game berakhir (Game Over), dan *Streak* (rentetan benar beruntun) akan dievaluasi untuk mendapatkan *Achievement*.
 
-#### [NEW] `src/components/MultiplayerLobby.jsx`
-- Komponen antarmuka (UI) untuk menunggu pemain masuk (*Host*) atau form memasukkan kode (*Guest*).
-- Menampilkan status koneksi dan tombol "Mulai Game" untuk Host.
+### 2. Sistem Database Statistik & Achievement
+#### [MODIFY] `src/stores/player.js`
+Menambahkan data baru di Firestore pengguna:
+- `stats`: `{ mlGuessMaxStreak: { easy: 0, medium: 0, hard: 0, nightmare: 0 }, rpsWins: 0, xoxoWins: 0, wordleWins: 0 }`
+- `achievements`: Objek yang menghitung berapa kali sebuah medali didapatkan. Contoh: `{ 'ml-streak30-easy': 2, 'ml-perfect-nightmare': 1, 'xoxo-win10': 1 }`
+- Membuat fungsi `addAchievement(badgeId)` dan `incrementStat(statId)`.
 
-### 3. Penambahan Game Baru (Total 6 Game)
-#### [MODIFY] `src/views/GamesPage.jsx`
-- Update daftar game menjadi 6:
-  1. English Quiz (Solo/Duo)
-  2. Listen & Type Duel (Real-Time Duo)
-  3. Tebak Hero ML (Solo/Duo)
-  4. Gunting Batu Kertas (Real-Time Duo)
-  5. XOXO Gomoku 10x10 (Real-Time Duo)
-  6. Tebak Kata / Wordle Duel (Real-Time Duo)
+### 3. Evaluasi Achievement (Penghargaan)
+#### [NEW LOGIC] Evaluasi di setiap akhir game:
+**Tebak Hero ML:**
+- Jika mati di atas/sama dengan *Streak 30*: Dapat medali **"30-Streak [Difficulty]"**.
+- Jika berhasil menebak 133 hero tanpa mati: Dapat medali tertinggi **"Perfect 133 [Difficulty]"**.
+*Catatan: Medali Nightmare akan dibuat dengan warna efek api hitam/merah yang sangat sangar.*
 
-#### [NEW] `src/views/RPSGamePage.jsx` (Game 4)
-- Gunting Batu Kertas. Mode *Best of 3, 5, atau 7* (diatur oleh Host).
-- Status disembunyikan sampai kedua pemain memilih.
+**Multiplayer (RPS, XOXO, Wordle):**
+- Menambahkan pemanggilan `incrementStat('xoxoWins')` dsb di layar kemenangan `XOXOGamePage`, `RPSGamePage`, dan `WordleDuelPage` untuk pemain yang menang.
+- Jika mencapai 10/50 Kemenangan, berikan medali Mabar.
 
-#### [NEW] `src/views/XOXOGamePage.jsx` (Game 5)
-- Papan 10x10. Pemenang adalah yang berhasil menderetkan 5 lambang (X atau O) secara vertikal, horizontal, atau diagonal (aturan *Gomoku* atau *Five-in-a-Row*).
-
-#### [NEW] `src/views/WordleDuelPage.jsx` (Game 6)
-- Balapan menebak kata rahasia 5 huruf. Siapa yang berhasil menebak lebih cepat/dalam percobaan paling sedikit menang.
-
-### 4. Merombak Listen & Type Menjadi Duel
-#### [MODIFY] `src/views/ListenGamePage.jsx`
-- Gabungkan dengan `room.js`. Jika masuk lewat *room*, game berubah menjadi mode *Race* (Balapan).
-- Siapa yang pertama kali mengirim jawaban benar mendapat poin.
+### 4. Halaman Profil / Statistik (Hall of Fame)
+#### [MODIFY] `src/views/StatsPage.jsx`
+Merombak halaman statistik agar menampilkan:
+1. **Statistik Mabar:** Jumlah kemenangan RPS, XOXO, dan Wordle.
+2. **Rekor Tebak Hero ML:** Menampilkan *High Score* / *Max Streak* untuk masing-masing kesulitan.
+3. **Papan Prestasi (Badges):** Menampilkan medali-medali yang sudah dikoleksi (dan jumlah tumpukannya, misal `x2`, `x5`). Medali yang belum didapatkan akan dibuat abu-abu (*silhouetted*).
 
 ## Verification Plan
-### Manual Verification
-- Deploy ke Vercel (otomatis)
-- Uji fitur Edit Profil untuk Rank Mythic + Bintang.
-- Buka dua *tab browser* yang berbeda (sebagai akun A dan akun B), buat Room di salah satu akun, lalu gabung pakai kode Room di akun satunya.
-- Mainkan Gunting Batu Kertas dan XOXO hingga layar kemenangan muncul.
+1. Menguji *Difficulty Select Screen* di ML Guess.
+2. Sengaja menebak di Clue 1 untuk melihat apakah nyawa bertambah (di Easy/Med/Hard) dan tidak bertambah di Nightmare.
+3. Sengaja mengklik Clue 6 di Hard/Nightmare untuk melihat nyawa berkurang.
+4. Membuat *script* curang untuk menang 30x agar bisa memverifikasi *Badge* masuk ke `StatsPage`.
+5. Memenangkan game XOXO untuk melihat jumlah `xoxoWins` bertambah di `StatsPage`.

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Hand, Scissors, Square } from 'lucide-react'
 import { useRoomStore } from '@/stores/room'
 import { useAuthStore } from '@/stores/auth'
+import { usePlayerStore } from '@/stores/player'
 import { sfx } from '@/lib/sound'
 import MultiplayerLobby from '@/components/MultiplayerLobby'
 import GameLayout from '@/components/GameLayout'
@@ -83,6 +84,10 @@ function RPSBoard() {
 
     if (newWinner) {
       updateState({ hostScore: newHostScore, guestScore: newGuestScore, winner: newWinner })
+      const { incrementStat } = usePlayerStore.getState()
+      if ((newWinner === 'host' && isHost) || (newWinner === 'guest' && !isHost)) {
+        incrementStat('rpsWins')
+      }
     } else {
       updateState({ 
         hostScore: newHostScore, 
