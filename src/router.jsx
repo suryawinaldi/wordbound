@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { useAuthStore } from './stores/auth'
+import AppShell from './components/AppShell.jsx'
 
 // Lazy-loaded pages
 const SplashPage = lazy(() => import('./views/SplashPage.jsx'))
@@ -9,11 +10,9 @@ const ProfilePage = lazy(() => import('./views/ProfilePage.jsx'))
 const StatsPage = lazy(() => import('./views/StatsPage.jsx'))
 const CoupleLinkPage = lazy(() => import('./views/CoupleLinkPage.jsx'))
 const ListenGamePage = lazy(() => import('./views/ListenGamePage.jsx'))
-const WordleDuelPage = lazy(() => import('./views/WordleDuelPage.jsx'))
 const QuizSoloPage = lazy(() => import('./views/QuizSoloPage.jsx'))
-const SpeedRoundPage = lazy(() => import('./views/SpeedRoundPage.jsx'))
-const EchoTypePage = lazy(() => import('./views/EchoTypePage.jsx'))
-const LevelTestPage = lazy(() => import('./views/LevelTestPage.jsx'))
+const MLGuessPage = lazy(() => import('./views/MLGuessPage.jsx'))
+const GamesPage = lazy(() => import('./views/GamesPage.jsx'))
 
 function PageLoader() {
   return (
@@ -22,12 +21,10 @@ function PageLoader() {
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: '100dvh',
-      background: 'var(--bg-default)',
-      color: 'var(--text-secondary)',
-      fontFamily: 'var(--font-sans)',
-      fontSize: 'var(--text-body-sm-size)',
+      background: 'hsl(var(--background))',
+      color: 'hsl(var(--foreground))',
     }}>
-      Memuat...
+      <div className="w-8 h-8 border-4 border-slate-200 border-t-primary rounded-full animate-spin"></div>
     </div>
   )
 }
@@ -64,44 +61,18 @@ export const router = createBrowserRouter([
     element: <PublicOnlyRoute>{withSuspense(SplashPage)}</PublicOnlyRoute>,
   },
   {
-    path: '/dashboard',
-    element: <ProtectedRoute>{withSuspense(DashboardPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/profile',
-    element: <ProtectedRoute>{withSuspense(ProfilePage)}</ProtectedRoute>,
-  },
-  {
-    path: '/stats',
-    element: <ProtectedRoute>{withSuspense(StatsPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/couple-link',
-    element: <ProtectedRoute>{withSuspense(CoupleLinkPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/listen',
-    element: <ProtectedRoute>{withSuspense(ListenGamePage)}</ProtectedRoute>,
-  },
-  {
-    path: '/duel',
-    element: <ProtectedRoute>{withSuspense(WordleDuelPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/quiz',
-    element: <ProtectedRoute>{withSuspense(QuizSoloPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/speedround',
-    element: <ProtectedRoute>{withSuspense(SpeedRoundPage)}</ProtectedRoute>,
-  },
-  {
-    path: '/echo',
-    element: <ProtectedRoute>{withSuspense(EchoTypePage)}</ProtectedRoute>,
-  },
-  {
-    path: '/leveltest',
-    element: <ProtectedRoute>{withSuspense(LevelTestPage)}</ProtectedRoute>,
+    path: '/',
+    element: <ProtectedRoute><AppShell /></ProtectedRoute>,
+    children: [
+      { path: 'dashboard', element: withSuspense(DashboardPage) },
+      { path: 'games', element: withSuspense(GamesPage) },
+      { path: 'profile', element: withSuspense(ProfilePage) },
+      { path: 'stats', element: withSuspense(StatsPage) },
+      { path: 'couple-link', element: withSuspense(CoupleLinkPage) },
+      { path: 'listen', element: withSuspense(ListenGamePage) },
+      { path: 'quiz', element: withSuspense(QuizSoloPage) },
+      { path: 'ml-guess', element: withSuspense(MLGuessPage) },
+    ]
   },
   {
     path: '*',

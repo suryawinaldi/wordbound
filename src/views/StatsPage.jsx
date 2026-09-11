@@ -1,130 +1,91 @@
-import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts'
+import { Award, TrendingUp, Droplets, Flame, Sun } from 'lucide-react'
 import { useAuthStore } from '@/stores/auth'
-import { sfx } from '@/lib/sound'
-import { autoLevelFromScore } from '@/data/listen-bank'
-import './StatsPage.css'
+import { getMastery, getCefrEstimate, MASTERY_TRACKS } from '@/stores/progress'
+import GlassCard from '@/components/GlassCard'
+import StatPill from '@/components/StatPill'
 
-// Definisi badge — dievaluasi per orang, jadi tidak ada perbandingan "menang/kalah".
-const BADGES = [
-  { key: 'streak3', icon: '🔥', title: 'Mulai Panas', test: (p) => (p.streak || 0) >= 3 },
-  { key: 'streak7', icon: '🌋', title: 'Seminggu Beruntun', test: (p) => (p.streak || 0) >= 7 },
-  { key: 'streak30', icon: '💎', title: 'Sebulan Konsisten', test: (p) => (p.streak || 0) >= 30 },
-  { key: 'listen50', icon: '🎧', title: 'Telinga Tajam', test: (p) => (p.listenCorrect || 0) >= 50 },
-  { key: 'listen200', icon: '👂', title: 'Master Dengar', test: (p) => (p.listenCorrect || 0) >= 200 },
-  { key: 'duel3', icon: '⚔️', title: 'Petarung Kata', test: (p) => (p.duelWins || 0) >= 3 },
-  { key: 'solo3', icon: '🧩', title: 'Solois Wordle', test: (p) => (p.soloWordleWins || 0) >= 3 },
-  { key: 'battle3', icon: '🏁', title: 'Juara Balapan', test: (p) => (p.listenBattleWins || 0) >= 3 },
-  { key: 'levelC1', icon: '🎓', title: 'Level C1+', test: (p) => ['C1', 'C2'].includes(autoLevelFromScore(p.score)) },
-]
-
-function getPlayerCardData(userData) {
-  if (!userData) return null
-  const p = userData || {}
-  const badges = BADGES.filter((b) => b.test(p))
-  return { name: p.displayName?.split(' ')[0] || 'Unknown', p, badges }
-}
-
-function levelLabel(score) {
-  return Math.floor((score || 0) / 100) + 1
+const TRACK_LABELS = {
+  vocabulary: 'Kosakata',
+  grammar: 'Tata Bahasa',
+  listening: 'Menyimak',
+  reading: 'Membaca',
+  writing: 'Menulis',
+  speaking: 'Berbicara',
 }
 
 export default function StatsPage() {
   const userData = useAuthStore((s) => s.userData)
-  const partnerData = useAuthStore((s) => s.partnerData)
+  const mastery = getMastery(userData)
+  const cefr = getCefrEstimate(userData)
 
-  const cards = useMemo(() => {
-    const list = []
-    if (userData) list.push(getPlayerCardData(userData))
-    if (partnerData) list.push(getPlayerCardData(partnerData))
-    return list
-  }, [userData, partnerData])
-
-  const together = useMemo(() => {
-    const a = userData || {}
-    const b = partnerData || {}
-    return {
-      combinedStreak: (a.streak || 0) + (b.streak || 0),
-      totalListenCorrect: (a.listenCorrect || 0) + (b.listenCorrect || 0),
-      totalDuels: (a.duelWins || 0) + (b.duelWins || 0),
-    }
-  }, [userData, partnerData])
-
-  const me = userData?.displayName?.split(' ')[0] || 'Kamu'
+  const chartData = MASTERY_TRACKS.map((t) => ({ track: TRACK_LABELS[t], score: mastery[t] || 0 }))
 
   return (
-    <>
-      <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
-        <span className="stats-eyebrow">🏆 Rekor &amp; Pencapaian</span>
-        <h1 style={{ fontSize: 'var(--text-display-sm-size)' }}>Progres Kalian Berdua</h1>
-        <p style={{ fontSize: 'var(--text-body-sm-size)', marginTop: 'var(--space-2)', color: '#B9C2C2' }}>
-          Bukan lomba — ini rekor pribadi &amp; momen yang udah kalian capai bareng.
-        </p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">Statistik</h1>
+        <p className="text-sm text-muted-foreground">Perkembangan belajar bahasa Inggrismu</p>
       </div>
 
-      {/* Bareng-bareng */}
-      <div className="card together-card" style={{ marginBottom: 'var(--space-4)' }}>
-        <h3 style={{ fontSize: 'var(--text-heading-md-size)', marginBottom: 'var(--space-3)', textAlign: 'center' }}>✨ Dicapai Bareng</h3>
-        <div className="stats-together-grid">
-          <div>
-            <div style={{ fontSize: '1.5rem' }}>🔥</div>
-            <div className="stats-together-number">{together.combinedStreak}</div>
-            <div className="stats-together-label">total hari streak</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '1.5rem' }}>🎧</div>
-            <div className="stats-together-number">{together.totalListenCorrect}</div>
-            <div className="stats-together-label">jawaban dengar benar</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '1.5rem' }}>⚔️</div>
-            <div className="stats-together-number">{together.totalDuels}</div>
-            <div className="stats-together-label">duel dimainkan</div>
-          </div>
+      {/* CEFR badge */}
+      <GlassCard strong className="p-6 flex items-center gap-5" glow="primary">
+        <div className="grid place-items-center w-20 h-20 rounded-3xl bg-gradient-to-br from-growth to-sky text-white shadow-glow">
+          <span className="font-display font-extrabold text-3xl">{cefr}</span>
         </div>
+        <div>
+          <p className="text-xs uppercase tracking-wider text-muted-foreground">Estimasi Level CEFR</p>
+          <p className="font-display text-xl font-bold">{cefrLabel(cefr)}</p>
+          <p className="text-xs text-muted-foreground mt-1">Diperbarui otomatis dari mastery tracks</p>
+        </div>
+      </GlassCard>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <StatPill icon={Droplets} label="Total XP" value={(userData?.xp || 0).toLocaleString('id')} tone="sky" />
+        <StatPill icon={Flame} label="Streak" value={`${userData?.streak || 0} hari`} tone="sun" />
+        <StatPill icon={Sun} label="Tabungan" value={`Rp${(userData?.savings || 0).toLocaleString('id')}`} tone="sun" />
+        <StatPill icon={Award} label="Koin" value={(userData?.coins || 0).toLocaleString('id')} tone="growth" />
       </div>
 
-      {/* Kartu per orang */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        {cards.map((c) => (
-          <div key={c.name} className="card player-card">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-3)' }}>
-              <h3 style={{
-                fontSize: 'var(--text-heading-md-size)',
-                color: c.name === 'Surya' ? 'var(--color-surya)' : 'var(--color-almira)',
-              }}>
-                {c.name}{c.name === me ? ' (kamu)' : ''}
-              </h3>
-              <span className="pill" style={{ background: 'var(--color-gold)', color: 'var(--color-ink)' }}>
-                {autoLevelFromScore(c.p.score)}
-              </span>
-            </div>
+      {/* Mastery radar */}
+      <GlassCard className="p-5">
+        <h3 className="font-bold mb-4 flex items-center gap-2"><TrendingUp className="w-5 h-5 text-growth" /> Mastery Tracks</h3>
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart data={chartData} outerRadius="72%">
+              <PolarGrid stroke="hsl(var(--border))" />
+              <PolarAngleAxis dataKey="track" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+              <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
+              <Radar dataKey="score" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.35} strokeWidth={2} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+      </GlassCard>
 
-            <div className="stats-player-grid">
-              <div>🔥 Streak: <strong>{c.p.streak || 0}</strong></div>
-              <div>⭐ Skor: <strong>{c.p.score || 0}</strong> (Lv.{levelLabel(c.p.score)})</div>
-              <div>⚔️ Menang duel: <strong>{c.p.duelWins || 0}</strong></div>
-              <div>🏁 Menang balapan: <strong>{c.p.listenBattleWins || 0}</strong></div>
-            </div>
-
-            {c.badges.length > 0 ? (
-              <div className="badge-row">
-                {c.badges.map((b) => (
-                  <span key={b.key} className="badge" title={b.title}>
-                    {b.icon} <span style={{ fontSize: '10px' }}>{b.title}</span>
-                  </span>
-                ))}
+      {/* Mastery bars */}
+      <GlassCard className="p-5 space-y-3">
+        <h3 className="font-bold">Rincian per Track</h3>
+        {MASTERY_TRACKS.map((t) => {
+          const v = mastery[t] || 0
+          return (
+            <div key={t}>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="font-semibold">{TRACK_LABELS[t]}</span>
+                <span className="text-muted-foreground">{v}/100</span>
               </div>
-            ) : (
-              <p style={{ fontSize: 'var(--text-caption-size)', color: '#8a8578' }}>Belum ada badge — ayo main lagi! 🌱</p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <Link to="/dashboard" className="stats-back-link" onClick={() => sfx.click()}>
-        Kembali ke beranda
-      </Link>
-    </>
+              <div className="h-2.5 rounded-full bg-muted overflow-hidden">
+                <div className="h-full rounded-full bg-gradient-to-r from-growth to-sky" style={{ width: `${v}%` }} />
+              </div>
+            </div>
+          )
+        })}
+      </GlassCard>
+    </div>
   )
+}
+
+function cefrLabel(c) {
+  return ({
+    A1: 'Pemula', A2: 'Dasar', B1: 'Menengah', B2: 'Menengah Atas', C1: 'Mahir', C2: 'Sangat Mahir',
+  })[c] || c
 }

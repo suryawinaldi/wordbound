@@ -1,0 +1,6 @@
+import{c as a,j as e}from"./index-Brui_igG.js";import{c}from"./GlassCard-Bc04UVhR.js";/**
+ * @license lucide-react v1.44.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const r={name:"trending-up",size:24,node:[["path",{d:"M16 7h6v6",key:"box55l"}],["path",{d:"m22 7-8.5 8.5-5-5L2 17",key:"1t1m79"}]]};r.node;const u=a(r),i={growth:"from-growth/15 to-growth/5 text-growth border-growth/20",sun:"from-sun/15 to-sun/5 text-sun border-sun/20",couple:"from-couple/15 to-couple/5 text-couple border-couple/20",sky:"from-sky/15 to-sky/5 text-sky border-sky/20",muted:"from-muted to-muted/40 text-muted-foreground border-border"};function p({icon:t,label:o,value:s,tone:n="muted",className:d}){return e.jsxs("div",{className:c("flex items-center gap-2.5 rounded-2xl border bg-gradient-to-br px-3.5 py-2.5",i[n],d),children:[t&&e.jsx("span",{className:"grid place-items-center w-8 h-8 rounded-xl bg-background/60",children:e.jsx(t,{className:"w-4 h-4"})}),e.jsxs("div",{className:"leading-tight",children:[e.jsx("p",{className:"text-[0.62rem] uppercase tracking-wider opacity-70 font-semibold",children:o}),e.jsx("p",{className:"text-base font-bold text-foreground",children:s})]})]})}export{p as S,u as T};

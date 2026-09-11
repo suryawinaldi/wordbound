@@ -77,6 +77,14 @@ export const usePlayerStore = create(() => ({
     return persistPatch({ coins: currentCoins + amount })
   },
 
+  async addSavings(amount) {
+    if (!amount) return
+    const { userData } = useAuthStore.getState()
+    const currentSavings = userData?.savings || 0
+    const { persistPatch } = usePlayerStore.getState()
+    return persistPatch({ savings: currentSavings + amount })
+  },
+
   async spendCoins(amount) {
     if (amount <= 0) return true
     const { userData } = useAuthStore.getState()

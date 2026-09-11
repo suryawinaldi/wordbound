@@ -1,1 +1,0 @@
-import{t as e}from"./index-CCwb5NIK.js";var t=e();function n({children:e}){return(0,t.jsx)(`div`,{className:`wb-auth-layout`,children:(0,t.jsx)(`div`,{className:`wb-auth-layout__panel`,children:e})})}export{n as t};

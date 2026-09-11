@@ -1,357 +1,199 @@
-import { useState, useRef, useEffect, useMemo } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '@/stores/auth'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { HelpCircle, Trophy, User, Users, Check, X, ArrowRight } from 'lucide-react'
 import { usePlayerStore } from '@/stores/player'
-import { QUIZ_BANK } from '@/data/quiz-bank'
+import { useAuthStore } from '@/stores/auth'
 import { sfx } from '@/lib/sound'
-import { useCoopSession } from '@/lib/coop'
-import AppShell from '@/layouts/AppShell'
-import NavigationShell from '@/components/shared/NavigationShell'
-import Button from '@/components/base/Button'
-import './QuizSoloPage.css'
+import GlassCard from '@/components/GlassCard'
+import Confetti from '@/components/Confetti'
+import GameLayout from '@/components/GameLayout'
 
-const NAV_ITEMS = [
-  { label: 'Beranda', to: '/dashboard', icon: '🏠' },
-  { label: 'Profil', to: '/profile', icon: '👤' },
+// A small quiz bank for demonstration
+const QUIZ_BANK = [
+  { q: "Apa bahasa Inggris dari 'Apel'?", opts: ["Apple", "Orange", "Grape", "Banana"], ans: 0 },
+  { q: "Pilih kalimat yang benar:", opts: ["She go to school", "She goes to school", "She going to school", "She gone to school"], ans: 1 },
+  { q: "Sinonim dari kata 'Happy' adalah...", opts: ["Sad", "Angry", "Joyful", "Tired"], ans: 2 },
+  { q: "I ___ a book right now.", opts: ["am read", "reading", "read", "am reading"], ans: 3 },
+  { q: "Lawan kata dari 'Big' adalah...", opts: ["Large", "Huge", "Small", "Giant"], ans: 2 }
 ]
 
-const AUTO_SKIP_MS = 6500
-const POSITIONS = ['6%', '32%', '58%', '80%']
-const DELAYS = ['0s', '0.9s', '0.4s', '1.3s']
+const XP_REWARD = 20
 
 export default function QuizSoloPage() {
-  const navigate = useNavigate()
-  const currentUser = useAuthStore((s) => s.currentUser)
+  const { awardXP, recordActivity } = usePlayerStore()
   const userData = useAuthStore((s) => s.userData)
-  const partnerData = useAuthStore((s) => s.partnerData)
-  const { recordActivity } = usePlayerStore()
+  const hasPartner = !!userData?.partnerUid
 
-  const me = currentUser?.uid
-  const other = userData?.partnerUid
-  const myName = userData?.displayName?.split(' ')[0] || 'Kamu'
-  const otherName = partnerData?.displayName?.split(' ')[0] || 'Pasangan'
+  const [mode, setMode] = useState(null) // 'solo' or 'duo'
 
-  const coop = useCoopSession('quiz')
+  if (!mode) {
+    return (
+      <GameLayout title="English Quiz">
+        <GlassCard className="p-8 text-center max-w-sm mx-auto mt-6">
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-growth to-sky text-white grid place-items-center mb-6 shadow-glow">
+            <HelpCircle className="w-10 h-10" />
+          </div>
+          <h2 className="text-xl font-display font-bold mb-2">Pilih Mode Bermain</h2>
+          <p className="text-sm text-muted-foreground mb-8">
+            Uji kemampuan kosakata & grammar kamu!
+          </p>
+          <div className="space-y-3">
+            <button
+              onClick={() => { sfx.click(); setMode('solo') }}
+              className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition"
+            >
+              <User className="w-5 h-5 text-sky" /> Main Sendiri (Solo)
+            </button>
+            {hasPartner && (
+              <button
+                onClick={() => { sfx.click(); setMode('duo') }}
+                className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition"
+              >
+                <Users className="w-5 h-5 text-couple" /> Bareng Pasangan (Duo)
+              </button>
+            )}
+          </div>
+        </GlassCard>
+      </GameLayout>
+    )
+  }
 
-  const [mode, setMode] = useState(null)
+  return <QuizGame mode={mode} onBack={() => setMode(null)} />
+}
+
+function QuizGame({ mode }) {
+  const { awardXP, recordActivity } = usePlayerStore()
+  const [questions] = useState(() => [...QUIZ_BANK].sort(() => Math.random() - 0.5))
   const [idx, setIdx] = useState(0)
-  const [answered, setAnswered] = useState(false)
-  const [finished, setFinished] = useState(false)
-  const fieldRef = useRef(null)
-  const [balloonStates, setBalloonStates] = useState({})
-  const [confetti, setConfetti] = useState([])
-  const [toast, setToast] = useState('')
-  const autoSkipTimerRef = useRef(null)
+  
+  const [selected, setSelected] = useState(null) // index of selected option
+  const [checked, setChecked] = useState(false)
+  const [correct, setCorrect] = useState(false)
+  const [score, setScore] = useState(0)
+  const [turn, setTurn] = useState(0) // 0 for player 1, 1 for player 2
+  const [gameOver, setGameOver] = useState(false)
 
-  const [soloQuestions, setSoloQuestions] = useState([])
-  const [soloScore, setSoloScore] = useState(0)
+  const q = questions[idx]
 
-  const coopSession = coop?.session
-  const current = mode === 'coop'
-    ? coopSession?.questions?.[coopSession?.idx]
-    : soloQuestions[idx]
-
-  const totalQuestions = mode === 'coop'
-    ? (coopSession?.questions?.length || 0)
-    : soloQuestions.length
-
-  const activeIdx = mode === 'coop' ? (coopSession?.idx || 0) : idx
-  const progressPct = totalQuestions ? Math.round((activeIdx / totalQuestions) * 100) : 0
-  const myTurn = mode !== 'coop' || coopSession?.turn === me
-
-  function showToast(msg) {
-    setToast(msg)
-    setTimeout(() => setToast(''), 2000)
-  }
-
-  function spawnConfetti(x, y) {
-    const colors = ['var(--color-amber-500)', 'var(--state-success)', 'var(--brand-primary)', 'var(--brand-secondary)']
-    const newItems = []
-    for (let i = 0; i < 10; i++) {
-      const id = Math.random().toString(36).slice(2)
-      newItems.push({
-        id,
-        left: x + (Math.random() * 40 - 20),
-        top: y + (Math.random() * 20 - 10),
-        color: colors[i % colors.length],
-        round: Math.random() > 0.5,
-      })
-      setTimeout(() => {
-        setConfetti((prev) => prev.filter((c) => c.id !== id))
-      }, 900)
-    }
-    setConfetti((prev) => [...prev, ...newItems])
-  }
-
-  function clearAutoSkip() {
-    if (autoSkipTimerRef.current) {
-      clearTimeout(autoSkipTimerRef.current)
-      autoSkipTimerRef.current = null
-    }
-  }
-
-  function scheduleAutoSkip() {
-    clearAutoSkip()
-    autoSkipTimerRef.current = setTimeout(() => {
-      handleAnswer(-1, null)
-    }, AUTO_SKIP_MS)
-  }
-
-  useEffect(() => {
-    return () => clearAutoSkip()
-  }, [])
-
-  function startSolo() {
+  function handleSelect(optIdx) {
+    if (checked) return
     sfx.click()
-    const questions = [...QUIZ_BANK].sort(() => Math.random() - 0.5).slice(0, 5)
-    setSoloQuestions(questions)
-    setIdx(0)
-    setSoloScore(0)
-    setFinished(false)
-    setAnswered(false)
-    setBalloonStates({})
-    scheduleAutoSkip()
+    setSelected(optIdx)
   }
 
-  async function startCoop() {
-    sfx.click()
-    const questions = [...QUIZ_BANK].sort(() => Math.random() - 0.5).slice(0, 5)
-    await coop.createSession({ questions, idx: 0, score: 0, turn: me, status: 'playing' })
-  }
+  function handleCheck() {
+    if (selected === null || checked) return
+    setChecked(true)
+    
+    const isCorrect = selected === q.ans
+    setCorrect(isCorrect)
 
-  async function rematchCoop() {
-    sfx.click()
-    await coop.endSession()
-  }
-
-  async function handleAnswer(i, event) {
-    if (answered) return
-    if (mode === 'coop' && !myTurn) return
-    setAnswered(true)
-    clearAutoSkip()
-
-    const q = current
-    if (!q) { setAnswered(false); return }
-
-    const timedOut = i === -1
-    const correct = !timedOut && i === q.a
-
-    const newBalloonStates = { ...balloonStates }
-    if (timedOut) {
-      newBalloonStates[q.a] = 'glow'
-      showToast('Waktu habis, lanjut ⏰')
-      sfx.wrong()
-    } else if (correct) {
+    if (isCorrect) {
       sfx.correct()
-      if (event && fieldRef.current) {
-        const rect = event.currentTarget.getBoundingClientRect()
-        const fieldRect = fieldRef.current.getBoundingClientRect()
-        newBalloonStates[i] = 'popped'
-        spawnConfetti(rect.left - fieldRect.left + rect.width / 2, rect.top - fieldRect.top + rect.height / 2)
-      }
-      showToast('Betul! 🎉')
+      setScore(s => s + 1)
+      awardXP(XP_REWARD)
     } else {
-      newBalloonStates[i] = 'sunk'
-      newBalloonStates[q.a] = 'glow'
-      showToast('Kurang tepat, ini jawabannya ✨')
       sfx.wrong()
     }
-    setBalloonStates(newBalloonStates)
+  }
 
-    await new Promise((r) => setTimeout(r, 1000))
-
-    if (mode === 'coop') {
-      const sess = coopSession
-      const nextIdx = sess.idx + 1
-      const isFinished = nextIdx >= sess.questions.length
-      await coop.patchSession({
-        idx: nextIdx,
-        score: (sess.score || 0) + (correct ? 1 : 0),
-        turn: other,
-        status: isFinished ? 'finished' : 'playing',
-      })
-      setAnswered(false)
-      setBalloonStates({})
-      if (isFinished) {
-        (sess.score + (correct ? 1 : 0)) >= sess.questions.length / 2 ? sfx.win() : sfx.lose()
-      }
+  function handleNext() {
+    sfx.whoosh()
+    if (idx + 1 >= questions.length) {
+      recordActivity()
+      if (score >= questions.length / 2) sfx.win()
+      setGameOver(true)
     } else {
-      const newScore = soloScore + (correct ? 1 : 0)
-      if (correct) setSoloScore(newScore)
-      const nextIdx = idx + 1
-      setIdx(nextIdx)
-      setAnswered(false)
-      setBalloonStates({})
-      if (nextIdx >= soloQuestions.length) {
-        setFinished(true)
-        newScore >= soloQuestions.length / 2 ? sfx.win() : sfx.lose()
-        await recordActivity({ score: (userData?.score || 0) + newScore, quizzes: (userData?.quizzes || 0) + 1 })
-      } else {
-        scheduleAutoSkip()
-      }
+      setIdx(i => i + 1)
+      setSelected(null)
+      setChecked(false)
+      setCorrect(false)
+      if (mode === 'duo') setTurn(t => (t === 0 ? 1 : 0))
     }
   }
 
-  function chooseMode(m) {
-    sfx.click()
-    setMode(m)
-    if (m === 'coop') coop.watch?.()
-  }
-
-  function backToModeSelect() {
-    sfx.click()
-    clearAutoSkip()
-    setMode(null)
+  if (gameOver) {
+    return (
+      <GameLayout title="English Quiz" right={<span className="text-sm font-bold text-sky">{score * XP_REWARD} XP</span>}>
+        <GlassCard strong className="p-8 text-center relative overflow-hidden max-w-sm mx-auto">
+          {score > 0 && <Confetti fire={true} />}
+          <div className="grid place-items-center w-20 h-20 rounded-3xl bg-gradient-to-br from-growth to-sky text-white mx-auto mb-4 shadow-glow">
+            <Trophy className="w-10 h-10" />
+          </div>
+          <h2 className="font-display text-2xl font-extrabold">Selesai! 🎉</h2>
+          <p className="text-muted-foreground mt-1">Jawaban Benar: <span className="font-bold text-foreground">{score}/{questions.length}</span></p>
+          <p className="mt-4 text-3xl font-display font-extrabold text-gradient">+{score * XP_REWARD} XP</p>
+          <Link to="/games" className="inline-block mt-6 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold">Kembali ke Games</Link>
+        </GlassCard>
+      </GameLayout>
+    )
   }
 
   return (
-    <AppShell navigation={<NavigationShell items={NAV_ITEMS} />}>
-      <div className="quiz-page">
-
-        {/* Mode picker */}
-        {!mode && (
-          <div className="quiz-mode-select">
-            <div className="quiz-header">
-              <span className="quiz-eyebrow">🎈 Kuis Solo</span>
-              <h1 className="quiz-title">Pilih Mode</h1>
-            </div>
-            <div className="quiz-card quiz-card--center">
-              <p className="quiz-hint">Main sendiri, atau bareng {otherName} gantian jawab?</p>
-              <div className="quiz-btn-row">
-                <Button variant="primary" block onClick={() => chooseMode('solo')}>
-                  🧍 Solo<br /><span className="quiz-btn-sub">Main sendiri</span>
-                </Button>
-                <Button variant="secondary" block onClick={() => chooseMode('coop')}>
-                  🤝 Bareng<br /><span className="quiz-btn-sub">Gantian sama {otherName}</span>
-                </Button>
-              </div>
-            </div>
-            <Link to="/dashboard" className="quiz-back-link" onClick={() => sfx.click()}>
-              Kembali ke beranda
-            </Link>
+    <GameLayout 
+      title="English Quiz" 
+      right={<span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-muted">{idx + 1}/{questions.length}</span>}
+    >
+      <div className="relative max-w-md mx-auto space-y-4">
+        {correct && <Confetti fire={true} />}
+        
+        {mode === 'duo' && !checked && (
+          <div className="text-center py-2">
+            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${turn === 0 ? 'bg-sky/20 text-sky' : 'bg-couple/20 text-couple'}`}>
+              Giliran: {turn === 0 ? 'Pemain 1' : 'Pemain 2 (Pasangan)'}
+            </span>
           </div>
         )}
 
-        {/* Solo mode */}
-        {mode === 'solo' && (
-          <>
-            {soloQuestions.length === 0 ? (
-              <div className="quiz-card quiz-card--center">
-                <p className="quiz-hint">5 soal vocab & grammar — pecahin balon jawaban yang benar 🎈</p>
-                <Button variant="primary" block onClick={startSolo}>Mulai</Button>
-              </div>
-            ) : finished ? (
-              <div className="quiz-card quiz-card--center quiz-card--result">
-                <div className="quiz-result-emoji">{soloScore >= 4 ? '🏆' : soloScore >= 2 ? '👍' : '🌱'}</div>
-                <h2 className="quiz-result-title">Selesai!</h2>
-                <p className="quiz-hint">Skor kamu: <strong>{soloScore} / {soloQuestions.length}</strong></p>
-                <div className="quiz-btn-row">
-                  <Button variant="secondary" onClick={backToModeSelect}>Ganti Mode</Button>
-                  <Button variant="primary" onClick={() => navigate('/dashboard')}>Ke Beranda</Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="quiz-progress-bar">
-                  <div className="quiz-progress-fill" style={{ width: `${progressPct}%` }} />
-                </div>
-                <span className="quiz-tag">{current?.tag}</span>
-                <div className="quiz-question">{current?.q}</div>
-                <p className="quiz-balloon-hint">Pecahin balon dengan jawaban yang benar 🎈</p>
+        <GlassCard className="p-6">
+          <p className="text-lg font-medium text-center mb-6 leading-relaxed">{q.q}</p>
 
-                <div ref={fieldRef} className="balloon-field">
-                  {current?.opts?.map((opt, i) => (
-                    <div
-                      key={`${idx}-${i}`}
-                      className={`balloon c${i % 4} ${balloonStates[i] || ''}`}
-                      style={{ left: POSITIONS[i], animationDelay: `${DELAYS[i]}, ${DELAYS[i]}` }}
-                      onClick={(e) => handleAnswer(i, e)}
-                    >
-                      {opt}
-                    </div>
-                  ))}
-                  {confetti.map((c) => (
-                    <div
-                      key={c.id}
-                      className="quiz-confetti"
-                      style={{ left: c.left, top: c.top, background: c.color, borderRadius: c.round ? '50%' : '2px' }}
-                    />
-                  ))}
-                </div>
+          <div className="space-y-3">
+            {q.opts.map((opt, i) => {
+              let btnClass = "w-full py-4 px-5 rounded-2xl text-left font-medium border-2 transition-all "
+              
+              if (!checked) {
+                if (selected === i) btnClass += "border-primary bg-primary/10 text-primary"
+                else btnClass += "border-border bg-background/40 hover:border-primary/50 text-foreground"
+              } else {
+                if (i === q.ans) btnClass += "border-growth bg-growth/20 text-growth"
+                else if (selected === i) btnClass += "border-destructive bg-destructive/20 text-destructive"
+                else btnClass += "border-border bg-background/20 opacity-50"
+              }
 
-                <Link to="/dashboard" className="quiz-back-link" onClick={() => sfx.click()}>
-                  Keluar dari kuis
-                </Link>
-              </>
-            )}
-          </>
-        )}
+              return (
+                <button key={i} disabled={checked} onClick={() => handleSelect(i)} className={btnClass}>
+                  <div className="flex justify-between items-center">
+                    <span>{opt}</span>
+                    {checked && i === q.ans && <Check className="w-5 h-5" />}
+                    {checked && selected === i && i !== q.ans && <X className="w-5 h-5" />}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
 
-        {/* Coop mode */}
-        {mode === 'coop' && (
-          <>
-            <div className="quiz-header">
-              <span className="quiz-eyebrow">🤝 Main Bareng</span>
-              <h1 className="quiz-title">{myName} & {otherName}</h1>
-            </div>
-
-            {!coopSession ? (
-              <div className="quiz-card quiz-card--center">
-                <p className="quiz-hint">Belum ada sesi jalan. Mulai, nanti {otherName} bisa langsung gabung dari HP-nya.</p>
-                <Button variant="primary" block onClick={startCoop}>Mulai Sesi Bareng</Button>
-              </div>
-            ) : coopSession.status === 'finished' ? (
-              <div className="quiz-card quiz-card--center quiz-card--result">
-                <div className="quiz-result-emoji">{(coopSession.score >= coopSession.questions.length / 2) ? '🏆' : '🌱'}</div>
-                <h2 className="quiz-result-title">Selesai!</h2>
-                <p className="quiz-hint">Skor kalian berdua: <strong>{coopSession.score} / {coopSession.questions.length}</strong></p>
-                <div className="quiz-btn-row">
-                  <Button variant="secondary" onClick={backToModeSelect}>Ganti Mode</Button>
-                  <Button variant="primary" onClick={rematchCoop}>Main Lagi</Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="quiz-progress-bar">
-                  <div className="quiz-progress-fill" style={{ width: `${progressPct}%` }} />
-                </div>
-                <div className={`quiz-turn-badge ${myTurn ? 'quiz-turn-badge--active' : ''}`}>
-                  {myTurn ? 'Giliran kamu jawab' : `Giliran ${otherName}...`} · Skor bareng {coopSession.score}
-                </div>
-                <span className="quiz-tag">{current?.tag}</span>
-                <div className="quiz-question">{current?.q}</div>
-
-                <div ref={fieldRef} className={`balloon-field ${!myTurn ? 'balloon-field--disabled' : ''}`}>
-                  {current?.opts?.map((opt, i) => (
-                    <div
-                      key={`${activeIdx}-${i}`}
-                      className={`balloon c${i % 4} ${balloonStates[i] || ''}`}
-                      style={{ left: POSITIONS[i], animationDelay: `${DELAYS[i]}, ${DELAYS[i]}` }}
-                      onClick={(e) => myTurn && handleAnswer(i, e)}
-                    >
-                      {opt}
-                    </div>
-                  ))}
-                  {confetti.map((c) => (
-                    <div
-                      key={c.id}
-                      className="quiz-confetti"
-                      style={{ left: c.left, top: c.top, background: c.color, borderRadius: c.round ? '50%' : '2px' }}
-                    />
-                  ))}
-                </div>
-                <Link to="/dashboard" className="quiz-back-link" onClick={() => sfx.click()}>Keluar dari kuis</Link>
-              </>
-            )}
-
-            {!coopSession && (
-              <button className="quiz-back-link" onClick={backToModeSelect}>← Ganti mode</button>
-            )}
-          </>
-        )}
-
-        {toast && <div className="quiz-toast">{toast}</div>}
+          {!checked ? (
+            <button 
+              onClick={handleCheck} 
+              disabled={selected === null} 
+              className="mt-6 w-full py-4 rounded-2xl bg-primary text-primary-foreground font-semibold disabled:opacity-50"
+            >
+              Periksa Jawaban
+            </button>
+          ) : (
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+              <button 
+                onClick={handleNext} 
+                className="mt-6 w-full py-4 rounded-2xl bg-primary text-primary-foreground font-semibold flex items-center justify-center gap-2"
+              >
+                Lanjut <ArrowRight className="w-5 h-5" />
+              </button>
+            </motion.div>
+          )}
+        </GlassCard>
       </div>
-    </AppShell>
+    </GameLayout>
   )
 }
