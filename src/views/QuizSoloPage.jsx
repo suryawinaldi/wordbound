@@ -1,22 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HelpCircle, Trophy, User, Users, Check, X, ArrowRight } from 'lucide-react'
 import { usePlayerStore } from '@/stores/player'
 import { useAuthStore } from '@/stores/auth'
+import { useProgressStore } from '@/stores/progress'
 import { sfx } from '@/lib/sound'
 import GlassCard from '@/components/GlassCard'
 import Confetti from '@/components/Confetti'
 import GameLayout from '@/components/GameLayout'
-
-// A small quiz bank for demonstration
-const QUIZ_BANK = [
-  { q: "Apa bahasa Inggris dari 'Apel'?", opts: ["Apple", "Orange", "Grape", "Banana"], ans: 0 },
-  { q: "Pilih kalimat yang benar:", opts: ["She go to school", "She goes to school", "She going to school", "She gone to school"], ans: 1 },
-  { q: "Sinonim dari kata 'Happy' adalah...", opts: ["Sad", "Angry", "Joyful", "Tired"], ans: 2 },
-  { q: "I ___ a book right now.", opts: ["am read", "reading", "read", "am reading"], ans: 3 },
-  { q: "Lawan kata dari 'Big' adalah...", opts: ["Large", "Huge", "Small", "Giant"], ans: 2 }
-]
 
 const XP_REWARD = 20
 
@@ -50,9 +42,16 @@ export default function QuizSoloPage() {
                 onClick={() => { sfx.click(); setMode('duo') }}
                 className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition"
               >
-                <Users className="w-5 h-5 text-couple" /> Bareng Pasangan (Duo)
+                <Users className="w-5 h-5 text-couple" /> Gantian (1 Layar)
               </button>
             )}
+            <button
+              onClick={() => { sfx.click(); navigate('/quiz-duel') }}
+              className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-rose-500/10"></div>
+              <Users className="w-5 h-5 text-primary" /> Mabar Online (Room)
+            </button>
           </div>
         </GlassCard>
       </GameLayout>
@@ -86,7 +85,7 @@ function QuizGame({ mode }) {
     if (selected === null || checked) return
     setChecked(true)
     
-    const isCorrect = selected === q.ans
+    const isCorrect = selected === q.a
     setCorrect(isCorrect)
 
     if (isCorrect) {
@@ -157,7 +156,7 @@ function QuizGame({ mode }) {
                 if (selected === i) btnClass += "border-primary bg-primary/10 text-primary"
                 else btnClass += "border-border bg-background/40 hover:border-primary/50 text-foreground"
               } else {
-                if (i === q.ans) btnClass += "border-growth bg-growth/20 text-growth"
+                if (i === q.a) btnClass += "border-growth bg-growth/20 text-growth"
                 else if (selected === i) btnClass += "border-destructive bg-destructive/20 text-destructive"
                 else btnClass += "border-border bg-background/20 opacity-50"
               }
@@ -166,8 +165,8 @@ function QuizGame({ mode }) {
                 <button key={i} disabled={checked} onClick={() => handleSelect(i)} className={btnClass}>
                   <div className="flex justify-between items-center">
                     <span>{opt}</span>
-                    {checked && i === q.ans && <Check className="w-5 h-5" />}
-                    {checked && selected === i && i !== q.ans && <X className="w-5 h-5" />}
+                    {checked && i === q.a && <Check className="w-5 h-5" />}
+                    {checked && selected === i && i !== q.a && <X className="w-5 h-5" />}
                   </div>
                 </button>
               )

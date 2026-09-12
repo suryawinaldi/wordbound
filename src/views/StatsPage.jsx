@@ -113,6 +113,10 @@ export default function StatsPage() {
             <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Memory Match</p>
             <p className="text-2xl font-black text-amber-500">{userData?.stats?.memoryMatchWins || 0}</p>
           </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Menang Quiz Duel</p>
+            <p className="text-2xl font-black text-green-500">{userData?.stats?.quizDuelWins || 0}</p>
+          </div>
         </div>
       </GlassCard>
 
