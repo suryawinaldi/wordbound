@@ -60,7 +60,7 @@ export default function SplashPage() {
         </motion.div>
 
         <h1 className="font-display font-extrabold text-4xl sm:text-5xl tracking-tight">
-          <span className="text-gradient">DuoQuest</span>
+          <span className="text-gradient">DuoBloom</span>
         </h1>
         <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground mt-1.5">Life Estate</p>
 
