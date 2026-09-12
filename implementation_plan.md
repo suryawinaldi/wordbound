@@ -1,38 +1,23 @@
-# Rencana Implementasi: Sistem Undang Pasangan & Listen Duel
+# Rencana Implementasi: Connect 4 & Memory Match Duel
 
-Karena permintaan ini membutuhkan perubahan mendasar pada sistem *Multiplayer* (agar bisa mengirim undangan langsung tanpa kode) dan penambahan game baru, maka saya membuat rencana teknisnya:
+## 1. Persiapan Routing & Menu
+- Update `src/router.jsx` untuk mendaftarkan rute `/connect4` dan `/memory-match`.
+- Update `src/views/GamesPage.jsx` untuk menampilkan 2 game ini (total menjadi 8 game).
+- Update `src/views/StatsPage.jsx` untuk menampilkan statistik kemenangan mabar `connect4Wins` dan `memoryMatchWins`.
 
-## 1. Sistem Undangan Pasangan (Direct Partner Invite)
+## 2. Pembuatan Connect 4 (`src/views/games/Connect4Page.jsx`)
+- **Grid:** Papan biru dengan lubang 7 kolom x 6 baris.
+- **State Sinkronisasi:** `turn` (host/guest), `board` (flat array 42 kotak), `winner`.
+- **Mekanik:** Saat pemain mengklik sebuah kolom, kepingan warna mereka (Merah untuk Host, Kuning untuk Guest) akan "jatuh" ke baris terbawah yang masih kosong di kolom tersebut.
+- **Deteksi Menang:** Cek horizontal, vertikal, dan diagonal untuk 4 keping yang berjejer.
 
-Saat ini, bermain dengan pasangan mengharuskan Pemain 1 membuat Room, lalu mengirimkan 6 digit kode ke Pemain 2. Kita akan menyederhanakannya:
-- **Di komponen `MultiplayerLobby.jsx`**: Saya akan menambahkan tombol "Ajak Pasangan".
-- **Database (Firestore)**: Saat tombol diklik, sistem akan meng-update dokumen Firestore milik *pasangan* Anda dengan data undangan aktif (`invite: { roomId, gameName, hostName }`).
-- **Global Listener (`AppShell.jsx`)**: Layar pasangan (yang sedang buka menu apa saja) akan langsung memunculkan *Pop-up/Toast* notifikasi: "Pasanganmu mengajak main [Nama Game]!".
-- Pasangan tinggal menekan tombol **"Terima"** dan akan langsung diteleportasi masuk ke dalam *Room* tersebut tanpa perlu mengetik apapun!
-
-## 2. Game Baru: Listen & Type Duel
-
-Kita akan membuat `ListenDuelPage.jsx`.
-- **Mekanik**: Kedua pemain mendengar audio bahasa Inggris yang sama secara serentak.
-- **Tujuan**: Balapan mengetik ulang kalimat (*Sentence*) bahasa Inggris tersebut.
-- **Kondisi Menang**: Siapa yang mengetik dengan benar paling cepat, akan mendapatkan 1 poin dan maju ke ronde/kalimat berikutnya. Yang mencapai 5 atau 10 poin duluan menang!
-
-## 3. Ide-Ide Ekspansi Fitur Pasangan (Couple Features)
-
-Karena Anda bertanya tentang fitur pasangan yang bagus (terutama terkait Pohon Kehidupan), berikut adalah ide-ide fitur yang bisa saya tambahkan nanti untuk membuat akun kalian lebih romantis & kompetitif:
-
-1. **Pohon Cinta (Couple Shared Tree)** 🌳❤️
-   - Saat ini Pohon Kehidupan tumbuh berdasarkan tabungan XP masing-masing.
-   - Kita bisa membuat pohon kedua khusus di halaman "Couple" yang level dan bentuk buahnya tumbuh berdasarkan **Total XP Gabungan** Anda berdua, atau berdasarkan seberapa sering kalian menyelesaikan *Game Mabar* bersama!
-2. **Misi Mingguan Pasangan (Couple Quests)** 📜
-   - Misi khusus yang hanya bisa diselesaikan jika berdua. Misalnya: "Capai Streak 30 di ML Guess Co-op" atau "Mainkan 3x Wordle Duel hari ini". Hadiahnya adalah Koin Ekstra untuk berdua.
-3. **Kirim Hadiah (Gift System)** 🎁
-   - Anda bisa membelikan item dengan Koin Anda dan mengirimkannya ke pasangan (misalnya: Tiket Clue Gratis, atau sekadar Surat/Pesan lucu yang muncul saat dia buka aplikasi).
-4. **Emoji Ping (Poke)** 👉👈
-   - Tombol cepat di profil pasangan untuk mengirim "Ping" yang akan membunyikan suara notifikasi lucu (atau getar) di HP pasangan secara *real-time*.
-
----
-
-### Persetujuan Pengguna
-
-Bagaimana dengan rencana **Sistem Undang Pasangan** dan **Listen Duel** di atas? Serta dari ide-ide fitur pasangan (nomor 1-4), mana yang menurut Anda paling menarik untuk diimplementasikan setelah ini? Jika setuju, saya akan langsung kerjakan sistem undangannya!
+## 3. Pembuatan Memory Match (`src/views/games/MemoryMatchPage.jsx`)
+- **Konsep:** Papan berisi 16 kartu tertutup (4x4 grid).
+- **Tema:** Mencocokkan Kosakata Bahasa Inggris dengan Arti Bahasa Indonesianya (agar sejalan dengan tema edukasi Wordbound).
+- **State Sinkronisasi:** `cards` (kumpulan ID kartu, isFlipped, isMatched), `turn`, `hostScore`, `guestScore`, `lockBoard` (mencegah klik saat kartu salah sedang ditutup).
+- **Mekanik:** 
+  - Host menginisialisasi 16 kartu acak secara tersembunyi (dikirim ke Firebase Room State).
+  - Pemain bergantian membalik 2 kartu.
+  - Jika cocok: Dapat 1 poin, kartu tetap terbuka, dan **giliran tetap miliknya** (Combo berlanjut).
+  - Jika salah: Kartu ditutup kembali setelah 1 detik, giliran pindah ke lawan.
+  - Game selesai jika semua pasangan (8 pasang) telah ditemukan. Pemenang adalah yang poinnya terbanyak.

@@ -105,6 +105,14 @@ export default function StatsPage() {
             <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Listen Duel</p>
             <p className="text-2xl font-black text-purple-500">{userData?.stats?.listenDuelWins || 0}</p>
           </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Connect 4</p>
+            <p className="text-2xl font-black text-blue-500">{userData?.stats?.connect4Wins || 0}</p>
+          </div>
+          <div className="bg-background/50 p-4 rounded-xl text-center border border-border">
+            <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Memory Match</p>
+            <p className="text-2xl font-black text-amber-500">{userData?.stats?.memoryMatchWins || 0}</p>
+          </div>
         </div>
       </GlassCard>
 

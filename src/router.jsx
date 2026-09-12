@@ -19,6 +19,8 @@ const WordleDuelPage = lazy(() => import('./views/games/WordleDuelPage.jsx'))
 const MLDuelPage = lazy(() => import('./views/games/MLDuelPage.jsx'))
 const MLCoopPage = lazy(() => import('./views/games/MLCoopPage.jsx'))
 const ListenDuelPage = lazy(() => import('./views/games/ListenDuelPage.jsx'))
+const Connect4Page = lazy(() => import('./views/games/Connect4Page.jsx'))
+const MemoryMatchPage = lazy(() => import('./views/games/MemoryMatchPage.jsx'))
 
 function PageLoader() {
   return (
@@ -84,6 +86,8 @@ export const router = createBrowserRouter([
       { path: 'ml-duel', element: withSuspense(MLDuelPage) },
       { path: 'ml-coop', element: withSuspense(MLCoopPage) },
       { path: 'listen-duel', element: withSuspense(ListenDuelPage) },
+      { path: 'connect4', element: withSuspense(Connect4Page) },
+      { path: 'memory-match', element: withSuspense(MemoryMatchPage) },
     ]
   },
   {

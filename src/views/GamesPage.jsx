@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { HelpCircle, Headphones, Swords, Zap, Repeat, GraduationCap, ArrowLeft } from 'lucide-react'
+import { HelpCircle, Headphones, Swords, Zap, Repeat, GraduationCap, ArrowLeft, Grid, Brain } from 'lucide-react'
 import GlassCard from '@/components/GlassCard'
 import { sfx } from '@/lib/sound'
 
@@ -11,6 +11,8 @@ const GAMES = [
   { to: '/rps', title: 'Suit Batu Gunting Kertas', desc: 'Duel adu hoki secara Real-Time dengan temanmu.', icon: Zap, grad: 'from-orange-500 to-rose-500', xp: '+15 XP', tag: 'Duo Real-Time' },
   { to: '/xoxo', title: 'XOXO Gomoku', desc: 'Main Tic-Tac-Toe versi hardcore (10x10). Sambung 5 menang!', icon: Repeat, grad: 'from-fuchsia-500 to-purple-500', xp: '+30 XP', tag: 'Duo Real-Time' },
   { to: '/wordle', title: 'Wordle Duel Racing', desc: 'Balapan menebak kata bahasa Inggris 5 huruf. Siapa cepat dia menang!', icon: Zap, grad: 'from-emerald-400 to-cyan-500', xp: '+40 XP', tag: 'Duo Real-Time' },
+  { to: '/connect4', title: 'Connect 4', desc: 'Jatuhkan koinmu dan jejerkan 4 warna berturut-turut untuk menang.', icon: Grid, grad: 'from-blue-500 to-indigo-500', xp: '+30 XP', tag: 'Duo Real-Time' },
+  { to: '/memory-match', title: 'Memory Match', desc: 'Uji ingatanmu! Balik kartu dan temukan pasangan kata bahasa Inggris.', icon: Brain, grad: 'from-amber-400 to-orange-500', xp: '+35 XP', tag: 'Duo Real-Time' },
 ]
 
 export default function GamesPage() {
