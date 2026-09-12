@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import {
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
@@ -40,6 +42,39 @@ function stopWatching() {
   useAuthStore.setState({ userData: null, partnerData: null })
 }
 
+async function ensureUserDoc(user) {
+  const userRef = doc(db, 'users', user.uid)
+  const snap = await getDoc(userRef)
+  if (!snap.exists()) {
+    await setDoc(userRef, {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      partnerUid: null,
+      createdAt: new Date().toISOString(),
+      streak: 0,
+      lastDate: null,
+      xp: 0,
+      coins: 0,
+      level: 1,
+      streakFreezeCount: 0
+    })
+  } else {
+    // Update profile info just in case
+    await updateDoc(userRef, {
+      displayName: user.displayName,
+      photoURL: user.photoURL
+    })
+  }
+}
+
+// Handle redirect result for mobile Safari
+getRedirectResult(firebaseAuth).then(result => {
+  if (result && result.user) {
+    ensureUserDoc(result.user).catch(console.error)
+  }
+}).catch(console.error)
+
 // Initialize Firebase Auth listener — runs once on module load, same as Pinia's setup()
 onAuthStateChanged(firebaseAuth, (user) => {
   useAuthStore.setState({ currentUser: user, authReady: true })
@@ -62,37 +97,31 @@ export const useAuthStore = create((set, get) => ({
     set({ loading: true, error: null })
     try {
       const result = await signInWithPopup(firebaseAuth, googleProvider)
-      const user = result.user
-
-      // Ensure user document exists in Firestore
-      const userRef = doc(db, 'users', user.uid)
-      const snap = await getDoc(userRef)
-      if (!snap.exists()) {
-        await setDoc(userRef, {
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          partnerUid: null,
-          createdAt: new Date().toISOString(),
-          streak: 0,
-          lastDate: null,
-          xp: 0,
-          coins: 0,
-          level: 1,
-          streakFreezeCount: 0
+      await ensureUserDoc(result.user)
+    } catch (err) {
+      console.error('Login popup failed', err)
+      // Fallback for Safari / mobile browsers that block third-party cookies or popups
+      if (
+        err.code === 'auth/network-request-failed' ||
+        err.code === 'auth/popup-blocked' ||
+        err.code === 'auth/popup-closed-by-user' ||
+        err.code === 'auth/cancelled-popup-request' ||
+        err.code === 'auth/web-storage-unsupported'
+      ) {
+        console.log('Falling back to redirect login...')
+        signInWithRedirect(firebaseAuth, googleProvider).catch(e => {
+          set({ error: e.message, loading: false })
+          alert('Google Login Error: ' + e.message)
         })
       } else {
-        // Update profile info just in case
-        await updateDoc(userRef, {
-          displayName: user.displayName,
-          photoURL: user.photoURL
-        })
+        set({ error: err.message, loading: false })
+        alert('Google Login Error: ' + err.message + '\n\nPastikan Google Auth diaktifkan di Firebase Console.')
       }
-    } catch (err) {
-      console.error('Login failed', err)
-      set({ error: err.message })
-      alert('Google Login Error: ' + err.message + '\n\nPastikan Google Auth diaktifkan di Firebase Console dan domain ini di-whitelist.')
     } finally {
+      // Don't set loading false immediately if we are redirecting
+      // But for popup-closed we should
+      // Actually we set it false in catch if it's not redirecting, but wait...
+      // `signInWithRedirect` leaves the page, so loading state doesn't matter much.
       set({ loading: false })
     }
   },
