@@ -7,6 +7,7 @@ import { useSettingsStore } from '@/stores/settings'
 import { useAudioStore } from '@/stores/audio'
 import { sfx } from '@/lib/sound'
 import Aurora from './Aurora'
+import InviteListener from './InviteListener'
 
 const NAV = [
   { to: '/dashboard', label: 'Beranda', icon: Home },
@@ -124,6 +125,7 @@ export default function AppShell() {
   return (
     <div className="relative min-h-[100dvh]">
       <Aurora />
+      <InviteListener />
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 flex-col p-5 z-30">

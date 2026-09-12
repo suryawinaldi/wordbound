@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Users, Play, Copy, CheckCircle2, ArrowLeft } from 'lucide-react'
+import { Users, Play, Copy, CheckCircle2, ArrowLeft, Heart } from 'lucide-react'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '@/firebase-config'
 import { useRoomStore } from '@/stores/room'
 import { useAuthStore } from '@/stores/auth'
 import GlassCard from '@/components/GlassCard'
@@ -9,8 +11,10 @@ import { sfx } from '@/lib/sound'
 export default function MultiplayerLobby({ gameId, gameName, customSettings = {}, settingsUI = null, onBack }) {
   const { room, roomId, createRoom, joinRoom, startGame, leaveRoom, loading, error } = useRoomStore()
   const currentUser = useAuthStore(s => s.currentUser)
+  const userData = useAuthStore(s => s.userData)
   const [joinCode, setJoinCode] = useState('')
   const [copied, setCopied] = useState(false)
+  const [inviteSent, setInviteSent] = useState(false)
 
   // Auto-leave room on unmount if we didn't start playing
   useEffect(() => {
@@ -21,6 +25,26 @@ export default function MultiplayerLobby({ gameId, gameName, customSettings = {}
   async function handleCreate() {
     sfx.click()
     await createRoom(gameId, customSettings)
+  }
+
+  async function handleInvitePartner() {
+    sfx.click()
+    await createRoom(gameId, customSettings)
+    
+    // Get the newly created room id from the store
+    const state = useRoomStore.getState()
+    if (state.roomId && userData?.partnerUid) {
+      await updateDoc(doc(db, 'users', userData.partnerUid), {
+        currentInvite: {
+          roomId: state.roomId,
+          gameId,
+          gameName,
+          hostName: currentUser.displayName,
+          timestamp: Date.now()
+        }
+      })
+      setInviteSent(true)
+    }
   }
 
   async function handleJoin(e) {
@@ -86,12 +110,18 @@ export default function MultiplayerLobby({ gameId, gameName, customSettings = {}
                 </div>
               )}
               <p className="text-sm font-semibold truncate w-24">
-                {hasGuest ? room.guest.displayName : <span className="animate-pulse text-muted-foreground">Menunggu...</span>}
+                {hasGuest ? room.guest.displayName : <span className="animate-pulse text-muted-foreground">{inviteSent ? 'Menunggu Pasangan...' : 'Menunggu...'}</span>}
               </p>
             </div>
           </div>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
+
+          {inviteSent && !hasGuest && (
+            <div className="bg-couple/10 text-couple p-3 rounded-xl text-sm font-semibold animate-pulse border border-couple/20 mb-4">
+              Undangan mabar telah dikirim ke HP pasanganmu! 💌
+            </div>
+          )}
 
           {isHost ? (
             <button 
@@ -123,13 +153,25 @@ export default function MultiplayerLobby({ gameId, gameName, customSettings = {}
 
         {settingsUI}
 
-        <button 
-          onClick={handleCreate}
-          disabled={loading}
-          className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-glow-primary transition hover:-translate-y-1"
-        >
-          <Users className="w-5 h-5" /> Buat Room Baru
-        </button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button 
+            onClick={handleCreate}
+            disabled={loading}
+            className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-glow-primary transition hover:-translate-y-1"
+          >
+            <Users className="w-5 h-5" /> Buat Room Baru
+          </button>
+          
+          {userData?.partnerUid && (
+            <button 
+              onClick={handleInvitePartner}
+              disabled={loading}
+              className="w-full py-4 rounded-2xl bg-couple text-white font-bold flex items-center justify-center gap-2 shadow-glow-couple transition hover:-translate-y-1"
+            >
+              <Heart className="w-5 h-5" /> Ajak Pasangan
+            </button>
+          )}
+        </div>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border"></div></div>

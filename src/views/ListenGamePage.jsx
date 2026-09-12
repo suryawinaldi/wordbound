@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, Check, X, Trophy } from 'lucide-react'
+import { Volume2, Check, X, Trophy, Headphones, User, Users } from 'lucide-react'
 import { SENTENCE_ITEMS as LISTEN_BANK } from '@/data/listen-bank'
 import { usePlayerStore } from '@/stores/player'
 import { useProgressStore } from '@/stores/progress'
@@ -18,6 +18,44 @@ function normalize(s) {
 }
 
 export default function ListenGamePage() {
+  const navigate = useNavigate()
+  const [mode, setMode] = useState(null) // 'solo', 'online'
+
+  if (!mode) {
+    return (
+      <GameLayout title="Listen & Type">
+        <GlassCard className="p-8 text-center max-w-sm mx-auto mt-8">
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-sky to-couple text-white grid place-items-center mb-6 shadow-glow">
+            <Headphones className="w-10 h-10" />
+          </div>
+          <h2 className="font-display font-bold text-2xl mb-2">Pilih Mode Main</h2>
+          <p className="text-sm text-muted-foreground mb-8">
+            Main sendiri, atau adu pendengaran & ketepatan mengetik bersama teman secara Real-Time!
+          </p>
+          <div className="space-y-3">
+            <button
+              onClick={() => { sfx.click(); setMode('solo') }}
+              className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition"
+            >
+              <User className="w-5 h-5 text-sky" /> Main Sendiri (Solo)
+            </button>
+            <button
+              onClick={() => { sfx.click(); navigate('/listen-duel') }}
+              className="w-full py-4 rounded-2xl glass-strong flex items-center justify-center gap-3 font-semibold hover:bg-white/10 transition relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-rose-500/10"></div>
+              <Users className="w-5 h-5 text-primary" /> Mabar Online (Duel)
+            </button>
+          </div>
+        </GlassCard>
+      </GameLayout>
+    )
+  }
+
+  return <ListenSoloGame />
+}
+
+function ListenSoloGame() {
   const { awardXP, recordActivity } = usePlayerStore()
   const { applyMasteryDelta } = useProgressStore()
   const [items] = useState(() => [...LISTEN_BANK].sort(() => Math.random() - 0.5).slice(0, ROUND))

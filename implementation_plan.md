@@ -1,44 +1,38 @@
-# Implementation Plan: Mabar Tebak Hero ML (Co-op & Duel)
+# Rencana Implementasi: Sistem Undang Pasangan & Listen Duel
 
-Permintaan ini akan membawa mode "Tebak Hero ML" ke tingkat selanjutnya dengan menambahkan sistem *Online Multiplayer* (Room Code) khusus untuk Hero MLBB.
+Karena permintaan ini membutuhkan perubahan mendasar pada sistem *Multiplayer* (agar bisa mengirim undangan langsung tanpa kode) dan penambahan game baru, maka saya membuat rencana teknisnya:
 
-## User Review Required
-> [!IMPORTANT]
-> Karena logika game *Solo* dan *Online* sangat berbeda, saya akan membuat sistem ini menjadi mode terpisah agar tidak merusak game Solo yang sudah stabil. Ada dua mode Online yang akan dibangun:
+## 1. Sistem Undangan Pasangan (Direct Partner Invite)
 
-## Proposed Changes
+Saat ini, bermain dengan pasangan mengharuskan Pemain 1 membuat Room, lalu mengirimkan 6 digit kode ke Pemain 2. Kita akan menyederhanakannya:
+- **Di komponen `MultiplayerLobby.jsx`**: Saya akan menambahkan tombol "Ajak Pasangan".
+- **Database (Firestore)**: Saat tombol diklik, sistem akan meng-update dokumen Firestore milik *pasangan* Anda dengan data undangan aktif (`invite: { roomId, gameName, hostName }`).
+- **Global Listener (`AppShell.jsx`)**: Layar pasangan (yang sedang buka menu apa saja) akan langsung memunculkan *Pop-up/Toast* notifikasi: "Pasanganmu mengajak main [Nama Game]!".
+- Pasangan tinggal menekan tombol **"Terima"** dan akan langsung diteleportasi masuk ke dalam *Room* tersebut tanpa perlu mengetik apapun!
 
-### 1. Mode 1: Co-op (Kerja Sama Tim)
-- **Konsep:** Host dan Guest bermain di layar masing-masing, tapi menggunakan **nyawa yang sama** dan **streak yang sama**.
-- **Mekanik:** 
-  - Host memilih tingkat kesulitan (Easy/Medium/Hard/Nightmare) saat membuat Room.
-  - Jika pemain A menekan "Buka Clue", clue di layar pemain B juga akan terbuka.
-  - Keduanya bisa mengetik jawaban. Siapa yang mengetik dengan benar, poin/streak tim akan bertambah.
-  - Jika jawaban salah, nyawa tim berkurang.
-- **Achievement Bersama:** Jika tim mencapai *Streak 30* atau *Perfect 133*, **kedua pemain** akan mendapatkan Medali (*Badge*) tersebut di Profil masing-masing! Persahabatan (atau percintaan) yang sesungguhnya!
+## 2. Game Baru: Listen & Type Duel
 
-### 2. Mode 2: Duel (Balapan Hero)
-- **Konsep:** Adu mekanik murni. Siapa yang paling banyak dan paling cepat menebak hero dengan benar.
-- **Mekanik:**
-  - Tidak ada sistem nyawa (HP). Targetnya adalah: **Siapa yang mencapai 10 Poin pertama kali, dia menang.**
-  - Kedua pemain melihat hero dan *clue* yang sama.
-  - **Sistem Clue:** Siapapun bisa menekan tombol "Buka Clue" dan clue itu akan terbuka untuk keduanya.
-  - **Sistem Penebakan:** Jika pemain A menebak benar, A dapat 1 poin, dan hero langsung berganti ke hero berikutnya untuk kedua pemain.
-  - **Hukuman:** Jika menebak SALAH, pemain tersebut terkena efek *Stun* (layarnya beku/tidak bisa menebak selama 3 detik), memberikan kesempatan lawan untuk menebak!
+Kita akan membuat `ListenDuelPage.jsx`.
+- **Mekanik**: Kedua pemain mendengar audio bahasa Inggris yang sama secara serentak.
+- **Tujuan**: Balapan mengetik ulang kalimat (*Sentence*) bahasa Inggris tersebut.
+- **Kondisi Menang**: Siapa yang mengetik dengan benar paling cepat, akan mendapatkan 1 poin dan maju ke ronde/kalimat berikutnya. Yang mencapai 5 atau 10 poin duluan menang!
 
-### 3. Pembaruan Halaman Menu & Statistik
-#### [MODIFY] `src/views/MLGuessPage.jsx`
-- Merombak menu awal:
-  - **Main Solo**
-  - **Main Mabar (Online Room)** -> Cabang ke *Co-op Tim* atau *Duel Balapan*.
+## 3. Ide-Ide Ekspansi Fitur Pasangan (Couple Features)
 
-#### [MODIFY] `src/views/StatsPage.jsx`
-- Menambahkan statistik baru di menu Mabar:
-  - **Menang ML Duel** (Jumlah kemenangan di mode Balapan).
-  - **Co-op Max Streak** (Rekor streak tertinggi saat bermain mode Tim).
+Karena Anda bertanya tentang fitur pasangan yang bagus (terutama terkait Pohon Kehidupan), berikut adalah ide-ide fitur yang bisa saya tambahkan nanti untuk membuat akun kalian lebih romantis & kompetitif:
 
-## Verification Plan
-1. Membuat antarmuka Lobby khusus untuk Mode Mabar ML.
-2. Memverifikasi sinkronisasi state Firebase (Clue sinkron, Hero sinkron).
-3. Menguji efek *Stun* (beku 3 detik) di Mode Duel jika tebakan salah.
-4. Memverifikasi bahwa di mode Co-op, memenangkan *Streak 30* akan menembakkan perintah `awardAchievement` ke *database* kedua pemain sekaligus.
+1. **Pohon Cinta (Couple Shared Tree)** 🌳❤️
+   - Saat ini Pohon Kehidupan tumbuh berdasarkan tabungan XP masing-masing.
+   - Kita bisa membuat pohon kedua khusus di halaman "Couple" yang level dan bentuk buahnya tumbuh berdasarkan **Total XP Gabungan** Anda berdua, atau berdasarkan seberapa sering kalian menyelesaikan *Game Mabar* bersama!
+2. **Misi Mingguan Pasangan (Couple Quests)** 📜
+   - Misi khusus yang hanya bisa diselesaikan jika berdua. Misalnya: "Capai Streak 30 di ML Guess Co-op" atau "Mainkan 3x Wordle Duel hari ini". Hadiahnya adalah Koin Ekstra untuk berdua.
+3. **Kirim Hadiah (Gift System)** 🎁
+   - Anda bisa membelikan item dengan Koin Anda dan mengirimkannya ke pasangan (misalnya: Tiket Clue Gratis, atau sekadar Surat/Pesan lucu yang muncul saat dia buka aplikasi).
+4. **Emoji Ping (Poke)** 👉👈
+   - Tombol cepat di profil pasangan untuk mengirim "Ping" yang akan membunyikan suara notifikasi lucu (atau getar) di HP pasangan secara *real-time*.
+
+---
+
+### Persetujuan Pengguna
+
+Bagaimana dengan rencana **Sistem Undang Pasangan** dan **Listen Duel** di atas? Serta dari ide-ide fitur pasangan (nomor 1-4), mana yang menurut Anda paling menarik untuk diimplementasikan setelah ini? Jika setuju, saya akan langsung kerjakan sistem undangannya!

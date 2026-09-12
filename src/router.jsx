@@ -18,6 +18,7 @@ const XOXOGamePage = lazy(() => import('./views/games/XOXOGamePage.jsx'))
 const WordleDuelPage = lazy(() => import('./views/games/WordleDuelPage.jsx'))
 const MLDuelPage = lazy(() => import('./views/games/MLDuelPage.jsx'))
 const MLCoopPage = lazy(() => import('./views/games/MLCoopPage.jsx'))
+const ListenDuelPage = lazy(() => import('./views/games/ListenDuelPage.jsx'))
 
 function PageLoader() {
   return (
@@ -82,6 +83,7 @@ export const router = createBrowserRouter([
       { path: 'wordle', element: withSuspense(WordleDuelPage) },
       { path: 'ml-duel', element: withSuspense(MLDuelPage) },
       { path: 'ml-coop', element: withSuspense(MLCoopPage) },
+      { path: 'listen-duel', element: withSuspense(ListenDuelPage) },
     ]
   },
   {
