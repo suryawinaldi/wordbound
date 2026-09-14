@@ -73,7 +73,13 @@ getRedirectResult(firebaseAuth).then(result => {
   if (result && result.user) {
     ensureUserDoc(result.user).catch(console.error)
   }
-}).catch(console.error)
+}).catch(err => {
+  console.error('Redirect result error', err)
+  // Only alert if it's a real error, not just no redirect found
+  if (err.code !== 'auth/no-redirect-result') {
+    alert('Redirect Login Error: ' + err.code + ' - ' + err.message)
+  }
+})
 
 // Initialize Firebase Auth listener — runs once on module load, same as Pinia's setup()
 onAuthStateChanged(firebaseAuth, (user) => {
@@ -95,12 +101,23 @@ export const useAuthStore = create((set, get) => ({
 
   async loginWithGoogle() {
     set({ loading: true, error: null })
+    
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    
     try {
+      if (isIOS) {
+        // Direct redirect for iOS to avoid popup blocking/third-party cookie issues initially
+        await signInWithRedirect(firebaseAuth, googleProvider)
+        // Do not set loading to false, wait for page redirect
+        return
+      }
+
       const result = await signInWithPopup(firebaseAuth, googleProvider)
       await ensureUserDoc(result.user)
+      set({ loading: false })
     } catch (err) {
-      console.error('Login popup failed', err)
-      // Fallback for Safari / mobile browsers that block third-party cookies or popups
+      console.error('Login failed', err)
+      
       if (
         err.code === 'auth/network-request-failed' ||
         err.code === 'auth/popup-blocked' ||
@@ -111,18 +128,12 @@ export const useAuthStore = create((set, get) => ({
         console.log('Falling back to redirect login...')
         signInWithRedirect(firebaseAuth, googleProvider).catch(e => {
           set({ error: e.message, loading: false })
-          alert('Google Login Error: ' + e.message)
+          alert('Fallback Redirect Error: ' + e.code + ' - ' + e.message)
         })
       } else {
         set({ error: err.message, loading: false })
-        alert('Google Login Error: ' + err.message + '\n\nPastikan Google Auth diaktifkan di Firebase Console.')
+        alert('Google Login Error (' + err.code + '): ' + err.message)
       }
-    } finally {
-      // Don't set loading false immediately if we are redirecting
-      // But for popup-closed we should
-      // Actually we set it false in catch if it's not redirecting, but wait...
-      // `signInWithRedirect` leaves the page, so loading state doesn't matter much.
-      set({ loading: false })
     }
   },
 

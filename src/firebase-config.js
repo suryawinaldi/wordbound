@@ -4,7 +4,9 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBBB6Z6Jjm0v8Lfx3rNdqIzgdXjOWes-f4',
-  authDomain: 'learningenglish-suryaalmira.firebaseapp.com',
+  authDomain: typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+    ? window.location.hostname 
+    : 'learningenglish-suryaalmira.firebaseapp.com',
   projectId: 'learningenglish-suryaalmira',
   storageBucket: 'learningenglish-suryaalmira.firebasestorage.app',
   messagingSenderId: '740908398240',
