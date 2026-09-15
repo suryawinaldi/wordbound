@@ -233,11 +233,6 @@ function XOXOBoard() {
             )}
           </AnimatePresence>
         </div>
-              Simbol: {isHost ? <X className="w-3 h-3" /> : <Circle className="w-3 h-3" />}
-            </p>
-          </div>
-          <img src={currentUser.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${currentUser.displayName}`} className="w-10 h-10 rounded-full" alt="" />
-        </div>
 
       </div>
     </GameLayout>
