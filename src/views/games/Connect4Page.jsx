@@ -84,7 +84,7 @@ function Connect4Board() {
   const currentUser = useAuthStore(s => s.currentUser)
   
   const isHost = room.host.uid === currentUser.uid
-  const opponent = isHost ? room.guest : room.host
+  const isLocal = room.id === 'local'
   const role = isHost ? 'host' : 'guest'
 
   const state = room.state || {}
@@ -99,7 +99,7 @@ function Connect4Board() {
   }, [isHost, state.board])
 
   async function handleColumnClick(c) {
-    if (winner || turn !== role) return
+    if (winner || (!isLocal && turn !== role)) return
 
     // Find lowest empty row in this column
     let targetRow = -1
@@ -115,20 +115,22 @@ function Connect4Board() {
     sfx.click()
 
     const newBoard = [...board]
-    newBoard[c + targetRow * COLS] = role
+    newBoard[c + targetRow * COLS] = turn
 
     let newWinner = null
-    if (checkWin(newBoard, role)) {
-      newWinner = role
-      incrementStat('connect4Wins')
-      recordActivity()
+    if (checkWin(newBoard, turn)) {
+      newWinner = turn
+      if (!isLocal || turn === 'host') {
+        incrementStat('connect4Wins')
+        recordActivity()
+      }
       sfx.correct()
     } else if (!newBoard.includes(null)) {
       newWinner = 'draw'
-      recordActivity()
+      if (!isLocal) recordActivity()
     }
 
-    const nextTurn = role === 'host' ? 'guest' : 'host'
+    const nextTurn = turn === 'host' ? 'guest' : 'host'
     await updateState({ board: newBoard, turn: nextTurn, winner: newWinner })
   }
 
@@ -138,7 +140,7 @@ function Connect4Board() {
     navigate('/games')
   }
 
-  const amIWinner = winner === role
+  const amIWinner = isLocal ? (winner === 'host') : (winner === role)
 
   return (
     <GameLayout title="Connect 4" subtitle="Jejerkan 4 warna berturut-turut!" onBack={handleQuit}>
@@ -148,18 +150,18 @@ function Connect4Board() {
         
         {/* Header / Player Info */}
         <div className="flex items-center justify-between p-4 bg-background/50 border border-border rounded-2xl shadow-sm">
-          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'host' ? 'bg-primary/10 shadow-glow-primary' : ''} ${role === 'host' ? 'border border-primary/50' : 'opacity-50'}`}>
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'host' ? 'bg-primary/10 shadow-glow-primary border border-primary/50' : 'opacity-50'}`}>
             <div className="w-10 h-10 rounded-full bg-rose-500 shadow-inner grid place-items-center border-4 border-rose-600"></div>
             <div>
-              <p className="text-xs font-bold uppercase">{role === 'host' ? 'Kamu' : room.host.displayName}</p>
+              <p className="text-xs font-bold uppercase">{room.host.displayName}</p>
             </div>
           </div>
           
           <div className="text-sm font-black text-muted-foreground uppercase">VS</div>
 
-          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'guest' ? 'bg-primary/10 shadow-glow-primary' : ''} ${role === 'guest' ? 'border border-primary/50' : 'opacity-50'}`}>
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'guest' ? 'bg-primary/10 shadow-glow-primary border border-primary/50' : 'opacity-50'}`}>
             <div className="text-right">
-              <p className="text-xs font-bold uppercase">{role === 'guest' ? 'Kamu' : room.guest.displayName}</p>
+              <p className="text-xs font-bold uppercase">{room.guest.displayName}</p>
             </div>
             <div className="w-10 h-10 rounded-full bg-amber-400 shadow-inner grid place-items-center border-4 border-amber-500"></div>
           </div>
@@ -169,11 +171,11 @@ function Connect4Board() {
         <div className="text-center py-2">
           {winner ? (
             <div className="inline-block px-4 py-2 rounded-xl bg-primary/20 text-primary font-black animate-pulse">
-              {winner === 'draw' ? 'SERI!' : (winner === role ? 'KAMU MENANG!' : 'KAMU KALAH!')}
+              {winner === 'draw' ? 'SERI!' : (isLocal ? (winner === 'host' ? 'Pemain 1 Menang!' : 'Pemain 2 Menang!') : (winner === role ? 'KAMU MENANG!' : 'KAMU KALAH!'))}
             </div>
           ) : (
             <div className="inline-block px-4 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-semibold">
-              {turn === role ? 'Giliranmu (Pilih Kolom)' : 'Menunggu lawan...'}
+              {isLocal ? (turn === 'host' ? 'Giliran Pemain 1' : 'Giliran Pemain 2') : (turn === role ? 'Giliranmu (Pilih Kolom)' : 'Menunggu lawan...')}
             </div>
           )}
         </div>
@@ -188,9 +190,9 @@ function Connect4Board() {
                 onClick={() => handleColumnClick(c)}
               >
                 {/* Hover indicator for column */}
-                {!winner && turn === role && (
+                {!winner && (isLocal || turn === role) && (
                   <div className="absolute -top-12 inset-x-0 h-10 opacity-0 group-hover:opacity-100 transition duration-200 flex justify-center">
-                    <div className={`w-10 h-10 rounded-full ${role === 'host' ? 'bg-rose-500/50' : 'bg-amber-400/50'} animate-bounce`}></div>
+                    <div className={`w-10 h-10 rounded-full ${turn === 'host' ? 'bg-rose-500/50' : 'bg-amber-400/50'} animate-bounce`}></div>
                   </div>
                 )}
                 

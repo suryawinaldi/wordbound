@@ -10,9 +10,26 @@ export const useRoomStore = create((set, get) => ({
   roomId: null,
   loading: false,
   error: null,
+  isLocal: false,
+
+  createLocalRoom: (gameId) => {
+    const currentUser = useAuthStore.getState().currentUser
+    set({
+      roomId: 'local',
+      isLocal: true,
+      room: {
+        id: 'local',
+        gameId,
+        status: 'playing',
+        host: { uid: currentUser.uid, displayName: 'Pemain 1 (Kamu)', photoURL: currentUser.photoURL },
+        guest: { uid: 'guest', displayName: 'Pemain 2', photoURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest' },
+        state: {}
+      }
+    })
+  },
 
   createRoom: async (gameId, customSettings = {}) => {
-    set({ loading: true, error: null })
+    set({ loading: true, error: null, isLocal: false })
     try {
       const currentUser = useAuthStore.getState().currentUser
       const userData = useAuthStore.getState().userData
@@ -95,15 +112,26 @@ export const useRoomStore = create((set, get) => ({
   },
 
   updateState: async (patch) => {
-    const { roomId } = get()
+    const { roomId, isLocal, room } = get()
     if (!roomId) return
+    
+    if (isLocal) {
+      set({ room: { ...room, state: { ...room.state, ...patch } } })
+      return
+    }
+
     // patch is merged into the 'state' map
     await updateDoc(doc(db, 'rooms', roomId), patch)
   },
 
   leaveRoom: async () => {
-    const { roomId, room } = get()
+    const { roomId, room, isLocal } = get()
     if (!roomId) return
+    
+    if (isLocal) {
+      set({ room: null, roomId: null, isLocal: false })
+      return
+    }
     
     const currentUser = useAuthStore.getState().currentUser
     if (room && currentUser) {

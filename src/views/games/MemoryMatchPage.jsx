@@ -55,7 +55,7 @@ function MemoryMatchBoard() {
   const currentUser = useAuthStore(s => s.currentUser)
   
   const isHost = room.host.uid === currentUser.uid
-  const opponent = isHost ? room.guest : room.host
+  const isLocal = room.id === 'local'
   const role = isHost ? 'host' : 'guest'
 
   const state = room.state || {}
@@ -66,7 +66,6 @@ function MemoryMatchBoard() {
   const guestScore = state.guestScore || 0
   const winner = state.winner || null
   
-  // Local lock to prevent clicking fast
   const [locked, setLocked] = useState(false)
 
   // Initialization
@@ -85,7 +84,10 @@ function MemoryMatchBoard() {
 
   // Game Logic Effect
   useEffect(() => {
-    if (flipped.length === 2 && turn === role) {
+    // Only process logic if it's the host, OR if it's guest's turn online
+    const canProcessLogic = isLocal ? true : turn === role
+
+    if (flipped.length === 2 && canProcessLogic && !locked) {
       setLocked(true)
       const timer = setTimeout(async () => {
         const [id1, id2] = flipped
@@ -95,26 +97,23 @@ function MemoryMatchBoard() {
         let newCards = [...cards]
         let newHostScore = hostScore
         let newGuestScore = guestScore
-        let nextTurn = turn // default keep turn if match? Or pass turn? Let's pass turn so it's a duel.
+        let nextTurn = turn 
         
         const isMatch = card1.pairId === card2.pairId
         
         if (isMatch) {
           sfx.correct()
           newCards = newCards.map(c => c.pairId === card1.pairId ? { ...c, isMatched: true } : c)
-          if (role === 'host') newHostScore++
+          if (turn === 'host') newHostScore++
           else newGuestScore++
           
-          // Speak the english word!
-          if (card1.type === 'en') speak(card1.content)
-          else if (card2.type === 'en') speak(card2.content)
+          const enCard = card1.type === 'en' ? card1 : (card2.type === 'en' ? card2 : null)
+          if (enCard) speak(enCard.content)
             
-          // In Memory Match, finding a pair usually gives you another turn!
-          nextTurn = turn 
+          nextTurn = turn // keep turn
         } else {
           sfx.wrong()
-          // Pass turn
-          nextTurn = role === 'host' ? 'guest' : 'host'
+          nextTurn = turn === 'host' ? 'guest' : 'host'
         }
 
         let newWinner = null
@@ -124,8 +123,10 @@ function MemoryMatchBoard() {
           else if (newGuestScore > newHostScore) newWinner = 'guest'
           else newWinner = 'draw'
 
-          incrementStat('memoryMatchWins')
-          recordActivity()
+          if (!isLocal || newWinner === 'host') {
+            incrementStat('memoryMatchWins')
+            recordActivity()
+          }
         }
 
         await updateState({
@@ -141,10 +142,10 @@ function MemoryMatchBoard() {
 
       return () => clearTimeout(timer)
     }
-  }, [flipped, turn, role, cards])
+  }, [flipped, turn, role, cards, isLocal, locked])
 
   async function handleCardClick(card) {
-    if (winner || turn !== role || locked || flipped.length >= 2) return
+    if (winner || (!isLocal && turn !== role) || locked || flipped.length >= 2) return
     if (card.isMatched || flipped.includes(card.id)) return
 
     sfx.click()
@@ -158,9 +159,7 @@ function MemoryMatchBoard() {
     navigate('/games')
   }
 
-  const amIWinner = winner === role
-  const myScore = isHost ? hostScore : guestScore
-  const oppScore = isHost ? guestScore : hostScore
+  const amIWinner = isLocal ? (winner === 'host') : (winner === role)
 
   if (!cards.length) return null
 
@@ -172,25 +171,25 @@ function MemoryMatchBoard() {
         
         {/* Score Board */}
         <div className="flex items-center justify-between p-4 bg-background/50 border border-border rounded-2xl shadow-sm">
-          {/* Me */}
-          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === role ? 'bg-primary/10 shadow-glow-primary' : ''}`}>
+          {/* Host / Player 1 */}
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'host' ? 'bg-primary/10 shadow-glow-primary border border-primary/50' : 'opacity-50'}`}>
             <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground font-black text-xl grid place-items-center shadow-inner">
-              {myScore}
+              {hostScore}
             </div>
             <div>
-              <p className="text-xs font-bold uppercase text-primary">Kamu</p>
+              <p className="text-xs font-bold uppercase text-primary">{room.host.displayName}</p>
             </div>
           </div>
           
           <div className="text-sm font-black text-muted-foreground uppercase"><Brain className="w-6 h-6 opacity-30" /></div>
 
-          {/* Opponent */}
-          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn !== role && !winner ? 'bg-amber-400/10 shadow-glow-amber' : ''}`}>
+          {/* Guest / Player 2 */}
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'guest' ? 'bg-amber-400/10 shadow-glow-amber border border-amber-500/50' : 'opacity-50'}`}>
             <div className="text-right">
-              <p className="text-xs font-bold uppercase text-amber-500">{opponent.displayName}</p>
+              <p className="text-xs font-bold uppercase text-amber-500">{room.guest.displayName}</p>
             </div>
             <div className="w-10 h-10 rounded-xl bg-amber-400 text-amber-900 font-black text-xl grid place-items-center shadow-inner">
-              {oppScore}
+              {guestScore}
             </div>
           </div>
         </div>
@@ -199,11 +198,11 @@ function MemoryMatchBoard() {
         <div className="text-center">
           {winner ? (
             <div className="inline-block px-4 py-2 rounded-xl bg-primary/20 text-primary font-black animate-pulse">
-              {winner === 'draw' ? 'SERI!' : (winner === role ? 'KAMU MENANG!' : 'KAMU KALAH!')}
+              {winner === 'draw' ? 'SERI!' : (isLocal ? (winner === 'host' ? 'Pemain 1 Menang!' : 'Pemain 2 Menang!') : (winner === role ? 'KAMU MENANG!' : 'KAMU KALAH!'))}
             </div>
           ) : (
             <div className="inline-block px-4 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-semibold">
-              {turn === role ? 'Giliranmu (Balik 2 Kartu)' : 'Menunggu lawan...'}
+              {isLocal ? (turn === 'host' ? 'Giliran Pemain 1' : 'Giliran Pemain 2') : (turn === role ? 'Giliranmu (Balik 2 Kartu)' : 'Menunggu lawan...')}
             </div>
           )}
         </div>

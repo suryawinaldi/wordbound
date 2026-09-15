@@ -153,25 +153,36 @@ export default function MultiplayerLobby({ gameId, gameName, customSettings = {}
 
         {settingsUI}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <button 
-            onClick={handleCreate}
-            disabled={loading}
-            className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-glow-primary transition hover:-translate-y-1"
-          >
-            <Users className="w-5 h-5" /> Buat Room Baru
-          </button>
-          
-          {userData?.partnerUid && (
+          <div className="space-y-3">
             <button 
-              onClick={handleInvitePartner}
-              disabled={loading}
-              className="w-full py-4 rounded-2xl bg-couple text-white font-bold flex items-center justify-center gap-2 shadow-glow-couple transition hover:-translate-y-1"
+              onClick={() => {
+                sfx.click()
+                useRoomStore.getState().createLocalRoom(gameId)
+              }}
+              className="w-full py-4 rounded-2xl glass-strong font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition hover:-translate-y-1"
             >
-              <Heart className="w-5 h-5" /> Ajak Pasangan
+              <Users className="w-5 h-5 text-sky" /> Main Gantian (1 Layar)
             </button>
-          )}
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button 
+                onClick={handleCreate}
+                disabled={loading}
+                className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-glow-primary transition hover:-translate-y-1"
+              >
+                <Play className="w-5 h-5" /> Buat Room Mabar
+              </button>
+              
+              {userData?.partnerUid && (
+                <button 
+                  onClick={handleInvitePartner}
+                  disabled={loading}
+                  className="w-full py-4 rounded-2xl bg-couple text-white font-bold flex items-center justify-center gap-2 shadow-glow-couple transition hover:-translate-y-1"
+                >
+                  <Heart className="w-5 h-5" /> Ajak Pasangan
+                </button>
+              )}
+            </div>
+          </div>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border"></div></div>

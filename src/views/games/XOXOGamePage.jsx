@@ -67,7 +67,7 @@ function XOXOBoard() {
   const currentUser = useAuthStore(s => s.currentUser)
   
   const isHost = room.host.uid === currentUser.uid
-  const opponent = isHost ? room.guest : room.host
+  const isLocal = room.id === 'local'
   const role = isHost ? 'host' : 'guest'
 
   const GRID_SIZE = room.settings?.gridSize || 10
@@ -79,69 +79,67 @@ function XOXOBoard() {
   const turn = state.turn || 'host' // Host plays first
   const winner = state.winner || null // 'host', 'guest', 'draw'
 
-  const amIWinner = winner === role
-  const isMyTurn = turn === role && !winner
+  const amIWinner = isLocal ? (winner === 'host') : (winner === role)
+  const isMyTurn = isLocal ? true : (turn === role && !winner)
 
   useEffect(() => {
     // If state is empty, host initializes the board
     if (isHost && !state.board) {
       updateState({ board: Array(GRID_SIZE * GRID_SIZE).fill(null), turn: 'host', winner: null })
     }
-  }, [isHost, state, GRID_SIZE])
+  }, [isHost, state.board])
 
-  function checkWin(newBoard, index, playerStr) {
-    const x = index % GRID_SIZE
-    const y = Math.floor(index / GRID_SIZE)
+  function checkWin(boardState, lastMoveIndex, playerRole) {
+    const row = Math.floor(lastMoveIndex / GRID_SIZE)
+    const col = lastMoveIndex % GRID_SIZE
 
-    const dirs = [
-      [1, 0], [0, 1], [1, 1], [1, -1]
-    ]
-
-    for (let [dx, dy] of dirs) {
+    const checkDirection = (dRow, dCol) => {
       let count = 1
-      
-      // forward
-      let curX = x + dx
-      let curY = y + dy
-      while (curX >= 0 && curX < GRID_SIZE && curY >= 0 && curY < GRID_SIZE && newBoard[curY * GRID_SIZE + curX] === playerStr) {
+      // Check positive direction
+      let r = row + dRow, c = col + dCol
+      while (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && boardState[r * GRID_SIZE + c] === playerRole) {
         count++
-        curX += dx
-        curY += dy
+        r += dRow; c += dCol
       }
-      
-      // backward
-      curX = x - dx
-      curY = y - dy
-      while (curX >= 0 && curX < GRID_SIZE && curY >= 0 && curY < GRID_SIZE && newBoard[curY * GRID_SIZE + curX] === playerStr) {
+      // Check negative direction
+      r = row - dRow; c = col - dCol
+      while (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE && boardState[r * GRID_SIZE + c] === playerRole) {
         count++
-        curX -= dx
-        curY -= dy
+        r -= dRow; c -= dCol
       }
-
-      if (count >= WIN_CONDITION) return true
+      return count >= WIN_CONDITION
     }
-    return false
+
+    return (
+      checkDirection(0, 1) || // Horizontal
+      checkDirection(1, 0) || // Vertical
+      checkDirection(1, 1) || // Diagonal \
+      checkDirection(1, -1)   // Diagonal /
+    )
   }
 
   async function handleCellClick(index) {
-    if (!isMyTurn || board[index] !== null || winner) return
+    if ((!isLocal && !isMyTurn) || board[index] !== null || winner) return
     
     sfx.click()
     const newBoard = [...board]
-    newBoard[index] = role
+    const currentRole = isLocal ? turn : role
+    newBoard[index] = currentRole
     
     let newWinner = null
-    if (checkWin(newBoard, index, role)) {
-      newWinner = role
+    if (checkWin(newBoard, index, currentRole)) {
+      newWinner = currentRole
       sfx.correct()
-      usePlayerStore.getState().incrementStat('xoxoWins')
+      if (!isLocal || currentRole === 'host') {
+        usePlayerStore.getState().incrementStat('xoxoWins')
+      }
     } else if (!newBoard.includes(null)) {
       newWinner = 'draw'
     }
 
     await updateState({
       board: newBoard,
-      turn: role === 'host' ? 'guest' : 'host',
+      turn: currentRole === 'host' ? 'guest' : 'host',
       winner: newWinner
     })
   }
@@ -152,37 +150,50 @@ function XOXOBoard() {
     navigate('/games')
   }
 
-  // Calculate dynamic tailwind classes based on grid size
-  const maxCellSize = GRID_SIZE > 10 ? 'w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8' : 'w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10'
+  // Determine responsive grid size
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
+  }
+
+  // Size cap so it doesn't get ridiculously large on huge grids
+  const maxCellSize = GRID_SIZE > 10 ? 'w-5 h-5 sm:w-7 sm:h-7' : 'w-7 h-7 sm:w-10 sm:h-10'
 
   return (
-    <GameLayout 
-      title={`XOXO Custom (${GRID_SIZE}x${GRID_SIZE})`} 
-      subtitle={`Sambung ${WIN_CONDITION} untuk Menang`} 
-      onBack={handleQuit}
-    >
+    <GameLayout title="XOXO" subtitle={`Sambung ${WIN_CONDITION} untuk menang!`} onBack={handleQuit}>
       {amIWinner && <Confetti />}
 
-      <div className="flex flex-col items-center justify-between min-h-[65vh] py-2">
+      <div className="max-w-md mx-auto space-y-4 px-2">
         
-        {/* Opponent Info */}
-        <div className={`flex items-center gap-3 px-4 py-2 rounded-2xl transition ${turn === (isHost ? 'guest' : 'host') && !winner ? 'bg-primary/20 scale-105' : 'opacity-50'}`}>
-          <img src={opponent.photoURL} className="w-10 h-10 rounded-full" alt="" />
-          <div>
-            <p className="font-bold text-sm">{opponent.displayName}</p>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
-              Simbol: {isHost ? <Circle className="w-3 h-3" /> : <X className="w-3 h-3" />}
-            </p>
+        <div className="flex items-center justify-between p-4 bg-background/50 border border-border rounded-2xl shadow-sm">
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'host' ? 'bg-primary/10 shadow-glow-primary border border-primary/50' : 'opacity-50'}`}>
+            <div className="w-10 h-10 rounded-full bg-sky-500/10 grid place-items-center"><X className="text-sky-500 w-6 h-6" /></div>
+            <div>
+              <p className="text-xs font-bold uppercase">{room.host.displayName}</p>
+            </div>
+          </div>
+          
+          <div className="text-sm font-black text-muted-foreground uppercase">VS</div>
+
+          <div className={`flex items-center gap-3 p-2 rounded-xl transition ${turn === 'guest' ? 'bg-primary/10 shadow-glow-primary border border-primary/50' : 'opacity-50'}`}>
+            <div className="text-right">
+              <p className="text-xs font-bold uppercase">{room.guest.displayName}</p>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-rose-500/10 grid place-items-center"><Circle className="text-rose-500 w-5 h-5" /></div>
           </div>
         </div>
 
-        {/* Board */}
-        <div className="relative my-4 overflow-x-auto w-full max-w-full flex justify-center">
-          <GlassCard className="p-2 sm:p-4 border-2 border-primary/20 shadow-glow-primary inline-block">
-            <div 
-              className="grid gap-1 sm:gap-1.5 mx-auto"
-              style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))` }}
-            >
+        <div className="text-center py-2">
+          {!winner && (
+            <span className="inline-block px-4 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-semibold">
+              {isLocal ? (turn === 'host' ? 'Giliran Pemain 1' : 'Giliran Pemain 2') : (turn === role ? 'Giliranmu' : 'Menunggu lawan...')}
+            </span>
+          )}
+        </div>
+
+        <div className="relative">
+          <GlassCard className="p-2 sm:p-4 touch-none mx-auto w-fit">
+            <div style={gridStyle} className="gap-1 sm:gap-1.5">
               {board.map((cell, i) => {
                 const isX = cell === 'host'
                 const isO = cell === 'guest'
@@ -190,10 +201,10 @@ function XOXOBoard() {
                   <button
                     key={i}
                     onClick={() => handleCellClick(i)}
-                    disabled={!isMyTurn || cell !== null || !!winner}
+                    disabled={(!isLocal && !isMyTurn) || cell !== null || !!winner}
                     className={`${maxCellSize} rounded-sm sm:rounded-md flex items-center justify-center transition-colors
-                      ${cell === null && isMyTurn ? 'hover:bg-primary/20 bg-muted/30' : 'bg-muted/50'}
-                      ${cell === null && !isMyTurn ? 'cursor-not-allowed' : ''}
+                      ${cell === null && (isLocal || isMyTurn) ? 'hover:bg-primary/20 bg-muted/30' : 'bg-muted/50'}
+                      ${cell === null && (!isLocal && !isMyTurn) ? 'cursor-not-allowed' : ''}
                     `}
                   >
                     {isX && <X className="w-[60%] h-[60%] text-sky-400 drop-shadow-md" />}
@@ -213,19 +224,15 @@ function XOXOBoard() {
                 className="absolute inset-0 z-10 bg-background/80 backdrop-blur flex flex-col items-center justify-center rounded-3xl"
               >
                 <h2 className="text-3xl font-black mb-2 text-primary drop-shadow-lg">
-                  {winner === 'draw' ? 'Seri!' : amIWinner ? 'Kamu Menang!' : 'Kamu Kalah!'}
+                  {winner === 'draw' ? 'Seri!' : isLocal ? (winner === 'host' ? 'Pemain 1 Menang!' : 'Pemain 2 Menang!') : (amIWinner ? 'Kamu Menang!' : 'Kamu Kalah!')}
                 </h2>
-                <button onClick={handleQuit} className="mt-4 px-6 py-2 bg-primary text-primary-foreground rounded-full font-bold text-sm shadow-xl">Kembali ke Menu</button>
+                <button onClick={handleQuit} className="mt-4 px-8 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:scale-105 transition">
+                  Keluar
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
-        {/* Player Info */}
-        <div className={`flex items-center gap-3 px-4 py-2 rounded-2xl transition ${isMyTurn ? 'bg-primary/20 scale-105 shadow-glow-primary' : 'opacity-50'}`}>
-          <div>
-            <p className="font-bold text-sm text-right">Kamu</p>
-            <p className="text-xs text-muted-foreground flex items-center justify-end gap-1">
               Simbol: {isHost ? <X className="w-3 h-3" /> : <Circle className="w-3 h-3" />}
             </p>
           </div>
