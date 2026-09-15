@@ -270,15 +270,18 @@ function MLGuessGame({ mode, difficulty, onBack }) {
     )
   }
 
-  const clues = [
-    { label: 'Role/Lane', value: hero.role },
-    { label: 'Ciri Fisik', value: hero.appearance },
-    { label: 'Senjata/Kekuatan', value: hero.weapon },
-    { label: 'Teman/Lawan', value: hero.synergy },
-    { label: 'Mekanik/Skill', value: hero.mechanics },
-    { label: 'Cerita/Asal', value: hero.lore },
-    { label: 'Suara', value: 'Audio' }
-  ]
+  const clues = hero.clues ? hero.clues.map(c => {
+    const idx = c.indexOf(':')
+    if (idx !== -1) {
+      return { label: c.substring(0, idx).trim(), value: c.substring(idx + 1).trim() }
+    }
+    return { label: 'Petunjuk', value: c }
+  }) : []
+
+  // Ensure there's 7 clues
+  while (clues.length < 7) {
+    clues.push({ label: 'Petunjuk Ekstra', value: '...' })
+  }
 
   const isPremiumClue = config.clueCost && (clueIndex === 4 || clueIndex === 5)
 
