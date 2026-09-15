@@ -142,7 +142,7 @@ function MemoryMatchBoard() {
 
       return () => clearTimeout(timer)
     }
-  }, [flipped, turn, role, cards, isLocal, locked])
+  }, [flipped, turn, role, cards, isLocal])
 
   async function handleCardClick(card) {
     if (winner || (!isLocal && turn !== role) || locked || flipped.length >= 2) return

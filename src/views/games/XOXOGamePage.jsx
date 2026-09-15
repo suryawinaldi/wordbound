@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Circle, X } from 'lucide-react'
 import { useRoomStore } from '@/stores/room'
 import { useAuthStore } from '@/stores/auth'
