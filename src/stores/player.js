@@ -111,6 +111,11 @@ export const usePlayerStore = create(() => ({
     await setDoc(doc(db, 'users', currentUser.uid), {
       [statPath]: increment(amount)
     }, { merge: true })
+
+    // If it's a win stat, award 10 coins!
+    if (statKey.endsWith('Wins') && amount > 0) {
+      usePlayerStore.getState().awardCoins(10 * amount)
+    }
   },
 
   async awardAchievement(badgeId) {

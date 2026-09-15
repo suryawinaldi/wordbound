@@ -114,7 +114,7 @@ export default function MLGuessPage() {
               <span className="text-xl">🔴</span>
               <h3 className="font-bold text-orange-500">Hard (Keras)</h3>
             </div>
-            <p className="text-xs text-muted-foreground ml-9">Modal 5 HP. <b>Buka Clue 6 & 7 bayar 1 HP!</b> <b>Pasif:</b> Nebak benar di Clue 1-3 = +1 HP.</p>
+            <p className="text-xs text-muted-foreground ml-9">Modal 5 HP. <b>Buka Clue 6 & 7 bayar 5 Koin!</b> <b>Pasif:</b> Nebak benar di Clue 1-3 = +1 HP.</p>
           </button>
 
           <button onClick={() => { sfx.click(); setDifficulty('nightmare') }} className="w-full p-4 rounded-2xl border border-rose-500/30 bg-rose-500/5 text-left hover:bg-rose-500/10 transition relative overflow-hidden group">
@@ -123,7 +123,7 @@ export default function MLGuessPage() {
               <span className="text-xl">💀</span>
               <h3 className="font-black text-rose-500 tracking-wider">NIGHTMARE</h3>
             </div>
-            <p className="relative text-xs text-muted-foreground ml-9 font-medium">Modal 5 HP. Buka Clue 6 & 7 bayar 1 HP. <b>TIDAK ADA HEALING!</b></p>
+            <p className="relative text-xs text-muted-foreground ml-9 font-medium">Modal 5 HP. Buka Clue 6 & 7 bayar 5 Koin. <b>TIDAK ADA HEALING!</b></p>
           </button>
         </GlassCard>
       </GameLayout>
@@ -134,7 +134,9 @@ export default function MLGuessPage() {
 }
 
 function MLGuessGame({ mode, difficulty, onBack }) {
-  const { awardXP, recordActivity, updateMaxStreak, awardAchievement } = usePlayerStore()
+  const { awardXP, awardCoins, spendCoins, recordActivity, updateMaxStreak, awardAchievement } = usePlayerStore()
+  const userData = useAuthStore(s => s.userData)
+  const myCoins = userData?.coins || 0
   const [heroes, setHeroes] = useState(() => [...ML_HEROES].sort(() => Math.random() - 0.5))
   const [idx, setIdx] = useState(0)
   
@@ -183,15 +185,14 @@ function MLGuessGame({ mode, difficulty, onBack }) {
       sfx.correct()
       setFeedback('correct')
       
-      let nextLives = lives
-      if (config.heal && clueIndex <= 2) {
-        nextLives = Math.min(nextLives + 1, config.startHp)
+      if (config.heal && lives < config.startHp && clueIndex < 3) {
+        setLives(l => Math.min(config.startHp, l + 1))
         sfx.chime() // Play heal sound
       }
-      setLives(nextLives)
-
       const xp = XP_REWARD[clueIndex] || 5
+      const rewardCoins = Math.floor(xp / 2)
       awardXP(xp)
+      awardCoins(rewardCoins)
       setScore(s => s + 1)
     } else {
       sfx.wrong()
@@ -229,16 +230,20 @@ function MLGuessGame({ mode, difficulty, onBack }) {
     setTimeout(() => inputRef.current?.focus(), 100)
   }
 
-  function handleOpenClue() {
+  async function handleOpenClue() {
     if (clueIndex >= 6 || gameOver) return
     const nextClue = clueIndex + 1
     
-    if (config.clueCost && (nextClue === 5 || nextClue === 6)) { // 5 and 6 are Clue 6 and 7 (0-indexed)
-      if (lives <= 1) {
+    if (config.clueCost && (nextClue === 5 || nextClue === 6)) {
+      if (myCoins < 5) {
         sfx.wrong()
-        return // Can't suicide to open clue
+        return 
       }
-      setLives(l => l - 1)
+      const success = await spendCoins(5)
+      if (!success) {
+        sfx.wrong()
+        return
+      }
     }
     
     sfx.click()
@@ -350,9 +355,9 @@ function MLGuessGame({ mode, difficulty, onBack }) {
                       </div>
                     ) : (
                       <div className="flex-1 flex items-center h-6">
-                        <div className="w-1/2 h-2 rounded-full bg-muted"></div>
-                        {costsHp && isNext && <span className="ml-auto text-[0.65rem] font-bold text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded-full">Bayar 1 HP</span>}
-                      </div>
+                          <div className="w-1/2 h-2 rounded-full bg-muted"></div>
+                          {costsHp && isNext && <span className="ml-auto text-[0.65rem] font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">Bayar 5 Koin</span>}
+                        </div>
                     )}
                   </div>
                 </motion.div>
@@ -383,10 +388,10 @@ function MLGuessGame({ mode, difficulty, onBack }) {
                 {clueIndex < 6 && (
                   <button 
                     onClick={handleOpenClue} 
-                    disabled={isPremiumClue && lives <= 1}
-                    className={`w-full py-3 rounded-xl glass text-sm font-semibold transition ${isPremiumClue ? 'border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 disabled:opacity-30' : 'text-muted-foreground hover:text-foreground'}`}
+                    disabled={isPremiumClue && myCoins < 5}
+                    className={`w-full py-3 rounded-xl glass text-sm font-semibold transition ${isPremiumClue ? 'border border-amber-500/30 text-amber-500 hover:bg-amber-500/10 disabled:opacity-30' : 'text-muted-foreground hover:text-foreground'}`}
                   >
-                    {isPremiumClue ? (lives <= 1 ? "Nyawa tidak cukup" : "Buka Clue (Bayar 1 HP)") : "Buka Clue (Gratis)"}
+                    {isPremiumClue ? (myCoins < 5 ? "Koin tidak cukup (Butuh 5)" : "Buka Clue (Bayar 5 Koin)") : "Buka Clue (Gratis)"}
                   </button>
                 )}
               </motion.div>
