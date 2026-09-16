@@ -4,7 +4,8 @@ import {
   signInWithRedirect,
   getRedirectResult,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signInAnonymously
 } from 'firebase/auth'
 import { doc, getDoc, setDoc, updateDoc, onSnapshot, deleteDoc } from 'firebase/firestore'
 import { auth as firebaseAuth, googleProvider, db } from '@/firebase-config'
@@ -42,14 +43,19 @@ function stopWatching() {
   useAuthStore.setState({ userData: null, partnerData: null })
 }
 
-async function ensureUserDoc(user) {
+async function ensureUserDoc(user, guestName = null) {
   const userRef = doc(db, 'users', user.uid)
   const snap = await getDoc(userRef)
+  
+  const displayName = user.displayName || guestName || `Guest-${Math.floor(Math.random() * 10000)}`
+  const email = user.email || null
+  const photoURL = user.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${displayName}`
+
   if (!snap.exists()) {
     await setDoc(userRef, {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
+      displayName,
+      email,
+      photoURL,
       partnerUid: null,
       createdAt: new Date().toISOString(),
       streak: 0,
@@ -60,11 +66,13 @@ async function ensureUserDoc(user) {
       streakFreezeCount: 0
     })
   } else {
-    // Update profile info just in case
-    await updateDoc(userRef, {
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    })
+    // Update profile info just in case, but avoid overwriting guest names on reload
+    const updates = {}
+    if (user.displayName) updates.displayName = user.displayName
+    if (user.photoURL) updates.photoURL = user.photoURL
+    if (Object.keys(updates).length > 0) {
+      await updateDoc(userRef, updates)
+    }
   }
 }
 
@@ -98,6 +106,19 @@ export const useAuthStore = create((set, get) => ({
   authReady: false,
   loading: false,
   error: null,
+
+  async loginAsGuest(guestName) {
+    set({ loading: true, error: null })
+    try {
+      const result = await signInAnonymously(firebaseAuth)
+      await ensureUserDoc(result.user, guestName)
+      set({ loading: false })
+    } catch (err) {
+      console.error('Guest login failed', err)
+      set({ error: err.message, loading: false })
+      alert('Guest Login Error: ' + err.message)
+    }
+  },
 
   async loginWithGoogle() {
     set({ loading: true, error: null })

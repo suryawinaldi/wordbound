@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAuthStore } from '@/stores/auth'
 import { useAudioStore } from '@/stores/audio'
 import { sfx } from '@/lib/sound'
-import { Sparkles, Droplets, Sun, HeartHandshake, Gamepad2 } from 'lucide-react'
+import { Sparkles, Droplets, Sun, HeartHandshake, Gamepad2, User } from 'lucide-react'
 
 function GoogleIcon() {
   return (
@@ -17,14 +18,27 @@ function GoogleIcon() {
 
 export default function SplashPage() {
   const loginWithGoogle = useAuthStore((s) => s.loginWithGoogle)
+  const loginAsGuest = useAuthStore((s) => s.loginAsGuest)
   const loading = useAuthStore((s) => s.loading)
   const error = useAuthStore((s) => s.error)
   const toggleMute = useAudioStore((s) => s.toggleMute)
   const muted = useAudioStore((s) => s.muted)
 
-  async function handleLogin() {
+  const [showGuestInput, setShowGuestInput] = useState(false)
+  const [guestName, setGuestName] = useState('')
+
+  async function handleGoogleLogin() {
     sfx.click()
     await loginWithGoogle()
+  }
+
+  async function handleGuestLogin() {
+    if (!guestName.trim()) {
+      sfx.wrong()
+      return
+    }
+    sfx.click()
+    await loginAsGuest(guestName.trim())
   }
 
   return (
@@ -47,67 +61,87 @@ export default function SplashPage() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center max-w-md relative z-10"
+        className="text-center max-w-md relative z-10 w-full"
       >
         <motion.div
           initial={{ scale: 0, rotate: -20 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 14, delay: 0.1 }}
-          className="relative mx-auto w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-growth via-sky to-couple grid place-items-center shadow-glow mb-6"
+          className="mx-auto w-24 h-24 bg-gradient-to-tr from-primary to-sun rounded-3xl shadow-glow grid place-items-center mb-8 relative"
         >
-          <Sparkles className="w-10 h-10 text-white" />
-          <span className="absolute inset-0 rounded-[1.75rem] bg-growth/40 blur-2xl -z-10" />
+          <div className="absolute inset-1 bg-background/20 rounded-2xl backdrop-blur-sm" />
+          <Sparkles className="w-12 h-12 text-white relative z-10" />
         </motion.div>
 
-        <h1 className="font-display font-extrabold text-4xl sm:text-5xl tracking-tight">
-          <span className="text-gradient">DuoBloom</span>
+        <h1 className="font-display font-black text-5xl tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60">
+          DuoBloom
         </h1>
-        <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground mt-1.5">Life Estate</p>
-
-        <p className="mt-5 text-muted-foreground text-[0.95rem] leading-relaxed">
-          Belajar bahasa Inggris & tracker keuangan dalam satu petualangan. Tumbuhkan
-          <span className="text-growth font-semibold"> Pohon Kehidupan</span>mu dengan Air (XP) & Matahari (Tabungan) —
-          main <span className="text-couple font-semibold">solo atau berpasangan</span>.
+        <p className="text-muted-foreground text-lg mb-10 max-w-[16rem] mx-auto leading-relaxed">
+          Tumbuh bersama, belajar bersama.
         </p>
 
-        <div className="mt-7 grid grid-cols-2 gap-3">
-          {[
-            { icon: Droplets, label: 'Air = XP', tone: 'text-sky' },
-            { icon: Sun, label: 'Matahari = Tabungan', tone: 'text-sun' },
-            { icon: Gamepad2, label: '6 Mini Games', tone: 'text-growth' },
-            { icon: HeartHandshake, label: 'Mode Pasangan', tone: 'text-couple' },
-          ].map((f, i) => (
-            <motion.div
-              key={f.label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.08 }}
-              className="glass rounded-2xl px-3.5 py-3 flex items-center gap-2.5 text-left"
+        {showGuestInput ? (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+            <input 
+              type="text" 
+              placeholder="Ketik namamu..." 
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleGuestLogin()}
+              className="w-full glass-strong rounded-2xl px-5 py-4 font-semibold text-center outline-none focus:ring-2 focus:ring-primary/50"
+              autoFocus
+            />
+            <motion.button
+              onClick={handleGuestLogin}
+              disabled={loading || !guestName.trim()}
+              whileTap={{ scale: 0.97 }}
+              className="w-full bg-primary text-primary-foreground rounded-2xl px-5 py-4 flex items-center justify-center gap-3 font-semibold shadow-soft hover:shadow-glow transition-all disabled:opacity-70"
             >
-              <f.icon className={`w-5 h-5 ${f.tone}`} />
-              <span className="text-xs font-semibold">{f.label}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.button
-          onClick={handleLogin}
-          disabled={loading}
-          whileTap={{ scale: 0.97 }}
-          className="mt-8 w-full glass-strong rounded-2xl px-5 py-4 flex items-center justify-center gap-3 font-semibold shadow-soft hover:shadow-glow transition-all disabled:opacity-70"
-        >
-          {loading ? (
-            <span className="flex items-center gap-2">
-              <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-              Memuat...
-            </span>
-          ) : (
-            <>
-              <GoogleIcon />
-              Masuk dengan Google
-            </>
-          )}
-        </motion.button>
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Memuat...
+                </span>
+              ) : (
+                <>Mulai Main</>
+              )}
+            </motion.button>
+            <button onClick={() => setShowGuestInput(false)} className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              Kembali
+            </button>
+          </motion.div>
+        ) : (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+            <motion.button
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              whileTap={{ scale: 0.97 }}
+              className="w-full glass-strong rounded-2xl px-5 py-4 flex items-center justify-center gap-3 font-semibold shadow-soft hover:shadow-glow transition-all disabled:opacity-70"
+            >
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                  Memuat...
+                </span>
+              ) : (
+                <>
+                  <GoogleIcon />
+                  Masuk dengan Google
+                </>
+              )}
+            </motion.button>
+            
+            <motion.button
+              onClick={() => { sfx.click(); setShowGuestInput(true) }}
+              disabled={loading}
+              whileTap={{ scale: 0.97 }}
+              className="w-full border border-border/50 bg-background/40 backdrop-blur-sm rounded-2xl px-5 py-3.5 flex items-center justify-center gap-2 font-semibold hover:bg-background/60 transition-all disabled:opacity-70 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <User className="w-4 h-4" />
+              Atau masuk sebagai Tamu
+            </motion.button>
+          </motion.div>
+        )}
 
         {error && (
           <p className="mt-4 text-sm text-destructive bg-destructive/10 rounded-xl px-4 py-2.5">{error}</p>
