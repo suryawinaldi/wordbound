@@ -1,12 +1,18 @@
 {
-  "name": "duobloom",
+  "name": "hero-hunt",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/hero-hunt.test.js",
+    "test:e2e": "python tests/hero_hunt_e2e.py",
+    "check:content": "node scripts/check-hero-content.js",
+    "check:release": "node scripts/check-hero-content.js --release",
+    "build:release": "node scripts/build-vercel.js --production",
+    "build:vercel": "node scripts/build-vercel.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

@@ -4,3 +4,9 @@ dist
 .env.*
 !.env.example
 .DS_Store
+
+dist-hero-hunt
+
+.vercel
+
+__pycache__
