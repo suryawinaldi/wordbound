@@ -63,6 +63,15 @@ export function validateHeroes(heroes, { release = false } = {}) {
       unique.add(key);
     }
     if (!/^https:\/\//.test(hero.sourceUrl)) errors.push(`${hero.id}: missing source reference`);
+    if (
+      release &&
+      (!hero.roleFact ||
+        hero.roleFact.reviewStatus !== "verified" ||
+        !hero.roleFact.evidence ||
+        !hero.roleFact.verifiedAt ||
+        !hero.roleFact.reviewer)
+    )
+      errors.push(`${hero.id}: role fact evidence/review required`);
     if (release && (hero.reviewStatus !== "verified" || !hero.verifiedAt))
       errors.push(`${hero.id}: external content review required`);
   }

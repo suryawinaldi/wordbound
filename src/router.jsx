@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import AudioPage from "./features/hero-hunt/AudioPage.jsx";
 import HeroLibraryPage from "./features/hero-hunt/HeroLibraryPage.jsx";
 import { Shell } from "./features/hero-hunt/components.jsx";
 import {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/play", element: <PlaySetupPage /> },
       { path: "/play/solo", element: <GamePage /> },
+      { path: "/play/audio", element: <AudioPage /> },
       { path: "/results/:sessionId", element: <ResultsPage /> },
       { path: "/stats", element: <StatsPage /> },
       { path: "/profile", element: <ProfilePage /> },

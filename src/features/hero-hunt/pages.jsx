@@ -19,9 +19,11 @@ import {
   Target,
   Trophy,
   UsersRound,
+  Volume2,
   X,
 } from "lucide-react";
 import { ConfirmDialog, MysteryArt, PageIntro } from "./components.jsx";
+import { CLUE_PROFILES, getSessionClues, clueCategory } from "./clue-profiles.js";
 import { HEROES } from "./content.js";
 import { DIFFICULTIES, normalizeAnswer, potentialPoints, summarize } from "./engine.js";
 import { playTone, useHuntStore } from "./store.js";
@@ -49,6 +51,32 @@ function DifficultyPicker({ disabled = false }) {
         ))}
       </div>
       <p>Salah −1 HP · Petunjuk tambahan −15 potensi poin · Tanpa koin</p>
+    </fieldset>
+  );
+}
+
+function ClueProfilePicker({ disabled = false }) {
+  const profile = useHuntStore((s) => s.settings.clueProfile);
+  const update = useHuntStore((s) => s.updateSettings);
+  return (
+    <fieldset className="clue-profile-picker" disabled={disabled}>
+      <legend>Jenis petunjuk</legend>
+      {Object.entries(CLUE_PROFILES).map(([key, config]) => (
+        <label key={key}>
+          <input
+            type="radio"
+            name="clue-profile"
+            value={key}
+            checked={profile === key}
+            onChange={() => update({ clueProfile: key })}
+          />
+          <span>
+            <strong>{config.label}</strong>
+            <small>{config.description}</small>
+          </span>
+        </label>
+      ))}
+      <p>Role berbeda dari lane. Kedua profil memakai aturan skor yang sama.</p>
     </fieldset>
   );
 }
@@ -91,6 +119,21 @@ function Modes() {
         </p>
         <span className="mode-action">
           Mulai perburuan <ArrowUpRight size={18} />
+        </span>
+      </Link>
+      <Link className="mode-card audio-mode-card" to="/play/audio">
+        <div className="mode-icon">
+          <Volume2 size={23} />
+        </div>
+        <span className="mode-status">DALAM PERSIAPAN</span>
+        <h3>Tebak Suara</h3>
+        <p>
+          Kenali hero dari voice draft pick.
+          <br />
+          Audio sedang diperiksa sebelum dimainkan.
+        </p>
+        <span className="mode-action">
+          Lihat kesiapan audio <ArrowUpRight size={18} />
         </span>
       </Link>
       <article className="mode-card upcoming">
@@ -260,6 +303,7 @@ export function PlaySetupPage() {
           <h2>Siapkan insting terbaikmu.</h2>
           <p>Petunjuk pertama terbuka otomatis. Semakin sedikit bantuan, semakin besar poinmu.</p>
           <DifficultyPicker disabled={!!session && session.phase !== "completed"} />
+          <ClueProfilePicker disabled={!!session && session.phase !== "completed"} />
           <StartButton label="Mulai Solo" />
           <p className="guest-note">
             <Shield size={14} /> Progres tersimpan di browser ini.
@@ -321,7 +365,8 @@ export function GamePage() {
     );
   const hero = HEROES.find((item) => item.id === session.heroIds[session.round]);
   const config = DIFFICULTIES[session.difficulty];
-  const clue = hero.clues[session.clueIndex];
+  const clues = getSessionClues(hero, session.clueProfile);
+  const clue = clues[session.clueIndex];
   const reveal = session.phase === "reveal";
   const score = summarize(session).score;
   const points = potentialPoints(session);
@@ -430,10 +475,10 @@ export function GamePage() {
                 <span className="eyebrow">
                   <Lightbulb size={15} /> PETUNJUK {session.clueIndex + 1} DARI 5
                 </span>
-                <span className="clue-type">{clue.type}</span>
+                <span className="clue-type">{clueCategory(clue)}</span>
               </div>
               <div className="clue-dots" aria-hidden="true">
-                {hero.clues.map((_, i) => (
+                {clues.map((_, i) => (
                   <span key={i} className={i <= session.clueIndex ? "open" : ""} />
                 ))}
               </div>
@@ -446,10 +491,13 @@ export function GamePage() {
                     Petunjuk sebelumnya ({session.clueIndex}) <ChevronDown size={15} />
                   </summary>
                   <ol>
-                    {hero.clues.slice(0, session.clueIndex).map((item, i) => (
+                    {clues.slice(0, session.clueIndex).map((item, i) => (
                       <li key={i}>
                         <span>{i + 1}</span>
-                        {item.text}
+                        <span className="history-clue-text">
+                          <b>{clueCategory(item)}</b>
+                          {item.text}
+                        </span>
                       </li>
                     ))}
                   </ol>

@@ -72,8 +72,9 @@ test("a hero-level flag alone cannot bypass per-clue release evidence", () => {
   hero.reviewStatus = "verified";
   hero.verifiedAt = "2026-11-12";
   assert.equal(
-    validateHeroes([hero], { release: true }).filter((error) => error.includes("evidence/review"))
-      .length,
+    validateHeroes([hero], { release: true }).filter(
+      (error) => error.includes(": clue ") && error.includes("evidence/review"),
+    ).length,
     5,
   );
 });
@@ -262,4 +263,79 @@ test("retired audio endpoint rejects arbitrary URLs", () => {
   audioHandler({ query: { url: "http://127.0.0.1/admin" } }, response);
   assert.equal(response.code, 410);
   assert.ok(response.payload.error);
+});
+
+test("mixed clues show complete roles at clue 2, preserving the five-clue score structure", async () => {
+  const { getSessionClues, clueCategory } =
+    await import("../src/features/hero-hunt/clue-profiles.js");
+  for (const hero of HEROES) {
+    const mixed = getSessionClues(hero, "mixed");
+    assert.equal(mixed.length, 5);
+    assert.equal(mixed[1].type, "Role");
+    assert.equal(mixed[1].text, `Role hero ini: ${hero.roles.join(" / ")}.`);
+    assert.equal(mixed[1].sourceUrl, hero.roleFact.sourceUrl);
+    assert.equal(mixed[1].reviewStatus, "needs_review");
+    assert.equal(mixed[2], hero.clues[2]);
+    assert.equal(mixed[4], hero.clues[4]);
+    assert.equal(clueCategory(mixed[4]), "Signature");
+    assert.equal(clueContainsAnswer(hero, mixed[1].text), false);
+    assert.equal(getSessionClues(hero), hero.clues); // Existing sessions remain unchanged.
+    assert.equal(getSessionClues(hero, "story"), hero.clues);
+    assert.equal(hero.identity.gender, null); // Not inferred from character artwork.
+  }
+});
+
+test("clue preference is captured at session start, and malformed persisted profiles are rejected", async () => {
+  const { getSessionClues } = await import("../src/features/hero-hunt/clue-profiles.js");
+  useHuntStore.setState({
+    settings: { difficulty: "normal", clueProfile: "mixed", muted: true, name: "" },
+  });
+  const session = useHuntStore.getState().start();
+  assert.equal(session.clueProfile, "mixed");
+  useHuntStore.getState().updateSettings({ clueProfile: "story" });
+  assert.equal(useHuntStore.getState().session.clueProfile, "mixed");
+  assert.equal(getSessionClues(HEROES[0], session.clueProfile)[1].type, "Role");
+  assert.equal(useHuntStore.getState().start().clueProfile, "story");
+  assert.equal(isSession({ ...session, clueProfile: "invented" }), false);
+});
+
+test("audio gate rejects missing rights, source, language, spoilers, playback, and remote URLs", async () => {
+  const { audioEligibility, playableAudioHeroes } =
+    await import("../src/features/hero-hunt/audio-catalog.js");
+  const audio = {
+    kind: "hero_selection_default",
+    skin: "default",
+    language: "en",
+    sourceUrl: "https://example.org/audio",
+    sourceStatus: "verified",
+    sourceEvidence: "Selection event confirmed",
+    licenseStatus: "licensed",
+    licenseEvidence: "Test fixture only",
+    playbackStatus: "tested",
+    playbackTestedAt: "2026-11-12",
+    reviewer: "Test fixture",
+    spoilerStatus: "clear",
+    spoilerEvidence: "No name spoken",
+    localAssetPath: "/audio/hero-hunt/voice-001.ogg",
+  };
+  assert.equal(audioEligibility(audio).ready, true);
+  for (const patch of [
+    { kind: "movement" },
+    { skin: "collaboration" },
+    { language: "id" },
+    { sourceStatus: "needs_review" },
+    { sourceEvidence: null },
+    { licenseStatus: "not_verified" },
+    { licenseEvidence: null },
+    { playbackStatus: "not_tested" },
+    { reviewer: null },
+    { spoilerStatus: "reveals_name" },
+    { spoilerEvidence: null },
+    { localAssetPath: "https://example.org/voice.ogg" },
+    { localAssetPath: "/audio/hero-hunt/../secret.ogg" },
+    { localAssetPath: "/api/proxy-audio?url=anything" },
+  ])
+    assert.equal(audioEligibility({ ...audio, ...patch }).ready, false, JSON.stringify(patch));
+  assert.equal(audioEligibility(null).ready, false);
+  assert.deepEqual(playableAudioHeroes(HEROES), []);
 });

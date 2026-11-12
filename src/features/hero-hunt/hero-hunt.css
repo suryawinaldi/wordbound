@@ -2570,3 +2570,148 @@ main:focus {
     font-size: 12px;
   }
 }
+.clue-profile-picker {
+  margin: 0 0 25px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.clue-profile-picker legend {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.clue-profile-picker label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 9px;
+  cursor: pointer;
+}
+.clue-profile-picker label:has(input:checked) {
+  border-color: #b39865;
+  background: #ceb2770d;
+}
+.clue-profile-picker input {
+  accent-color: var(--gold);
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+}
+.clue-profile-picker strong {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+}
+.clue-profile-picker small,
+.clue-profile-picker > p {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 5px;
+}
+.clue-profile-picker:disabled label {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.clue-history .history-clue-text {
+  display: block;
+  color: #b9c6cf;
+}
+.history-clue-text b {
+  display: block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 500;
+}
+.mode-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.audio-mode-card {
+  border-color: #49616b;
+}
+.audio-mode-card .mode-status {
+  color: #a8c4d0;
+}
+.audio-page {
+  max-width: 850px;
+  padding-block: 20px 45px;
+}
+.audio-preview-panel {
+  text-align: center;
+  border: 1px solid #53616a;
+  background: linear-gradient(125deg, #172f39, #111f2c);
+  border-radius: 12px;
+  padding: 35px;
+}
+.audio-emblem {
+  color: var(--gold);
+  margin: 0 auto 24px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #84714e;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.audio-preview-panel h2 {
+  font-size: 25px;
+  font-weight: 550;
+}
+.audio-preview-panel > p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 520px;
+  margin: 17px auto;
+}
+.audio-language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #bdcdd7;
+  margin: 22px auto;
+}
+.audio-rules {
+  margin-top: 35px;
+}
+.audio-rules h2 {
+  font-size: 20px;
+  font-weight: 500;
+}
+.audio-rules ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 15px;
+  margin: 23px 0 0;
+}
+.audio-rules li {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.audio-rules svg {
+  margin-top: 4px;
+  color: var(--gold);
+}
+@media (max-width: 760px) {
+  .mode-grid {
+    grid-template-columns: 1fr;
+  }
+  .audio-preview-panel {
+    padding: 25px 20px;
+  }
+  .audio-preview-panel h2 {
+    font-size: 22px;
+  }
+}

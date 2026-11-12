@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { HEROES, CONTENT_VERSION, COMPATIBLE_CONTENT_VERSIONS } from "./content.js";
 import { createSession, DIFFICULTIES, transition } from "./engine.js";
 
+import { CLUE_PROFILES } from "./clue-profiles.js";
+
 const HISTORY_KEY = "hero-hunt.history.v1";
 const SESSION_KEY = "hero-hunt.session.v1";
 const SETTINGS_KEY = "hero-hunt.settings.v1";
@@ -31,6 +33,7 @@ export function isSession(value) {
     !DIFFICULTIES[value.difficulty]
   )
     return false;
+  if (value.clueProfile !== undefined && !CLUE_PROFILES[value.clueProfile]) return false;
   if (typeof value.id !== "string" || !PHASES.includes(value.phase)) return false;
   if (!Array.isArray(value.heroIds) || !value.heroIds.length || value.heroIds.length > 5)
     return false;
@@ -94,6 +97,7 @@ export const useHuntStore = create((set, get) => ({
   settings: {
     difficulty: DIFFICULTIES[rawSettings?.difficulty] ? rawSettings.difficulty : "normal",
     muted: typeof rawSettings?.muted === "boolean" ? rawSettings.muted : false,
+    clueProfile: CLUE_PROFILES[rawSettings?.clueProfile] ? rawSettings.clueProfile : "mixed",
     name: typeof rawSettings?.name === "string" ? rawSettings.name.slice(0, 24) : "",
   },
   storageWarning: false,
@@ -101,6 +105,7 @@ export const useHuntStore = create((set, get) => ({
     const session = {
       ...createSession(HEROES, get().settings.difficulty),
       contentVersion: CONTENT_VERSION,
+      clueProfile: get().settings.clueProfile || "mixed",
     };
     const saved = write("sessionStorage", SESSION_KEY, session);
     set({ session, storageWarning: !saved });

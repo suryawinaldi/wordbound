@@ -12,7 +12,8 @@
     "check:content": "node scripts/check-hero-content.js",
     "check:release": "node scripts/check-hero-content.js --release",
     "build:release": "node scripts/build-vercel.js --production",
-    "build:vercel": "node scripts/build-vercel.js"
+    "build:vercel": "node scripts/build-vercel.js",
+    "audit:audio": "node scripts/audit-hero-audio.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

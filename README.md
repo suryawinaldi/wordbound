@@ -91,3 +91,13 @@ The current runtime also denies outbound access to the official MLBB site and `a
 See [content review](docs/content-review.md) for the seven excluded entries and remaining editorial requirements.
 
 Hero Hunt is a fan-made trivia project and is not affiliated with MOONTON Games.
+
+## Clue profiles and voice selection
+
+Solo setup now offers **Campuran** (default for new sessions) and **Kisah & mekanik**. Mixed replaces only clue 2 with the complete role list, keeping the other four authored clues and the five-step scoring structure. Role is not lane. The selected profile is captured in the session; changing preferences cannot alter an active round. Legacy sessions without a profile keep their original authored clues. Scores remain personal preview records; both profiles currently share the same local scoreboard.
+
+Role facts have their own source/review metadata and are still editorial previews, not current-patch certifications. Production validation also requires role evidence. Gender is explicitly null until a source confirms it; it is never inferred from artwork, pronouns, role, or paired-character names. No generic gender clue is inserted.
+
+`/play/audio` explains the planned voice-selection mode and clearly states that no audio is playable yet. It does not start a fake session or make media requests. The existing 107 remote URLs are references only; 26 legacy entries have no URL. All 133 entries are represented in `docs/audio-audit.json`. A representative Aamon CDN HEAD request on 12 November 2026 returned proxy CONNECT 403, so playback remains untested. No original voice files were downloaded or activated.
+
+Run `npm run audit:audio` to check the catalog or `node scripts/audit-hero-audio.js --write` to refresh the report. `AUDIO_REVIEWS` is currently empty. Before adding an asset it must have confirmed default-skin selection kind, matching English language, source evidence, license evidence, playback evidence, reviewer, spoiler clearance and a bundled `/audio/hero-hunt/` path. The build checks that every eligible file actually exists. No arbitrary URL proxy is used. Future gameplay must replace a failed audio round without taking HP; this behavior is described as planned, not implemented playback.

@@ -180,6 +180,36 @@ class HeroHuntBrowserTests(unittest.TestCase):
         self.page.reload(wait_until='networkidle')
         expect(self.page.get_by_role('heading', name='Kenali para legenda.')).to_be_visible()
 
+    def test_mixed_role_clue_is_hidden_until_hint_and_survives_reload(self):
+        self.page.goto(BASE + '/play')
+        expect(self.page.get_by_role('radio', name='Campuran', exact=False)).to_be_checked()
+        self.page.get_by_role('button', name='Mulai Solo', exact=True).click()
+        expect(self.page.locator('.clue-type')).not_to_have_text('Role')
+        self.page.get_by_role('button', name='Buka petunjuk berikutnya').click()
+        expect(self.page.locator('.clue-type')).to_have_text('Role')
+        role_clue = self.page.locator('.active-clue').inner_text()
+        self.assertTrue(role_clue.startswith('Role hero ini: '))
+        self.page.reload(wait_until='networkidle')
+        expect(self.page.locator('.active-clue')).to_have_text(role_clue)
+        self.page.get_by_role('button', name='Buka petunjuk berikutnya').click()
+        self.solve()
+        expect(self.page.locator('.score-breakdown strong')).to_have_text('+70')
+
+    def test_story_profile_and_audio_preparation(self):
+        self.page.goto(BASE + '/play/audio')
+        expect(self.page.get_by_role('heading', name='Satu suara. Siapa heronya?')).to_be_visible()
+        expect(self.page.get_by_role('heading', name='Voice draft pick sedang disiapkan.')).to_be_visible()
+        expect(self.page.locator('audio')).to_have_count(0)
+        self.no_overflow()
+        self.page.get_by_role('link', name='Main Solo Classic', exact=True).click()
+        self.page.get_by_role('radio', name='Kisah & mekanik', exact=False).check()
+        self.page.reload(wait_until='networkidle')
+        expect(self.page.get_by_role('radio', name='Kisah & mekanik', exact=False)).to_be_checked()
+        self.page.get_by_role('button', name='Mulai Solo', exact=True).click()
+        self.page.get_by_role('button', name='Buka petunjuk berikutnya').click()
+        expect(self.page.locator('.clue-type')).not_to_have_text('Role')
+        self.assertFalse(self.page.locator('.active-clue').inner_text().startswith('Role hero ini: '))
+
     def test_corrupt_saved_data_recovers(self):
         self.page.evaluate("localStorage.setItem('hero-hunt.history.v1', '{}'); sessionStorage.setItem('hero-hunt.session.v1', '{broken'); localStorage.setItem('hero-hunt.settings.v1', 'null')")
         self.page.reload(wait_until='networkidle')
