@@ -1,0 +1,430 @@
+[
+  {
+    "name": "Aamon",
+    "src": "/audio/selection/38e1c1d635aa8ddd3b80.mp3"
+  },
+  {
+    "name": "Akai",
+    "src": "/audio/selection/e047618e974f64a031ed.mp3"
+  },
+  {
+    "name": "Aldous",
+    "src": "/audio/selection/f422fc91a5c7f2c0613e.mp3"
+  },
+  {
+    "name": "Alice",
+    "src": "/audio/selection/ff111688cb09744e8ea9.mp3"
+  },
+  {
+    "name": "Alpha",
+    "src": "/audio/selection/c5146d13233d675fcf40.mp3"
+  },
+  {
+    "name": "Alucard",
+    "src": "/audio/selection/746118051f8b505590c8.mp3"
+  },
+  {
+    "name": "Angela",
+    "src": "/audio/selection/f0c6e85ed9db0180f891.mp3"
+  },
+  {
+    "name": "Argus",
+    "src": "/audio/selection/55658c24475ded7ba349.mp3"
+  },
+  {
+    "name": "Atlas",
+    "src": "/audio/selection/9e6778ee54f673a3a39c.mp3"
+  },
+  {
+    "name": "Aulus",
+    "src": "/audio/selection/312cf7be8601e23fb8ac.mp3"
+  },
+  {
+    "name": "Aurora",
+    "src": "/audio/selection/ac4a3608879ad398519e.mp3"
+  },
+  {
+    "name": "Badang",
+    "src": "/audio/selection/4c99134726f56f75306b.mp3"
+  },
+  {
+    "name": "Balmond",
+    "src": "/audio/selection/814139d16586f5ecdb3a.mp3"
+  },
+  {
+    "name": "Bane",
+    "src": "/audio/selection/c8d199f46eac4285d7d2.mp3"
+  },
+  {
+    "name": "Barats",
+    "src": "/audio/selection/37a054bdca09b7e5c842.mp3"
+  },
+  {
+    "name": "Baxia",
+    "src": "/audio/selection/fcd59e30e4a3e982bc14.mp3"
+  },
+  {
+    "name": "Beatrix",
+    "src": "/audio/selection/06a91c3cd773efc6bc18.mp3"
+  },
+  {
+    "name": "Belerick",
+    "src": "/audio/selection/befa9fe25407cc7ea640.mp3"
+  },
+  {
+    "name": "Benedetta",
+    "src": "/audio/selection/a919779d21dcf7696d9c.mp3"
+  },
+  {
+    "name": "Brody",
+    "src": "/audio/selection/6f178efa1888c8e89cce.mp3"
+  },
+  {
+    "name": "Bruno",
+    "src": "/audio/selection/5436915e53bc046a26c3.mp3"
+  },
+  {
+    "name": "Carmilla",
+    "src": "/audio/selection/3d49a6e2a6decc2a9d7c.mp3"
+  },
+  {
+    "name": "Cecilion",
+    "src": "/audio/selection/f88a502c536f48c3b78e.mp3"
+  },
+  {
+    "name": "Chang'e",
+    "src": "/audio/selection/908a2f7faed79ec7f1dc.mp3"
+  },
+  {
+    "name": "Chou",
+    "src": "/audio/selection/e60e684a07a07fd30e5e.mp3"
+  },
+  {
+    "name": "Claude",
+    "src": "/audio/selection/6de55b7285c5afcb075a.mp3"
+  },
+  {
+    "name": "Cyclops",
+    "src": "/audio/selection/6017447533cf4aa58018.mp3"
+  },
+  {
+    "name": "Diggie",
+    "src": "/audio/selection/a7ebd21ee3ec0af621ec.mp3"
+  },
+  {
+    "name": "Dyrroth",
+    "src": "/audio/selection/1bba6255b1aa97027dc3.mp3"
+  },
+  {
+    "name": "Edith",
+    "src": "/audio/selection/a90d1825000f662b787b.mp3"
+  },
+  {
+    "name": "Esmeralda",
+    "src": "/audio/selection/4cd503ddae27c1093e7f.mp3"
+  },
+  {
+    "name": "Estes",
+    "src": "/audio/selection/6064121b4323fdf9e57b.mp3"
+  },
+  {
+    "name": "Eudora",
+    "src": "/audio/selection/e823363ee02febac563a.mp3"
+  },
+  {
+    "name": "Fanny",
+    "src": "/audio/selection/d5b00f8fe22b245d8d32.mp3"
+  },
+  {
+    "name": "Faramis",
+    "src": "/audio/selection/4352602102195261ca72.mp3"
+  },
+  {
+    "name": "Floryn",
+    "src": "/audio/selection/6375f2115196ee38188d.mp3"
+  },
+  {
+    "name": "Franco",
+    "src": "/audio/selection/d52eb69816319ce8d948.mp3"
+  },
+  {
+    "name": "Freya",
+    "src": "/audio/selection/12249846af6a1b5ec809.mp3"
+  },
+  {
+    "name": "Gatotkaca",
+    "src": "/audio/selection/8813b706c6ea049133ad.mp3"
+  },
+  {
+    "name": "Gloo",
+    "src": "/audio/selection/b43a6f2f6b02cdd3cefc.mp3"
+  },
+  {
+    "name": "Gord",
+    "src": "/audio/selection/2d2514012a4c444ff102.mp3"
+  },
+  {
+    "name": "Granger",
+    "src": "/audio/selection/46ac907b4d5ed5c2f3b9.mp3"
+  },
+  {
+    "name": "Grock",
+    "src": "/audio/selection/4459cd51f4631c32a8c0.mp3"
+  },
+  {
+    "name": "Guinevere",
+    "src": "/audio/selection/5a742f2e7bf12d2fce86.mp3"
+  },
+  {
+    "name": "Gusion",
+    "src": "/audio/selection/b3198ca426611b3fcff4.mp3"
+  },
+  {
+    "name": "Hanabi",
+    "src": "/audio/selection/d76357fc2b1d671142fb.mp3"
+  },
+  {
+    "name": "Hanzo",
+    "src": "/audio/selection/3ed5015d423f691ed0f4.mp3"
+  },
+  {
+    "name": "Harith",
+    "src": "/audio/selection/1317dc9c59d1118fe646.mp3"
+  },
+  {
+    "name": "Harley",
+    "src": "/audio/selection/36975a0cf5b5fbb5b951.mp3"
+  },
+  {
+    "name": "Hayabusa",
+    "src": "/audio/selection/274c2bfc149f7596c041.mp3"
+  },
+  {
+    "name": "Helcurt",
+    "src": "/audio/selection/ec2ed8cc78bc41c63803.mp3"
+  },
+  {
+    "name": "Hilda",
+    "src": "/audio/selection/cc83a1ddbe8ae4f05a9d.mp3"
+  },
+  {
+    "name": "Hylos",
+    "src": "/audio/selection/f2411ea2f5778fcec60c.mp3"
+  },
+  {
+    "name": "Irithel",
+    "src": "/audio/selection/3aff36f72625a1faa437.mp3"
+  },
+  {
+    "name": "Jawhead",
+    "src": "/audio/selection/c718edcd373e36fc047e.mp3"
+  },
+  {
+    "name": "Johnson",
+    "src": "/audio/selection/f880d6baa40f4f02e839.mp3"
+  },
+  {
+    "name": "Julian",
+    "src": "/audio/selection/057b1e9ad1ee6ae89c01.mp3"
+  },
+  {
+    "name": "Kadita",
+    "src": "/audio/selection/505b2b8a048bf1110799.mp3"
+  },
+  {
+    "name": "Kagura",
+    "src": "/audio/selection/afc81cf2349041f31b8a.mp3"
+  },
+  {
+    "name": "Kaja",
+    "src": "/audio/selection/b021b084d5600b84fe6f.mp3"
+  },
+  {
+    "name": "Karina",
+    "src": "/audio/selection/ac637d163547230bca1f.mp3"
+  },
+  {
+    "name": "Karrie",
+    "src": "/audio/selection/db3dbc07e7cf1bcbb46d.mp3"
+  },
+  {
+    "name": "Khaleed",
+    "src": "/audio/selection/be8c19e7d8afb241f21b.mp3"
+  },
+  {
+    "name": "Khufra",
+    "src": "/audio/selection/2596f80390f200189e89.mp3"
+  },
+  {
+    "name": "Lancelot",
+    "src": "/audio/selection/94b8850a19148f3a1fba.mp3"
+  },
+  {
+    "name": "Lapu-Lapu",
+    "src": "/audio/selection/df8adaf42674799e2681.mp3"
+  },
+  {
+    "name": "Layla",
+    "src": "/audio/selection/f75522116567686bb1a0.mp3"
+  },
+  {
+    "name": "Leomord",
+    "src": "/audio/selection/aad0275e1a58566c0af6.mp3"
+  },
+  {
+    "name": "Lesley",
+    "src": "/audio/selection/142a868344a0b4da01d1.mp3"
+  },
+  {
+    "name": "Ling",
+    "src": "/audio/selection/2c75df9e91bcd194e8f3.mp3"
+  },
+  {
+    "name": "Lunox",
+    "src": "/audio/selection/4647632ac53f6d827515.mp3"
+  },
+  {
+    "name": "Lylia",
+    "src": "/audio/selection/d2f79548e9cae9d1e14e.mp3"
+  },
+  {
+    "name": "Martis",
+    "src": "/audio/selection/6386e01130829db2ad10.mp3"
+  },
+  {
+    "name": "Masha",
+    "src": "/audio/selection/397f4040aea6d85a586e.mp3"
+  },
+  {
+    "name": "Mathilda",
+    "src": "/audio/selection/abfa5bc83d906b86a3c5.mp3"
+  },
+  {
+    "name": "Melissa",
+    "src": "/audio/selection/1777e6e56972643c7829.mp3"
+  },
+  {
+    "name": "Minotaur",
+    "src": "/audio/selection/073ed5562189cbe63218.mp3"
+  },
+  {
+    "name": "Minsitthar",
+    "src": "/audio/selection/0603984a70d05d8a79ed.mp3"
+  },
+  {
+    "name": "Miya",
+    "src": "/audio/selection/d3d236fc12bdcc602286.mp3"
+  },
+  {
+    "name": "Moskov",
+    "src": "/audio/selection/a97a9f1b781505efe6fb.mp3"
+  },
+  {
+    "name": "Nana",
+    "src": "/audio/selection/9a88534072f8bf66f2bc.mp3"
+  },
+  {
+    "name": "Natalia",
+    "src": "/audio/selection/facfed644cfd187007c6.mp3"
+  },
+  {
+    "name": "Natan",
+    "src": "/audio/selection/61beffab9bc6cc2fa066.mp3"
+  },
+  {
+    "name": "Odette",
+    "src": "/audio/selection/428b9da96bcd88735cc1.mp3"
+  },
+  {
+    "name": "Paquito",
+    "src": "/audio/selection/0f0cdc4fb75e09e59e85.mp3"
+  },
+  {
+    "name": "Pharsa",
+    "src": "/audio/selection/1f10edca2f19423c4b6b.mp3"
+  },
+  {
+    "name": "Phoveus",
+    "src": "/audio/selection/0d89df8c93a4fb325927.mp3"
+  },
+  {
+    "name": "Rafaela",
+    "src": "/audio/selection/99801c10c758ae3a00d2.mp3"
+  },
+  {
+    "name": "Roger",
+    "src": "/audio/selection/290c053e683b8c20cb78.mp3"
+  },
+  {
+    "name": "Ruby",
+    "src": "/audio/selection/e31632c395f799cc4b1a.mp3"
+  },
+  {
+    "name": "Saber",
+    "src": "/audio/selection/aa5feb9b571f8958056f.mp3"
+  },
+  {
+    "name": "Selena",
+    "src": "/audio/selection/c0464a63b3b6d3946e9b.mp3"
+  },
+  {
+    "name": "Sun",
+    "src": "/audio/selection/974b31dd2380291585a0.mp3"
+  },
+  {
+    "name": "Terizla",
+    "src": "/audio/selection/951f5d67a1da3a5a60f2.mp3"
+  },
+  {
+    "name": "Thamuz",
+    "src": "/audio/selection/44da03efe9d8a50bf777.mp3"
+  },
+  {
+    "name": "Tigreal",
+    "src": "/audio/selection/b122bcd510f749bf9825.mp3"
+  },
+  {
+    "name": "Uranus",
+    "src": "/audio/selection/99890a7fe0dcfc0a688c.mp3"
+  },
+  {
+    "name": "Vale",
+    "src": "/audio/selection/e2ce9f5f62ab7edf3315.mp3"
+  },
+  {
+    "name": "Valentina",
+    "src": "/audio/selection/f8a2a5fec10237cf597d.mp3"
+  },
+  {
+    "name": "Valir",
+    "src": "/audio/selection/8820411b2520d5be7a26.mp3"
+  },
+  {
+    "name": "Vexana",
+    "src": "/audio/selection/bf2b3ef4cb98eab29d13.mp3"
+  },
+  {
+    "name": "Wanwan",
+    "src": "/audio/selection/c2d0b68b569a85be548b.mp3"
+  },
+  {
+    "name": "Xavier",
+    "src": "/audio/selection/5e98bb5417546e37516d.mp3"
+  },
+  {
+    "name": "Yin",
+    "src": "/audio/selection/3a24d39d6938ceb2a3bc.mp3"
+  },
+  {
+    "name": "Yve",
+    "src": "/audio/selection/72b8b08aeadd0173385b.mp3"
+  },
+  {
+    "name": "Zhask",
+    "src": "/audio/selection/35c11389f5c40963f343.mp3"
+  },
+  {
+    "name": "Zilong",
+    "src": "/audio/selection/c6370784ffc5109681a4.mp3"
+  }
+]
