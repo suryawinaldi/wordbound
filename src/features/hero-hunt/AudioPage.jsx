@@ -4,9 +4,18 @@ import { PageIntro } from "./components.jsx";
 import { normalizeAnswer } from "./engine.js";
 import { playTone, useHuntStore } from "./store.js";
 
-const heroes = ["Franco", "Fanny", "Johnson", "Angela", "Cyclops", "Kagura", "Diggie", "Lolita", "Akai", "Odette"];
+import { AUDIO_REVIEWS, audioEligibility } from "./audio-catalog.js";
+import { ROSTER } from "./content.js";
+
+const trainingHeroes = ["Franco", "Fanny", "Johnson", "Angela", "Cyclops", "Kagura", "Diggie", "Lolita", "Akai", "Odette"];
 function rounds() {
-  const deck = heroes.map((_, i) => i);
+  const originals = ROSTER.filter(hero => audioEligibility(AUDIO_REVIEWS[hero.id]).ready)
+    .map(hero => ({ name: hero.name, src: AUDIO_REVIEWS[hero.id].localAssetPath, original: true }));
+  const names = new Set(originals.map(clip => clip.name));
+  const training = trainingHeroes.map((name, i) => ({
+    name, src: "/audio/hunt/" + String(i + 1).padStart(2, "0") + ".mp3", original: false,
+  })).filter(clip => !names.has(clip.name));
+  const deck = originals.length >= 5 ? originals : [...originals, ...training];
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -26,7 +35,8 @@ export default function AudioPage() {
   const muted = useHuntStore(state => state.settings.muted);
   useEffect(() => { if (muted) audio.current?.pause(); }, [muted]);
   const done = index === deck.length;
-  const hero = heroes[deck[index]];
+  const clip = deck[index];
+  const hero = clip?.name;
   useEffect(() => {
     const element = audio.current;
     return () => element?.pause();
@@ -57,16 +67,16 @@ export default function AudioPage() {
   }
   return <div className="page-width audio-page">
     <PageIntro eyebrow="TEBAK SUARA" title="Satu suara. Siapa heronya?">
-      Dengarkan petunjuk suara berbahasa Inggris yang dibuat untuk Hero Hunt. Tebak satu hero per ronde.
+      Dengarkan klip berbahasa Inggris, lalu tebak nama heronya.
     </PageIntro>
     <section className="party-panel audio-round">
       {done ? <>
         <h2>{score} dari 5 hero tertebak</h2>
         <button onClick={() => { setDeck(rounds()); setIndex(0); setScore(0); }}>Main lagi</button>
       </> : <>
-        <p>Ronde {index + 1} / 5</p>
+        <p>Ronde {index + 1} / 5 · {clip.original ? "Suara draft pick" : "Petunjuk sintetis Hero Hunt"}</p>
         <div aria-hidden="true" className={'audio-bars ' + (playing ? 'playing' : '')}>{[0,1,2,3,4,5,6,7,8].map(n => <i key={n} style={{'--beat': n}} />)}</div>
-        <audio key={index} ref={audio} preload="none" src={'/audio/hunt/' + String(deck[index]+1).padStart(2,'0') + '.mp3'}
+        <audio key={index} ref={audio} preload="none" src={clip.src}
           onPlaying={() => { setHeard(true); setPlaying(true); setFailed(false); }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)} />
         {result === null ? <>
           <button onClick={listen}>{heard ? <RotateCcw size={17}/> : <Headphones size={17}/>} {muted ? 'Aktifkan dan putar suara' : heard ? 'Putar ulang' : 'Putar suara'}</button>
@@ -74,6 +84,7 @@ export default function AudioPage() {
           <form onSubmit={submit}><label>Nama hero<input value={answer} autoComplete="off" onChange={e => setAnswer(e.target.value)} /></label>
             <button disabled={!heard || !answer.trim()}>Tebak</button></form>
         </> : <div className="reveal-content"><h2>{result ? 'Benar!' : 'Jawabannya'} {hero}</h2>
+          <p><a className="text-link" href="https://mlbb.tools/audio" target="_blank" rel="noreferrer">Jelajahi suara hero di MLBB Tools ↗</a></p>
           <button onClick={advance}>{index === 4 ? 'Lihat hasil' : 'Ronde berikutnya'}</button></div>}
       </>}
     </section>
