@@ -2732,3 +2732,23 @@ main:focus {
   }
   .party-cards .current { transition:border-color .3s; box-shadow:0 0 14px #eac47b30; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hunt-page { from { opacity:0; transform:translateY(18px) } to { opacity:1; transform:none } }
+  @keyframes hunt-reveal { from { opacity:0; transform:perspective(900px) rotateX(-12deg) scale(.94) } to { opacity:1; transform:none } }
+  @keyframes hunt-glow { 50% { filter:drop-shadow(0 0 16px #eac47b66) } }
+  #main { animation:hunt-page .38s cubic-bezier(.2,.7,.2,1); }
+  .reveal-content, .confirm-dialog { animation:hunt-reveal .48s cubic-bezier(.16,1,.3,1); transform-origin:center bottom; }
+  .party-turn, .active-clue { animation:hunt-page .35s ease-out; }
+  .brand-mark, .home-hero .mystery-art { animation:hunt-glow 4s ease-in-out infinite; }
+  .mode-card { animation:none; transition:transform .24s ease, border-color .24s, box-shadow .24s; }
+  .hunt-app .button, .hunt-app button, .hunt-app nav a { transition:scale .15s, background-color .2s, box-shadow .2s; }
+  .hunt-app :is(button,.button):active { scale:.94; }
+  .hunt-app nav a.active { animation:hunt-page .28s ease-out; }
+  details[open] > :not(summary) { animation:hunt-page .25s ease-out; }
+  .audio-round { animation:hunt-reveal .4s ease-out; }
+  @media (hover:hover) {
+    .mode-card:hover { transform:translateY(-7px); box-shadow:0 12px 32px #0005,0 0 16px #eac47b18; border-color:var(--gold); }
+    .hunt-app :is(button,.button):hover { box-shadow:0 0 18px #eac47b25; }
+  }
+}

@@ -68,7 +68,7 @@ export default function AudioPage() {
     <PageIntro eyebrow="TEBAK SUARA" title="Satu suara. Siapa heronya?">
       Dengarkan klip berbahasa Inggris, lalu tebak nama heronya.
     </PageIntro>
-    <section className="party-panel audio-round">
+    <section key={index} className="party-panel audio-round">
       {done ? <>
         <h2>{score} dari {deck.length} hero tertebak</h2>
         <button onClick={() => { setDeck(rounds()); setIndex(0); setScore(0); }}>Main lagi</button>

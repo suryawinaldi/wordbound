@@ -52,7 +52,7 @@ export function Shell() {
     if (muted) silenceGameSound();
     function interact(event) {
       interacted.current = true;
-      if (event.target.closest?.("button, a, summary") && !event.target.closest('[aria-label="Matikan suara"]'))
+      if (event.target.closest?.("button:not(:disabled), a, summary") && !event.target.closest('[aria-label="Matikan suara"]'))
         gameSound("tap");
     }
     function ambience() {
@@ -69,6 +69,22 @@ export function Shell() {
       stopAmbience();
     };
   }, [pathname, muted]);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (media.matches || !window.IntersectionObserver) return;
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.animate([
+          { opacity: 0, transform: "translateY(24px) scale(.98)" },
+          { opacity: 1, transform: "translateY(0) scale(1)" },
+        ], { duration: 480, easing: "cubic-bezier(.2,.7,.2,1)" });
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: .08 });
+    document.querySelectorAll("#main section, .mode-card, .library-card").forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
   const inGame = pathname === "/play/solo";
   const warning = useHuntStore((s) => s.storageWarning);
   useEffect(() => {

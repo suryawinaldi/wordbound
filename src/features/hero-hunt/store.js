@@ -144,7 +144,7 @@ export function stopAmbience() {
 export function gameSound(kind) {
   if (useHuntStore.getState().settings.muted || document.hidden) return;
   const notes = {
-    tap: [523, 784], correct: [523, 659, 784], wrong: [220, 165],
+    tap: [1568, 2352], correct: [523, 784, 1046, 1568], wrong: [147, 110],
     lobby: [196, 294, 392, 349],
   };
   try {
@@ -153,6 +153,25 @@ export function gameSound(kind) {
     const ctx = soundContext;
     if (ctx.state === "suspended") ctx.resume().catch(() => {});
     const ambient = kind === "lobby";
+    if (!ambient) {
+      const length = kind === "tap" ? .16 : .28;
+      const buffer = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * length), ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+      const blade = ctx.createBufferSource();
+      const filter = ctx.createBiquadFilter();
+      const envelope = ctx.createGain();
+      blade.buffer = buffer;
+      filter.type = "bandpass";
+      filter.Q.value = .8;
+      filter.frequency.setValueAtTime(4500, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(450, ctx.currentTime + length);
+      envelope.gain.setValueAtTime(.0001, ctx.currentTime);
+      envelope.gain.exponentialRampToValueAtTime(.12, ctx.currentTime + .025);
+      envelope.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + length);
+      blade.connect(filter).connect(envelope).connect(ctx.destination);
+      blade.start(); blade.stop(ctx.currentTime + length);
+    }
     const duration = ambient ? 1.4 : kind === "tap" ? 0.06 : 0.18;
     notes[kind].forEach((frequency, i) => {
       const start = ctx.currentTime + i * (ambient ? 1.05 : duration * 0.65);
