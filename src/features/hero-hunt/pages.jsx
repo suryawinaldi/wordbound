@@ -125,15 +125,15 @@ function Modes() {
         <div className="mode-icon">
           <Volume2 size={23} />
         </div>
-        <span className="mode-status">DALAM PERSIAPAN</span>
+        <span className="mode-status">5 RONDE</span>
         <h3>Tebak Suara</h3>
         <p>
-          Kenali hero dari voice draft pick.
+          Dengarkan suara misterius.
           <br />
-          Audio sedang diperiksa sebelum dimainkan.
+          Bisakah kamu mengenali heronya?
         </p>
         <span className="mode-action">
-          Lihat kesiapan audio <ArrowUpRight size={18} />
+          Main Tebak Suara <ArrowUpRight size={18} />
         </span>
       </Link>
       <Link className="mode-card" to="/play/room">
@@ -892,7 +892,7 @@ export function ProfilePage() {
         <div className="profile-setting">
           <div>
             <h3>Efek suara</h3>
-            <p>Suara singkat untuk jawaban benar dan salah.</p>
+            <p>Musik lobi, bunyi menu, dan efek jawaban.</p>
           </div>
           <button
             className="sound-switch"

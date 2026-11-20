@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageIntro } from "./components.jsx";
 import "./party.css";
+import { playTone } from "./store.js";
 
 async function request(token, body) {
   const response = await fetch("/api/party", { method: "POST", headers: {
@@ -54,6 +55,7 @@ export default function PartyPage() {
     setBusy(true); setError(""); generation.current++;
     try {
       const snapshot = await request(sessionToken(), { action, value, code: code || entry, name, turn: room?.turn });
+      if (action === "guess") playTone(snapshot.players.find(p => p.id === snapshot.me)?.status === "benar");
       if (snapshot.left) { reset(); return; }
       sessionStorage.setItem("party.room", snapshot.code);
       setRoom(snapshot); setCode(snapshot.code);
@@ -96,7 +98,7 @@ export default function PartyPage() {
         {room.phase === "lobi" && <button className="quiet" disabled={busy} onClick={() => send("leave")}>Keluar dari lobi</button>}
         {room.phase === "selesai" && <button onClick={reset}>Kembali ke lobi</button>}
       </section>
-      {play && <section className="party-panel">
+      {play && <section key={room.turn} className="party-panel party-turn">
         <h2>{mine ? "Giliranmu" : "Giliran " + active.name} · {Math.max(0, Math.ceil((room.deadline - time) / 1000))} dtk</h2>
         {mine && room.phase === "tanya" && <form onSubmit={e => { e.preventDefault(); send("ask", question); }}>
           <label>Pertanyaan ya/tidak<input maxLength="180" placeholder="Apakah hero gue seorang Mage?" value={question} onChange={e => setQuestion(e.target.value)} /></label>

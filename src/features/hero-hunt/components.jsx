@@ -13,7 +13,7 @@ import {
   VolumeX,
   X,
 } from "lucide-react";
-import { useHuntStore } from "./store.js";
+import { gameSound, silenceGameSound, stopAmbience, useHuntStore } from "./store.js";
 
 export function Brand() {
   return (
@@ -46,6 +46,29 @@ export function SoundButton() {
 
 export function Shell() {
   const { pathname } = useLocation();
+  const muted = useHuntStore(s => s.settings.muted);
+  const interacted = useRef(false);
+  useEffect(() => {
+    if (muted) silenceGameSound();
+    function interact(event) {
+      interacted.current = true;
+      if (event.target.closest?.("button, a, summary") && !event.target.closest('[aria-label="Matikan suara"]'))
+        gameSound("tap");
+    }
+    function ambience() {
+      if (interacted.current && ["/", "/play"].includes(pathname)) gameSound("lobby");
+    }
+    function visibility() { if (document.hidden) silenceGameSound(); }
+    document.addEventListener("click", interact, true);
+    document.addEventListener("visibilitychange", visibility);
+    const timer = setInterval(ambience, 6500);
+    return () => {
+      document.removeEventListener("click", interact, true);
+      document.removeEventListener("visibilitychange", visibility);
+      clearInterval(timer);
+      stopAmbience();
+    };
+  }, [pathname, muted]);
   const inGame = pathname === "/play/solo";
   const warning = useHuntStore((s) => s.storageWarning);
   useEffect(() => {
@@ -83,7 +106,7 @@ export function Shell() {
           halaman ditutup.
         </div>
       )}
-      <main id="main" tabIndex={-1}>
+      <main key={pathname} id="main" tabIndex={-1}>
         <Outlet />
       </main>
       {!inGame && (

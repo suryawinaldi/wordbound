@@ -195,13 +195,17 @@ class HeroHuntBrowserTests(unittest.TestCase):
         self.solve()
         expect(self.page.locator('.score-breakdown strong')).to_have_text('+70')
 
-    def test_story_profile_and_audio_preparation(self):
+    def test_story_profile_and_audio_game(self):
         self.page.goto(BASE + '/play/audio')
         expect(self.page.get_by_role('heading', name='Satu suara. Siapa heronya?')).to_be_visible()
-        expect(self.page.get_by_role('heading', name='Voice draft pick sedang disiapkan.')).to_be_visible()
-        expect(self.page.locator('audio')).to_have_count(0)
+        self.page.get_by_role('button', name='Putar suara').click()
+        expect(self.page.get_by_role('button', name='Putar ulang')).to_be_visible()
+        self.page.get_by_label('Nama hero').fill('Akai')
+        self.page.get_by_role('button', name='Tebak', exact=True).click()
+        self.page.get_by_role('button', name='Ronde berikutnya').click()
+        expect(self.page.get_by_text('Ronde 2 / 5')).to_be_visible()
         self.no_overflow()
-        self.page.get_by_role('link', name='Main Solo Classic', exact=True).click()
+        self.page.goto(BASE + '/play')
         self.page.get_by_role('radio', name='Kisah & mekanik', exact=False).check()
         self.page.reload(wait_until='networkidle')
         expect(self.page.get_by_role('radio', name='Kisah & mekanik', exact=False)).to_be_checked()

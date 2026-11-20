@@ -2715,3 +2715,20 @@ main:focus {
     font-size: 22px;
   }
 }
+
+.audio-bars { height: 4.5rem; display:flex; align-items:center; gap:.4rem; }
+.audio-bars i { display:block; width:.45rem; height:45%; border-radius:1rem; background:var(--gold); transform:scaleY(.38); }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hunt-enter { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+  @keyframes hunt-float { 50% { transform:translateY(-7px) rotate(2deg) } }
+  @keyframes hunt-signal { to { transform:scaleY(1.9) } }
+  #main > *, .party-turn, .reveal-content, .active-clue { animation:hunt-enter .32s ease-out both; }
+  .home-hero .mystery-art svg { animation:hunt-float 5s ease-in-out infinite; }
+  .audio-bars.playing i { animation:hunt-signal .48s ease-in-out infinite alternate; animation-delay:calc(var(--beat) * -.17s); }
+  .hunt-app :is(button, .button, .mode-card, nav a):active { scale:.97; }
+  .hunt-app :is(button, .button, nav a) { transition:scale .14s, background-color .18s; }
+  @supports (animation-timeline: view()) {
+    .mode-card, .roster-link { animation:hunt-enter linear both; animation-timeline:view(); animation-range:entry 0% entry 70%; }
+  }
+  .party-cards .current { transition:border-color .3s; box-shadow:0 0 14px #eac47b30; }
+}

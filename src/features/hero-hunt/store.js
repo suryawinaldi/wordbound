@@ -135,28 +135,48 @@ export const useHuntStore = create((set, get) => ({
   },
 }));
 
-// Procedural feedback only. No third-party voice lines or external audio requests.
-export function playTone(correct) {
-  if (useHuntStore.getState().settings.muted) return;
+let soundContext;
+const ambientNotes = new Set();
+export function stopAmbience() {
+  for (const note of ambientNotes) note.stop();
+  ambientNotes.clear();
+}
+export function gameSound(kind) {
+  if (useHuntStore.getState().settings.muted || document.hidden) return;
+  const notes = {
+    tap: [523, 784], correct: [523, 659, 784], wrong: [220, 165],
+    lobby: [196, 294, 392, 349],
+  };
   try {
     const Audio = window.AudioContext || window.webkitAudioContext;
-    const context = new Audio();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.frequency.setValueAtTime(correct ? 660 : 180, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(
-      correct ? 990 : 110,
-      context.currentTime + 0.12,
-    );
-    gain.gain.setValueAtTime(0.06, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.18);
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.2);
-    oscillator.onended = () => {
-      context.close().catch(() => {});
-    };
-  } catch {
-    /* Unsupported audio must not block a guess. */
+    soundContext ??= new Audio();
+    const ctx = soundContext;
+    if (ctx.state === "suspended") ctx.resume().catch(() => {});
+    const ambient = kind === "lobby";
+    const duration = ambient ? 1.4 : kind === "tap" ? 0.06 : 0.18;
+    notes[kind].forEach((frequency, i) => {
+      const start = ctx.currentTime + i * (ambient ? 1.05 : duration * 0.65);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = ambient ? "sine" : "triangle";
+      osc.frequency.value = frequency;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(ambient ? 0.024 : 0.075, start + (ambient ? 0.25 : 0.008));
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(start); osc.stop(start + duration);
+      if (ambient) {
+        ambientNotes.add(osc);
+        osc.onended = () => ambientNotes.delete(osc);
+      }
+    });
+  } catch { /* Playback is optional on devices without Web Audio. */ }
+}
+export function silenceGameSound() {
+  stopAmbience();
+  if (soundContext) {
+    soundContext.close().catch(() => {});
+    soundContext = undefined;
   }
 }
+export function playTone(correct) { gameSound(correct ? "correct" : "wrong"); }
