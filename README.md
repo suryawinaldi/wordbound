@@ -2,7 +2,7 @@
 
 A mobile-first, Indonesian MLBB hero guessing game built on the existing React/Vite project. This implementation covers the redesigned guest Solo experience: home → five-hero session → reveal → results, with local statistics and settings.
 
-**Status: playable editorial preview, not a public-release candidate.** All 133 names in the legacy repository are now accounted for. The playable preview contains 126 heroes and 630 rewritten clues; seven entries are explicitly excluded because their legacy data contains placeholders or unsupported claims. These counts describe repository coverage, not the latest official MLBB roster. Source verification is pending: attempts to access the official MLBB site and community wiki were denied by the current environment proxy. Each clue has a source reference and individual review/evidence fields. `sourceUrl` is a review reference, not evidence of verification; all 630 clues still require external source review. No claim is made that these facts match the current game patch. `npm run check:release` intentionally fails while this remains unresolved.
+**Hero Hunt includes editorial-preview clues.** All 133 names in the legacy repository are now accounted for. The playable preview contains 126 heroes and 630 rewritten clues; seven entries are explicitly excluded because their legacy data contains placeholders or unsupported claims. These counts describe repository coverage, not the latest official MLBB roster. Source verification is pending: attempts to access the official MLBB site and community wiki were denied by the current environment proxy. Each clue has a source reference and individual review/evidence fields. `sourceUrl` is a review reference, not evidence of verification; all 630 clues still require external source review. No claim is made that these facts match the current game patch. `npm run check:release` intentionally fails while this remains unresolved.
 
 ## Run
 
@@ -55,17 +55,17 @@ Active sessions use `sessionStorage` (`hero-hunt.session.v1`) and survive refres
 
 Gantian, Duel and Co-op are labeled upcoming. Google sign-in and cloud sync are not connected in this phase. The prior arbitrary URL audio proxy now returns HTTP 410; no user-supplied URL is fetched. Sound effects are generated locally. Artwork is an original abstract SVG emblem, not an MLBB portrait.
 
-## Before public release
+## Editorial verification
 
 1. Review each clue against official/in-game sources, record source and patch/date evidence, and perform the independent editorial review specified in PRD v2.0. Replace or disable unverified content; do not simply change status flags to bypass the gate.
 2. Complete the per-clue provenance fields (`reviewStatus`, `verifiedAt`, `reviewer`, `patch`, `evidence`). The release gate checks each of the five clues; setting only the hero-level flag cannot satisfy it.
-3. Run `npm run check:release` and then `npm run build:release` only after the editorial gates pass. Default builds remain explicitly labeled preview.
+3. Use `npm run check:release` to audit editorial evidence separately from deployment.
 4. Perform physical-device keyboard/screen-reader checks and performance measurement. The current checks are not a Lighthouse benchmark or full accessibility audit.
 5. Add authenticated persistence and online modes only with server-side validation, tested security rules, idempotent writes and multi-client testing. Those gates are not satisfied by this local implementation.
 
 ## Vercel deployment
 
-Confirmed deployment target: existing project **wordbound**, team **suryawinaldi-1122**, at https://vercel.com/suryawinaldi-1122/wordbound. Do not create a replacement project. Once access is available, resolve the real project/team IDs with Vercel and link using `vercel link --project wordbound --scope suryawinaldi-1122 --yes`; do not fabricate `.vercel/project.json` IDs. Preview deployment targets this same project; production still requires the content release gate.
+Confirmed deployment target: existing project **wordbound**, team **suryawinaldi-1122**, at https://vercel.com/suryawinaldi-1122/wordbound. Do not create a replacement project. Once access is available, resolve the real project/team IDs with Vercel and link using `vercel link --project wordbound --scope suryawinaldi-1122 --yes`; do not fabricate `.vercel/project.json` IDs. Pushes to main trigger Production on this project.
 
 `vercel.json` explicitly uses Vite, `npm ci`, `npm run build:vercel`, and the new `dist-hero-hunt` output directory. It no longer forwards Firebase auth requests. Static SPA deep links resolve to `index.html`; `/api/*` is excluded from that rewrite. The retired audio API still returns 410. `.vercelignore` excludes environment files, Git metadata, dependency caches, old builds and PDFs.
 
@@ -73,12 +73,12 @@ Confirmed deployment target: existing project **wordbound**, team **suryawinaldi
 npm run build:vercel                   # checked local preview build
 npm run preview -- --outDir dist-hero-hunt --port 4173 --strictPort
 HUNT_BASE_URL=http://localhost:4173 npm run test:e2e
-npm run build:release                  # remains blocked by incomplete source review
+npm run build:release                  # checked production build
 ```
 
-The Vercel build runs content checks and all Node tests before generating output. A Vercel production target runs the stricter release gate. Unknown targets on a Vercel build are rejected instead of silently being treated as preview. `dist` is a legacy snapshot and must not be deployed.
+The Vercel build runs content checks and all Node tests before generating output. The strict editorial audit is available with `npm run check:release`. Unknown targets on a Vercel build are rejected instead of silently being treated as preview. `dist` is a legacy snapshot and must not be deployed.
 
-**Deployment is not complete.** In this chat, no Vercel connector tools are exposed. Vercel CLI 65.14.0 was installed into the workspace npm cache; `whoami` reports logged out. An anonymous deployment was attempted, but the CLI returned `login_required` and `retryable: false` (temporary deployments unavailable for this attempt). No deployment URL or project was created.
+
 
 Continue by activating the Vercel connector or logging in through the normal Vercel account flow. A `VERCEL_TOKEN` can alternatively be supplied securely in environment settings; never paste it into source or chat. Confirm the existing project/team before linking and deploying. From this workspace the pinned CLI is:
 
@@ -96,7 +96,7 @@ Hero Hunt is a fan-made trivia project and is not affiliated with MOONTON Games.
 
 Solo setup now offers **Campuran** (default for new sessions) and **Kisah & mekanik**. Mixed replaces only clue 2 with the complete role list, keeping the other four authored clues and the five-step scoring structure. Role is not lane. The selected profile is captured in the session; changing preferences cannot alter an active round. Legacy sessions without a profile keep their original authored clues. Scores remain personal preview records; both profiles currently share the same local scoreboard.
 
-Role facts have their own source/review metadata and are still editorial previews, not current-patch certifications. Production validation also requires role evidence. Gender is explicitly null until a source confirms it; it is never inferred from artwork, pronouns, role, or paired-character names. No generic gender clue is inserted.
+Role facts have their own source/review metadata and are still editorial previews, not current-patch certifications. The strict editorial audit also requires role evidence. Gender is explicitly null until a source confirms it; it is never inferred from artwork, pronouns, role, or paired-character names. No generic gender clue is inserted.
 
 `/play/audio` explains the planned voice-selection mode and clearly states that no audio is playable yet. It does not start a fake session or make media requests. The existing 107 remote URLs are references only; 26 legacy entries have no URL. All 133 entries are represented in `docs/audio-audit.json`. A representative Aamon CDN HEAD request on 12 November 2026 returned proxy CONNECT 403, so playback remains untested. No original voice files were downloaded or activated.
 

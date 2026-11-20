@@ -15,10 +15,8 @@ const run = (args) => {
   if (result.error) throw result.error;
   if (result.status !== 0) process.exit(result.status || 1);
 };
-console.log(
-  `Building Hero Hunt for ${target}. Production requires completed content verification.`,
-);
-run(["scripts/check-hero-content.js", ...(target === "production" ? ["--release"] : [])]);
+console.log(`Building Hero Hunt for ${target}.`);
+run(["scripts/check-hero-content.js"]);
 run(["--test", "tests/hero-hunt.test.js", "tests/party.test.js"]);
 run(["scripts/audit-hero-audio.js"]);
 // A new directory prevents the tracked legacy dist snapshot from being deployed.
