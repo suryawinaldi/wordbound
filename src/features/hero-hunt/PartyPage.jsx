@@ -1,3 +1,4 @@
+import { recordActivity } from "./activity.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageIntro } from "./components.jsx";
@@ -13,19 +14,21 @@ async function request(token, body) {
   return data;
 }
 function sessionToken() {
-  let token = sessionStorage.getItem("party.token");
+  let token = localStorage.getItem("party.token") || sessionStorage.getItem("party.token");
   if (!token) {
     token = Array.from(crypto.getRandomValues(new Uint8Array(24)), n => n.toString(16).padStart(2, "0")).join("");
-    sessionStorage.setItem("party.token", token);
+    localStorage.setItem("party.token", token);
   }
+  localStorage.setItem("party.token", token);
   return token;
 }
 export default function PartyPage() {
-  const [code, setCode] = useState(() => sessionStorage.getItem("party.room") || "");
+  const [code, setCode] = useState(() => localStorage.getItem("party.room") || sessionStorage.getItem("party.room") || "");
   const [room, setRoom] = useState(null);
   const [name, setName] = useState("");
   const [entry, setEntry] = useState("");
   const [question, setQuestion] = useState("");
+  const [historyMine, setHistoryMine] = useState(true);
   const [guess, setGuess] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -35,6 +38,7 @@ export default function PartyPage() {
     if (!code) return;
     let stopped = false, timer;
     async function poll() {
+      if (document.hidden) { timer = setTimeout(poll, 5000); return; }
       const version = generation.current;
       try {
         const snapshot = await request(sessionToken(), { code, action: "read" });
@@ -57,22 +61,34 @@ export default function PartyPage() {
       const snapshot = await request(sessionToken(), { action, value, code: code || entry, name, turn: room?.turn });
       if (action === "guess") playTone(snapshot.players.find(p => p.id === snapshot.me)?.status === "benar");
       if (snapshot.left) { reset(); return; }
-      sessionStorage.setItem("party.room", snapshot.code);
+      localStorage.setItem("party.room", snapshot.code);
       setRoom(snapshot); setCode(snapshot.code);
     } catch (e) { setError(e.message); }
     finally { generation.current++; setBusy(false); }
   }
   function reset() {
     generation.current++;
+    localStorage.removeItem("party.room");
     sessionStorage.removeItem("party.room");
     setCode(""); setRoom(null); setError("");
   }
+  const lastTurn = useRef(null);
+  useEffect(() => {
+    if (room?.active === room?.me && room?.turn && lastTurn.current !== room.turn) playTone(true);
+    lastTurn.current = room?.turn;
+  }, [room?.turn, room?.active, room?.me]);
+  useEffect(() => {
+    if (room?.phase === "selesai") recordActivity({
+      id: room.code + "-" + room.game + "-" + room.me, mode: "multiplayer",
+      correct: Number(room.players.find(p => p.id === room.me)?.status === "benar"), total: 1, date: Date.now(),
+    });
+  }, [room]);
   const active = room?.players.find(p => p.id === room.active);
   const mine = room && room.me === room.active;
-  const host = room && room.me === room.players[0].id;
+  const host = room && room.me === room.host;
   const play = room && !["lobi", "selesai"].includes(room.phase);
   const latest = room?.log.at(-1);
-  return <main className="page-width party-page">
+  return <main className={"page-width party-page " + (play ? "party-playing" : "")}>
     <PageIntro eyebrow="MULTIPLAYER · 2–9 PEMAIN" title="Siapa hero gue?">Temanmu melihat kartumu. Cari tahu isinya dengan pertanyaan ya atau tidak.</PageIntro>
     {error && <p role="alert" className="party-error">{error}</p>}
     {!room && !code && <section className="party-panel">
@@ -92,13 +108,17 @@ export default function PartyPage() {
           {p.reference && <details><summary>Potret pembanding</summary><img src={p.reference} alt="Hero yang sama pada gambar lain" /></details>}
           <strong>{p.name}{p.id === room.me && " (kamu)"}</strong>
           {p.hero && <span>{p.hero} · {p.skin}</span>}
-          {room.phase !== "lobi" && <small>{p.status === "main" ? p.lives + " nyawa" : p.status === "benar" ? "Berhasil" : "Nyawa habis"}</small>}
+          {room.phase !== "lobi" && <small>{p.status === "main" ? p.lives + " nyawa" : p.status === "benar" ? "Berhasil" : p.status === "keluar" ? "Keluar" : "Nyawa habis"}</small>}
         </article>)}</div>
+        {room.phase === "lobi" && host && <label>Tempo permainan<select value={room.pace} onChange={e => send("configure", e.target.value)}><option value="fast">Cepat · 30 / 15 / 15 detik</option><option value="relaxed">Santai · 90 / 30 / 45 detik</option></select></label>}
         {room.phase === "lobi" && (host ? <button disabled={busy || room.players.length < 2} onClick={() => send("start")}>Mulai permainan</button> : <p>Menunggu host memulai.</p>)}
         {room.phase === "lobi" && <button className="quiet" disabled={busy} onClick={() => send("leave")}>Keluar dari lobi</button>}
-        {room.phase === "selesai" && <button onClick={reset}>Kembali ke lobi</button>}
+        {room.phase === "selesai" && host && <button disabled={busy} onClick={() => send("rematch")}>Main lagi bersama</button>}
+        {room.phase === "selesai" && !host && <p>Menunggu host membuka ronde baru.</p>}
+        {room.phase !== "lobi" && <button className="quiet" onClick={() => send("leave")}>Keluar room</button>}
       </section>
       {play && <section key={room.turn} className="party-panel party-turn">
+        {!mine && active.image && <img className="active-player-card" src={active.image} alt={"Kartu " + active.name} />}
         <h2>{mine ? "Giliranmu" : "Giliran " + active.name} · {Math.max(0, Math.ceil((room.deadline - time) / 1000))} dtk</h2>
         {mine && room.phase === "tanya" && <form onSubmit={e => { e.preventDefault(); send("ask", question); }}>
           <label>Pertanyaan ya/tidak<input maxLength="180" placeholder="Apakah hero gue seorang Mage?" value={question} onChange={e => setQuestion(e.target.value)} /></label>
@@ -115,7 +135,7 @@ export default function PartyPage() {
           <div className="party-actions"><button disabled={busy || !guess}>Tebak hero</button><button type="button" className="quiet" disabled={busy} onClick={() => send("pass")}>Lewati giliran</button></div>
         </form>}
       </section>}
-      {room.log.length > 0 && <section className="party-panel"><h2>Riwayat room</h2><ol>{room.log.slice().reverse().map((e,i) => <li key={room.log.length-i}><strong>{room.players.find(p => p.id === e.id)?.name}</strong> · {e.question || e.result}{e.counts && <small>{Object.entries(e.counts).map(([v,n]) => v + " " + n).join(" · ")}</small>}</li>)}</ol></section>}
+      {room.log.length > 0 && <section className="party-panel"><h2>Riwayat pertanyaan</h2><label><input type="checkbox" checked={historyMine} onChange={e => setHistoryMine(e.target.checked)} /> Hanya pertanyaanku</label><ol>{room.log.filter(e => !historyMine || e.id === room.me).slice().reverse().map((e,i) => <li key={room.log.length-i}><strong>{room.players.find(p => p.id === e.id)?.name}</strong> · {e.question || e.result}{e.counts && <small>{Object.entries(e.counts).map(([v,n]) => v + " " + n).join(" · ")}</small>}</li>)}</ol></section>}
     </>}
   </main>;
 }

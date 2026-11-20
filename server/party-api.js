@@ -3,6 +3,7 @@ import { act, create, tick, view } from "./party-game.js";
 
 const ttl = 21600;
 const memory = new Map();
+const limits = new Map();
 function storage(local) {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -16,12 +17,17 @@ function storage(local) {
     }
     return {
       get: key => command(["GET", key]),
+      allow: key => command(["EVAL", "local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],60) end; return n", 1, key]),
       put: (key, old, value) => command(["EVAL", "local v=redis.call('GET',KEYS[1]); if (v or '')~=ARGV[1] then return 0 end; redis.call('SET',KEYS[1],ARGV[2],'EX',ARGV[3]); return 1", 1, key, old || "", value, ttl]),
     };
   }
   if (!local) throw new Error("Room online belum dikonfigurasi pada server ini.");
   for (const [key, record] of memory) if (record.until < Date.now()) memory.delete(key);
-  return { get: key => memory.get(key)?.value, put(key, old, value) {
+  return { allow(key) {
+    for (const [id, value] of limits) if (value.until < Date.now()) limits.delete(id);
+    const current = limits.get(key) || { count: 0, until: Date.now() + 60000 };
+    current.count++; limits.set(key, current); return current.count;
+  }, get: key => memory.get(key)?.value, put(key, old, value) {
     if (memory.get(key)?.value !== old) return false;
     memory.set(key, { value, until: Date.now() + ttl * 1000 });
     return true;
@@ -45,6 +51,16 @@ export async function partyApi(req, res, local = false) {
     const secret = req.headers.authorization?.replace(/^Bearer /, "");
     if (!/^[a-f0-9]{48}$/.test(secret || "")) throw new Error("Sesi pemain tidak valid.");
     const db = storage(local);
+    if (["create", "join"].includes(body.action)) {
+      const { createHash } = await import("node:crypto");
+      const address = req.headers["x-real-ip"] || req.socket?.remoteAddress || secret;
+      const fingerprint = createHash("sha256").update(String(address)).digest("hex");
+      if (await db.allow("herohunt:limits:" + fingerprint) > 30) {
+        res.statusCode = 429;
+        res.end(JSON.stringify({ error: "Terlalu banyak percobaan. Tunggu satu menit." }));
+        return;
+      }
+    }
     for (let attempt = 0; attempt < 12; attempt++) {
       const creating = body.action === "create";
       const code = creating ? String(randomInt(100000, 1000000)) : body.code;

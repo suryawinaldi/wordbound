@@ -1,3 +1,4 @@
+import { useActivities } from "./activity.js";
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useBlocker, useNavigate, useParams } from "react-router-dom";
 import {
@@ -186,6 +187,8 @@ export function HomePage() {
             tersembunyi.
           </p>
           <div className="hero-cta">
+            <Link className="button primary" to="/play/room">Main bareng</Link>
+            <Link className="button secondary" to="/play/audio">Tebak Suara</Link>
             <StartButton />
             <a className="text-link" href="#cara-main">
               Cara main <ArrowUpRight size={17} />
@@ -287,16 +290,15 @@ export function PlaySetupPage() {
         Lima hero. Lima petunjuk. Seberapa cepat kamu mengenalinya?
       </PageIntro>
       <div className="setup-panel">
-        <div className="setup-art">
+        <div className="setup-art" hidden>
           <MysteryArt compact />
           <span className="eyebrow">IKUTI JEJAKNYA</span>
         </div>
         <div className="setup-options">
-          <h2>Siapkan insting terbaikmu.</h2>
+          <StartButton label="Mulai Solo" />
           <p>Petunjuk pertama terbuka otomatis. Semakin sedikit bantuan, semakin besar poinmu.</p>
           <DifficultyPicker disabled={!!session && session.phase !== "completed"} />
           <ClueProfilePicker disabled={!!session && session.phase !== "completed"} />
-          <StartButton label="Mulai Solo" />
           <p className="guest-note">
             <Shield size={14} /> Progres tersimpan di browser ini.
           </p>
@@ -681,7 +683,7 @@ export function ResultsPage() {
           <div>
             <Crosshair size={19} />
             <strong>{summary.accuracy}%</strong>
-            <span>Akurasi tebakan</span>
+            <span>Akurasi percobaan menjawab</span>
           </div>
           <div>
             <Lightbulb size={19} />
@@ -756,6 +758,7 @@ function CompassIcon() {
 }
 
 export function StatsPage() {
+  const activities = useActivities();
   const history = useHuntStore((s) => s.history);
   const totals = history.map(summarize);
   const correct = totals.reduce((sum, item) => sum + item.correct, 0);
@@ -779,9 +782,14 @@ export function StatsPage() {
         <div>
           <Crosshair size={21} />
           <strong>{correct + wrong ? Math.round((correct / (correct + wrong)) * 100) : 0}%</strong>
-          <span>Akurasi tebakan</span>
+          <span>Akurasi percobaan menjawab</span>
         </div>
       </div>
+      <h2 className="stats-subheading">Mode lainnya</h2>
+      <div className="best-grid">{[["audio", "Tebak Suara"], ["multiplayer", "Main bareng"]].map(([mode, label]) => {
+        const sessions = activities.filter(item => item.mode === mode);
+        return <div key={mode}><span>{label}</span><strong>{sessions.length} sesi</strong><span>{sessions.reduce((sum, item) => sum + item.correct, 0)} hero tertebak</span></div>;
+      })}</div>
       <h2 className="stats-subheading">Rekor per kesulitan</h2>
       <div className="best-grid">
         {Object.entries(DIFFICULTIES).map(([key, value]) => (

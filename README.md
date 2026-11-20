@@ -111,3 +111,10 @@ Untuk Vercel, hubungkan satu database Redis REST bersama dan pasang `UPSTASH_RED
 Deck room menggunakan seluruh koleksi [Sparkies01/Splash pada revisi 3e8e842](https://github.com/Sparkies01/Splash/tree/3e8e842e09dc77e5fccc2665389001c935f7b87b). Ada 133 folder hero dan 1.061 entri gambar, termasuk tampilan dasar. Nama hero dan skin mengikuti folder serta nama file sumber. Misalnya, deck room menampilkan “Hiara” sesuai ejaan koleksi. Pemilihan acak dilakukan per hero, kemudian per entri milik hero tersebut. Untuk splash yang dipakai beberapa entri, pemain dapat membuka potret pembanding. Kartu WebP disajikan dari aplikasi, dengan ID berdasarkan blob Git sumber. Untuk membangun ulang dari checkout revisi tersebut, jalankan `python scripts/import-party-splash.py /path/ke/Splash` dengan Pillow terpasang. Koleksi dikelola komunitas. MLBB dan karakter-karakternya merupakan milik pemegang hak masing-masing.
 
 Pemain menjawab berdasarkan hero dasarnya. Voting selesai saat semua penjawab memilih atau setelah 30 detik. Saat seri atau mayoritas ragu, pemain bisa memperjelas satu kali. Tiga kesalahan membuka kartu, dan pemain tetap bisa ikut voting.
+
+
+### Room and listening improvements
+
+Rooms offer fast (30/15/15 seconds) and relaxed (90/30/45 seconds) turns, in-room host rematches, explicit leaving, and removal after two unattended question turns. Room credentials persist on the same browser across tabs. Background tabs poll less frequently. Joining and creation are rate-limited together to 30 attempts per minute per address.
+
+Listening rounds allow three guesses, skipping, session recovery and local results. Solo history is retained beyond 50 sessions from this version onward. Previously discarded history cannot be recovered. Cross-device recovery, human calibration of clue difficulty, and full device audio quality checks still require further work.

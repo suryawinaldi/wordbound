@@ -86,7 +86,7 @@ const rawSession = read("sessionStorage", SESSION_KEY, null);
 const rawHistory = read("localStorage", HISTORY_KEY, []);
 const rawSettings = read("localStorage", SETTINGS_KEY, {});
 const history = Array.isArray(rawHistory)
-  ? rawHistory.filter((item) => isSession(item) && item.phase === "completed").slice(0, 50)
+  ? rawHistory.filter((item) => isSession(item) && item.phase === "completed")
   : [];
 
 export const useHuntStore = create((set, get) => ({
@@ -96,6 +96,8 @@ export const useHuntStore = create((set, get) => ({
   history,
   settings: {
     difficulty: DIFFICULTIES[rawSettings?.difficulty] ? rawSettings.difficulty : "normal",
+    music: rawSettings?.music !== false,
+    effects: rawSettings?.effects !== false,
     muted: typeof rawSettings?.muted === "boolean" ? rawSettings.muted : false,
     clueProfile: CLUE_PROFILES[rawSettings?.clueProfile] ? rawSettings.clueProfile : "mixed",
     name: typeof rawSettings?.name === "string" ? rawSettings.name.slice(0, 24) : "",
@@ -119,7 +121,7 @@ export const useHuntStore = create((set, get) => ({
     let saved = write("sessionStorage", SESSION_KEY, next);
     let history = get().history;
     if (next.phase === "completed" && !history.some((item) => item.id === next.id)) {
-      history = [next, ...history].slice(0, 50);
+      history = [next, ...history];
       saved = write("localStorage", HISTORY_KEY, history) && saved;
     }
     set({ session: next, history, storageWarning: !saved });
@@ -143,6 +145,7 @@ export function stopAmbience() {
 }
 export function gameSound(kind) {
   if (useHuntStore.getState().settings.muted || document.hidden) return;
+  if (kind === "lobby" ? !useHuntStore.getState().settings.music : !useHuntStore.getState().settings.effects) return;
   const notes = {
     tap: [1568, 2352], correct: [523, 784, 1046, 1568], wrong: [147, 110],
     lobby: [196, 294, 392, 349],

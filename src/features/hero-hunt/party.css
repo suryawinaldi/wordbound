@@ -14,3 +14,10 @@
 .party-panel ol { margin: 0; padding-left: 1.4rem; }
 .party-panel li { padding: .45rem 0; overflow-wrap: anywhere; }
 .party-error { color: var(--danger); }
+.party-playing { display:flex; flex-direction:column; }
+.party-playing > .party-turn { order:-1; position:relative; margin-top:1rem; }
+.active-player-card { max-width:210px; width:100%; max-height:180px; object-fit:contain; border-radius:12px; justify-self:center; }
+.party-playing .party-cards { grid-template-columns:repeat(auto-fit,minmax(75px,1fr)); }
+.party-panel input[type=checkbox] { width:auto; min-height:auto; }
+.setup-art[hidden] { display:none; }
+.setup-panel:has(.setup-art[hidden]) { grid-template-columns:1fr; }

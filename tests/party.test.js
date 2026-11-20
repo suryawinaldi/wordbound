@@ -52,3 +52,24 @@ test("semua entri Splash dapat diundi dan merujuk ke kartu lokal", async () => {
   }
   assert.equal(count, 1061);
 });
+
+test("fast rooms remove idle players and support rematches", () => {
+  const room = create("654321", "A", "a");
+  act(room, "b", { action: "join", name: "B" });
+  act(room, "a", { action: "start" }, 0);
+  assert.equal(room.deadline, 30000);
+  tick(room, room.deadline);
+  tick(room, room.deadline);
+  tick(room, room.deadline);
+  assert.equal(room.players[0].status, "keluar");
+  tick(room, room.deadline);
+  assert.equal(room.phase, "selesai");
+  const next = create("654322", "C", "c");
+  act(next, "d", { action: "join", name: "D" });
+  act(next, "c", { action: "start" });
+  for (const player of next.players) act(next, player.token, { action: "guess", value: player.hero, turn: next.turn });
+  act(next, "c", { action: "rematch" });
+  assert.equal(next.game, 2);
+  assert.equal(next.phase, "lobi");
+  assert.ok(next.players.every(p => !p.hero && p.lives === 3));
+});

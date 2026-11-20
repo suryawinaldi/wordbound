@@ -30,17 +30,21 @@ export function Brand() {
 }
 
 export function SoundButton() {
-  const muted = useHuntStore((s) => s.settings.muted);
+  const settings = useHuntStore(s => s.settings);
+  const muted = settings.muted;
   const update = useHuntStore((s) => s.updateSettings);
   return (
-    <button
+    <div className="sound-controls"><button
       className="icon-button"
       aria-label={muted ? "Aktifkan suara" : "Matikan suara"}
       aria-pressed={!muted}
       onClick={() => update({ muted: !muted })}
     >
       {muted ? <VolumeX size={19} /> : <Volume2 size={19} />}
-    </button>
+    </button><details><summary aria-label="Pengaturan suara">♫</summary>
+      <label><input type="checkbox" checked={settings.music} onChange={e => { update({ music: e.target.checked }); stopAmbience(); }} /> Musik</label>
+      <label><input type="checkbox" checked={settings.effects} onChange={e => update({ effects: e.target.checked })} /> Efek</label>
+    </details></div>
   );
 }
 
@@ -82,7 +86,7 @@ export function Shell() {
         observer.unobserve(entry.target);
       }
     }, { threshold: .08 });
-    document.querySelectorAll("#main section, .mode-card, .library-card").forEach(el => observer.observe(el));
+    document.querySelectorAll("#main section, .mode-card, .library-card").forEach(el => { if (el.getBoundingClientRect().top >= innerHeight) observer.observe(el); });
     return () => observer.disconnect();
   }, [pathname]);
   const inGame = pathname === "/play/solo";

@@ -9,7 +9,7 @@ function player(name, token) {
   return { id: randomUUID(), token, name: name.trim(), lives: 3, status: "main" };
 }
 export function create(code, name, token) {
-  return { code, players: [player(name, token)], phase: "lobi", index: 0, turn: 0, log: [] };
+  return { code, players: [player(name, token)], pace: "fast", game: 1, phase: "lobi", index: 0, turn: 0, log: [] };
 }
 function next(room, now) {
   for (let offset = 1; offset <= room.players.length; offset++) {
@@ -19,7 +19,7 @@ function next(room, now) {
       room.turn++;
       room.clarified = false;
       room.phase = "tanya";
-      room.deadline = now + 90000;
+      room.deadline = now + (room.pace === "relaxed" ? 90000 : 30000);
       return;
     }
   }
@@ -31,10 +31,15 @@ function finishVote(room, now) {
   entry.counts = Object.fromEntries(votes.map(v => [v, Object.values(room.ballots).filter(x => x === v).length]));
   delete room.ballots;
   room.phase = "tebak";
-  room.deadline = now + 45000;
+  room.deadline = now + (room.pace === "relaxed" ? 45000 : 15000);
 }
 export function tick(room, now) {
   if (!room.deadline || now < room.deadline) return false;
+  if (room.phase === "tanya") {
+    const player = room.players[room.index];
+    player.missed = (player.missed || 0) + 1;
+    if (player.missed >= 2) player.status = "keluar";
+  }
   if (room.phase === "voting") finishVote(room, now);
   else next(room, now);
   return true;
@@ -48,6 +53,30 @@ export function act(room, token, body, now = Date.now()) {
     return;
   }
   check(me, "Kamu belum bergabung.");
+  if (body.action === "configure") {
+    check(room.phase === "lobi" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]), "Pengaturan hanya untuk host.");
+    check(["fast", "relaxed"].includes(body.value), "Pilihan tempo tidak valid.");
+    room.pace = body.value;
+    return;
+  }
+  if (body.action === "rematch") {
+    check(room.phase === "selesai" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]), "Tunggu host memulai ronde baru.");
+    room.players = room.players.filter(p => p.status !== "keluar");
+    for (const p of room.players) {
+      delete p.hero; delete p.image; delete p.skin; delete p.reference;
+      p.status = "main"; p.lives = 3; p.missed = 0;
+    }
+    room.phase = "lobi"; room.log = []; room.game = (room.game || 1) + 1;
+    delete room.deadline; delete room.ballots;
+    return;
+  }
+  if (body.action === "leave" && room.phase === "selesai") return;
+  if (body.action === "leave" && room.phase !== "lobi") {
+    me.status = "keluar";
+    if (room.players[room.index] === me) next(room, now);
+    else if (room.phase === "voting" && room.players.filter(p => p !== room.players[room.index] && p.status !== "keluar").every(p => room.ballots[p.id])) finishVote(room, now);
+    return;
+  }
   if (body.action === "leave") {
     check(room.phase === "lobi", "Room sudah mulai.");
     room.players = room.players.filter(p => p !== me);
@@ -55,7 +84,7 @@ export function act(room, token, body, now = Date.now()) {
     return;
   }
   if (body.action === "start") {
-    check(room.phase === "lobi" && me === room.players[0] && room.players.length >= 2, "Perlu host dan minimal dua pemain.");
+    check(room.phase === "lobi" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]) && room.players.length >= 2, "Perlu host dan minimal dua pemain.");
     const pool = [...choices];
     for (const p of room.players) {
       p.hero = pool.splice(randomInt(pool.length), 1)[0];
@@ -69,21 +98,23 @@ export function act(room, token, body, now = Date.now()) {
     next(room, now);
     return;
   }
+  check(me.status !== "keluar", "Kamu sudah keluar dari ronde.");
   check(body.turn === room.turn && room.turn && room.phase !== "selesai", "Giliran sudah berubah.");
   const active = room.players[room.index];
   if (body.action === "vote") {
     check(room.phase === "voting" && active !== me && votes.includes(body.value) && !room.ballots[me.id], "Suara tidak dapat dikirim.");
     room.ballots[me.id] = body.value;
-    if (Object.keys(room.ballots).length === room.players.length - 1) finishVote(room, now);
+    if (room.players.filter(p => p !== active && p.status !== "keluar").every(p => room.ballots[p.id])) finishVote(room, now);
     return;
   }
   check(active === me, "Tunggu giliranmu.");
+  me.missed = 0;
   if (body.action === "clarify") {
     const counts = room.log.at(-1)?.counts;
     check(room.phase === "tebak" && !room.clarified && ambiguous(counts), "Pertanyaan sudah selesai.");
     room.clarified = true;
     room.phase = "tanya";
-    room.deadline = now + 45000;
+    room.deadline = now + (room.pace === "relaxed" ? 45000 : 15000);
     return;
   }
   if (body.action === "ask") {
@@ -91,7 +122,7 @@ export function act(room, token, body, now = Date.now()) {
     room.log.push({ turn: room.turn, id: me.id, question: body.value.trim() });
     room.ballots = {};
     room.phase = "voting";
-    room.deadline = now + 30000;
+    room.deadline = now + (room.pace === "relaxed" ? 30000 : 15000);
     return;
   }
   check(["tanya", "tebak"].includes(room.phase), "Tunggu voting selesai.");
@@ -109,7 +140,7 @@ function ambiguous(counts) {
 export function view(room, token) {
   const me = room.players.find(p => p.token === token);
   check(me, "Kamu belum bergabung.");
-  return { code: room.code, phase: room.phase, turn: room.turn, deadline: room.deadline, me: me.id,
+  return { code: room.code, pace: room.pace || "relaxed", game: room.game || 1, host: (room.players.find(p => p.status !== "keluar") || room.players[0]).id, phase: room.phase, turn: room.turn, deadline: room.deadline, me: me.id,
     canClarify: room.phase === "tebak" && !room.clarified && Boolean(ambiguous(room.log.at(-1)?.counts)),
     active: room.players[room.index]?.id, voted: Boolean(room.ballots?.[me.id]), log: room.log, choices,
     players: room.players.map(p => {

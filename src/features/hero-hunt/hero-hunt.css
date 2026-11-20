@@ -2752,3 +2752,9 @@ main:focus {
     .hunt-app :is(button,.button):hover { box-shadow:0 0 18px #eac47b25; }
   }
 }
+.sound-controls { display:flex; align-items:center; position:relative; gap:.6rem; }
+.sound-controls summary { cursor:pointer; padding:.5rem; }
+.sound-controls details[open] { position:absolute; right:0; top:0; z-index:20; background:var(--surface); border:1px solid var(--border); padding:.5rem; border-radius:10px; min-width:130px; }
+.sound-controls label { display:block; padding:.6rem; white-space:nowrap; }
+.hero-cta { flex-wrap:wrap; }
+.hero-cta > * { max-width:100%; }
