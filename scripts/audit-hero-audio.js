@@ -1,9 +1,11 @@
 import { ML_HEROES } from "../src/data/ml-heroes.js";
 import { ROSTER } from "../src/features/hero-hunt/content.js";
 import { AUDIO_REVIEWS, audioEligibility } from "../src/features/hero-hunt/audio-catalog.js";
+import clips from "../src/features/hero-hunt/selection-clips.json" with { type: "json" };
 import { existsSync, writeFileSync } from "node:fs";
 const rows = ROSTER.map((hero) => {
   const legacy = ML_HEROES.find((item) => item.name === hero.name);
+  const bundled = clips.find(clip => clip.name === hero.name);
   const review = AUDIO_REVIEWS[hero.id];
   const eligibility = audioEligibility(review);
   if (eligibility.ready && !existsSync(`public${review.localAssetPath}`))
@@ -12,7 +14,8 @@ const rows = ROSTER.map((hero) => {
     id: hero.id,
     name: hero.name,
     legacyUrlPresent: !!legacy?.audioUrl,
-    referencePage: `${hero.sourceUrl}/Audio`,
+    referencePage: bundled?.source || `${hero.sourceUrl}/Audio`,
+    playableClip: bundled?.src || null,
     kind: review?.kind || "unconfirmed",
     language: review?.language || "unconfirmed",
     skin: review?.skin || "unconfirmed",
@@ -27,6 +30,7 @@ const summary = {
   roster: rows.length,
   legacyUrls: rows.filter((row) => row.legacyUrlPresent).length,
   missingLegacyUrls: rows.filter((row) => !row.legacyUrlPresent).length,
+  playable: rows.filter(row => row.playableClip).length,
   ready: rows.filter((row) => row.enabled).length,
 };
 if (process.argv.includes("--write"))

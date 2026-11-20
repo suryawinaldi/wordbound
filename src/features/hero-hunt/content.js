@@ -179,12 +179,13 @@ const expanded = EXPANDED_ENTRIES.map(([name, role, ...clues]) => [
   slug(name),
   name,
   role,
-  [],
+  name === "Hirara" ? ["Hiara"] : [],
   clues.map((text, index) => [kinds[index], text]),
 ]);
 
 export const HEROES = [...entries, ...expanded].map(([id, name, role, aliases, clues]) => {
-  const sourceUrl = `https://mobile-legends.fandom.com/wiki/${encodeURIComponent(name.replaceAll(" ", "_"))}`;
+  const toolsSource = ["Hirara", "Kalea", "Lukas", "Marcel", "Obsidia", "Sora", "Zetian"].includes(name);
+  const sourceUrl = toolsSource ? `https://mlbb.tools/heroes/${id}` : `https://mobile-legends.fandom.com/wiki/${encodeURIComponent(name.replaceAll(" ", "_"))}`;
   return {
     id,
     name,
@@ -193,7 +194,7 @@ export const HEROES = [...entries, ...expanded].map(([id, name, role, aliases, c
     roleFact: {
       category: "role",
       sourceUrl,
-      sourceKind: "community_wiki_reference",
+      sourceKind: toolsSource ? "community_database_reference" : "community_wiki_reference",
       reviewStatus: "needs_review",
       verifiedAt: null,
       reviewer: null,
@@ -212,7 +213,7 @@ export const HEROES = [...entries, ...expanded].map(([id, name, role, aliases, c
       type,
       text,
       sourceUrl,
-      sourceKind: "community_wiki_reference",
+      sourceKind: toolsSource ? "community_database_reference" : "community_wiki_reference",
       reviewStatus: "needs_review",
       verifiedAt: null,
       reviewer: null,
@@ -222,28 +223,7 @@ export const HEROES = [...entries, ...expanded].map(([id, name, role, aliases, c
   };
 });
 
-// These legacy rows contain placeholders or unsupported release/skill claims.
-// Preserve coverage without inventing five clues or treating them as verified.
-export const PENDING_HEROES = [
-  ["Hirara", "Roster dan kemampuan belum dapat dikonfirmasi; data lama berupa placeholder."],
-  ["Kalea", "Petunjuk lama berupa placeholder; lima fakta spesifik perlu dikonfirmasi."],
-  ["Lukas", "Petunjuk lama berupa placeholder; lima fakta spesifik perlu dikonfirmasi."],
-  ["Marcel", "Klaim rilis dan kemampuan dalam data lama belum memiliki bukti sumber."],
-  ["Obsidia", "Klaim rilis dan kemampuan dalam data lama belum memiliki bukti sumber."],
-  ["Sora", "Klaim rilis dan kemampuan dalam data lama belum memiliki bukti sumber."],
-  ["Zetian", "Deskripsi kemampuan dalam data lama perlu dicocokkan dengan sumber resmi."],
-].map(([name, reason]) => ({
-  id: slug(name),
-  name,
-  role: null,
-  aliases: [],
-  enabled: false,
-  clues: [],
-  reviewStatus: "blocked",
-  verifiedAt: null,
-  reason,
-  sourceUrl: `https://mobile-legends.fandom.com/wiki/${encodeURIComponent(name)}`,
-}));
+export const PENDING_HEROES = [];
 
 export const ROSTER = [...HEROES, ...PENDING_HEROES].sort((a, b) => a.name.localeCompare(b.name));
 export const CONTENT_VERSION = "editorial-preview-2";

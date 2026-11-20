@@ -32,6 +32,13 @@
     "src": "/audio/selection/55658c24475ded7ba349.mp3"
   },
   {
+    "name": "Arlott",
+    "src": "/audio/selection/ce27eba4434ede6c7e5b.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/arlott",
+    "sourceFile": "mp3/showcase/arlott/show_vo_2201.mp3"
+  },
+  {
     "name": "Atlas",
     "src": "/audio/selection/9e6778ee54f673a3a39c.mp3"
   },
@@ -96,12 +103,33 @@
     "src": "/audio/selection/908a2f7faed79ec7f1dc.mp3"
   },
   {
+    "name": "Chip",
+    "src": "/audio/selection/aef8c7edf12d8913a9e2.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/chip",
+    "sourceFile": "mp3/showcase/chip/show_vo_2241.mp3"
+  },
+  {
     "name": "Chou",
     "src": "/audio/selection/e60e684a07a07fd30e5e.mp3"
   },
   {
+    "name": "Cici",
+    "src": "/audio/selection/d80cdbd1a94adb6a223b.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/cici",
+    "sourceFile": "mp3/showcase/cici/show_vo_2231.mp3"
+  },
+  {
     "name": "Claude",
     "src": "/audio/selection/6de55b7285c5afcb075a.mp3"
+  },
+  {
+    "name": "Clint",
+    "src": "/audio/selection/31bcceffd3568e567869.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/clint",
+    "sourceFile": "mp3/showcase/clint/show_vo_1131.mp3"
   },
   {
     "name": "Cyclops",
@@ -146,6 +174,13 @@
   {
     "name": "Franco",
     "src": "/audio/selection/d52eb69816319ce8d948.mp3"
+  },
+  {
+    "name": "Fredrinn",
+    "src": "/audio/selection/0b5c6fb2c03f499d042f.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/fredrinn",
+    "sourceFile": "mp3/showcase/fredrinn/show_vo_2171.mp3"
   },
   {
     "name": "Freya",
@@ -208,6 +243,13 @@
     "src": "/audio/selection/cc83a1ddbe8ae4f05a9d.mp3"
   },
   {
+    "name": "Hirara",
+    "src": "/audio/selection/c9a6efc1b701f18e0a4d.mp3",
+    "kind": "voice",
+    "source": "https://mlbb.tools/heroes/hirara",
+    "sourceFile": "mp3/voice/hirara/vo_2331_001.mp3"
+  },
+  {
     "name": "Hylos",
     "src": "/audio/selection/f2411ea2f5778fcec60c.mp3"
   },
@@ -216,12 +258,26 @@
     "src": "/audio/selection/3aff36f72625a1faa437.mp3"
   },
   {
+    "name": "Ixia",
+    "src": "/audio/selection/7cb223adbd64071e085a.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/ixia",
+    "sourceFile": "mp3/showcase/ixia/show_vo_2211.mp3"
+  },
+  {
     "name": "Jawhead",
     "src": "/audio/selection/c718edcd373e36fc047e.mp3"
   },
   {
     "name": "Johnson",
     "src": "/audio/selection/f880d6baa40f4f02e839.mp3"
+  },
+  {
+    "name": "Joy",
+    "src": "/audio/selection/271e921648af5e7f8a1f.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/joy",
+    "sourceFile": "mp3/showcase/joy/show_vo_2181.mp3"
   },
   {
     "name": "Julian",
@@ -240,6 +296,13 @@
     "src": "/audio/selection/b021b084d5600b84fe6f.mp3"
   },
   {
+    "name": "Kalea",
+    "src": "/audio/selection/481d0dce22ae5e261708.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/kalea",
+    "sourceFile": "mp3/showcase/kalea/show_vo_2281.mp3"
+  },
+  {
     "name": "Karina",
     "src": "/audio/selection/ac637d163547230bca1f.mp3"
   },
@@ -254,6 +317,13 @@
   {
     "name": "Khufra",
     "src": "/audio/selection/2596f80390f200189e89.mp3"
+  },
+  {
+    "name": "Kimmy",
+    "src": "/audio/selection/9ef79d883eef8f749aec.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/kimmy",
+    "sourceFile": "mp3/showcase/kimmy/show_vo_1711.mp3"
   },
   {
     "name": "Lancelot",
@@ -280,12 +350,40 @@
     "src": "/audio/selection/2c75df9e91bcd194e8f3.mp3"
   },
   {
+    "name": "Lolita",
+    "src": "/audio/selection/7d410819b66ed5bb6977.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/lolita",
+    "sourceFile": "mp3/showcase/lolita/show_vo_1201.mp3"
+  },
+  {
+    "name": "Lukas",
+    "src": "/audio/selection/664b76e4dc1c988dff6a.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/lukas",
+    "sourceFile": "mp3/showcase/lukas/show_vo_2271.mp3"
+  },
+  {
     "name": "Lunox",
     "src": "/audio/selection/4647632ac53f6d827515.mp3"
   },
   {
+    "name": "Luo Yi",
+    "src": "/audio/selection/79241e60e416aff0d4ab.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/luo-yi",
+    "sourceFile": "mp3/showcase/luo-yi/show_vo_1961_001.mp3"
+  },
+  {
     "name": "Lylia",
     "src": "/audio/selection/d2f79548e9cae9d1e14e.mp3"
+  },
+  {
+    "name": "Marcel",
+    "src": "/audio/selection/fc4c20cba28546db04be.mp3",
+    "kind": "voice",
+    "source": "https://mlbb.tools/heroes/marcel",
+    "sourceFile": "mp3/voice/marcel/vo_2321_002.mp3"
   },
   {
     "name": "Martis",
@@ -332,6 +430,27 @@
     "src": "/audio/selection/61beffab9bc6cc2fa066.mp3"
   },
   {
+    "name": "Nolan",
+    "src": "/audio/selection/e39aa209b94860443309.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/nolan",
+    "sourceFile": "mp3/showcase/nolan/show_vo_2221.mp3"
+  },
+  {
+    "name": "Novaria",
+    "src": "/audio/selection/96074d0a885a3e453338.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/novaria",
+    "sourceFile": "mp3/showcase/novaria/show_vo_2191.mp3"
+  },
+  {
+    "name": "Obsidia",
+    "src": "/audio/selection/b2f76f8a9efb7f7cf3d5.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/obsidia",
+    "sourceFile": "mp3/showcase/obsidia/show_vo_2301.mp3"
+  },
+  {
     "name": "Odette",
     "src": "/audio/selection/428b9da96bcd88735cc1.mp3"
   },
@@ -346,6 +465,13 @@
   {
     "name": "Phoveus",
     "src": "/audio/selection/0d89df8c93a4fb325927.mp3"
+  },
+  {
+    "name": "Popol and Kupa",
+    "src": "/audio/selection/c9ef807d015617e7d01a.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/popol-and-kupa",
+    "sourceFile": "mp3/showcase/popol-and-kupa/show_vo_1941.mp3"
   },
   {
     "name": "Rafaela",
@@ -368,8 +494,29 @@
     "src": "/audio/selection/c0464a63b3b6d3946e9b.mp3"
   },
   {
+    "name": "Silvanna",
+    "src": "/audio/selection/c17703150f7a12e9397c.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/silvanna",
+    "sourceFile": "mp3/showcase/silvanna/show_vo_1901_001.mp3"
+  },
+  {
+    "name": "Sora",
+    "src": "/audio/selection/fa5711d34e339ad6df6e.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/sora",
+    "sourceFile": "mp3/showcase/sora/show_vo_2311.mp3"
+  },
+  {
     "name": "Sun",
     "src": "/audio/selection/974b31dd2380291585a0.mp3"
+  },
+  {
+    "name": "Suyou",
+    "src": "/audio/selection/4e814f4a9b77c2572334.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/suyou",
+    "sourceFile": "mp3/showcase/suyou/show_vo_2261.mp3"
   },
   {
     "name": "Terizla",
@@ -408,20 +555,55 @@
     "src": "/audio/selection/c2d0b68b569a85be548b.mp3"
   },
   {
+    "name": "X.Borg",
+    "src": "/audio/selection/6d2a6bac5a804c85a161.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/x-borg",
+    "sourceFile": "mp3/showcase/x-borg/show_vo_1831.mp3"
+  },
+  {
     "name": "Xavier",
     "src": "/audio/selection/5e98bb5417546e37516d.mp3"
+  },
+  {
+    "name": "Yi Sun-shin",
+    "src": "/audio/selection/00a65e5eb2bc5f8dc000.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/yi-sun-shin",
+    "sourceFile": "mp3/showcase/yi-sun-shin/show_vo_1301.mp3"
   },
   {
     "name": "Yin",
     "src": "/audio/selection/3a24d39d6938ceb2a3bc.mp3"
   },
   {
+    "name": "Yu Zhong",
+    "src": "/audio/selection/cb5877c70c17b502b934.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/yu-zhong",
+    "sourceFile": "mp3/showcase/yu-zhong/show_vo_1951.mp3"
+  },
+  {
     "name": "Yve",
     "src": "/audio/selection/72b8b08aeadd0173385b.mp3"
   },
   {
+    "name": "Zetian",
+    "src": "/audio/selection/5b8836ff742fb20a87ee.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/zetian",
+    "sourceFile": "mp3/showcase/zetian/show_vo_2291.mp3"
+  },
+  {
     "name": "Zhask",
     "src": "/audio/selection/35c11389f5c40963f343.mp3"
+  },
+  {
+    "name": "Zhuxin",
+    "src": "/audio/selection/1600cefccd9e9a560db4.mp3",
+    "kind": "showcase",
+    "source": "https://mlbb.tools/heroes/zhuxin",
+    "sourceFile": "mp3/showcase/zhuxin/show_vo_2251.mp3"
   },
   {
     "name": "Zilong",

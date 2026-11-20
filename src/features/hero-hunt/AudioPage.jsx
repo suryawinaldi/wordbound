@@ -59,7 +59,8 @@ export default function AudioPage() {
     e.preventDefault();
     if (!heard || result !== null || !answer.trim()) return;
     audio.current.pause();
-    const correct = normalizeAnswer(answer) === normalizeAnswer(hero);
+    const accepted = [hero, ...(ROSTER.find(item => item.name === hero)?.aliases || [])];
+    const correct = accepted.some(name => normalizeAnswer(answer) === normalizeAnswer(name));
     setResult(correct); if (correct) setScore(score + 1);
     playTone(correct);
   }
@@ -72,7 +73,7 @@ export default function AudioPage() {
         <h2>{score} dari {deck.length} hero tertebak</h2>
         <button onClick={() => { setDeck(rounds()); setIndex(0); setScore(0); }}>Main lagi</button>
       </> : <>
-        <p>Ronde {index + 1} / {deck.length} · Suara draft pick</p>
+        <p>Ronde {index + 1} / {deck.length} · {clip.kind === "voice" ? "Dialog hero" : clip.kind === "showcase" ? "Suara showcase" : "Suara draft pick"}</p>
         <div aria-hidden="true" className={'audio-bars ' + (playing ? 'playing' : '')}>{[0,1,2,3,4,5,6,7,8].map(n => <i key={n} style={{'--beat': n}} />)}</div>
         <audio key={index} ref={audio} preload="none" src={clip.src}
           onPlaying={() => { setHeard(true); setPlaying(true); setFailed(false); }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)} />

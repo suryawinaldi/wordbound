@@ -29,7 +29,7 @@ const act = (state, type, extra = {}) =>
 const answer = (state) => HEROES.find((hero) => hero.id === state.heroIds[state.round]).name;
 
 test("preview data passes structure; release data fails pending source review", () => {
-  assert.equal(HEROES.length, 126);
+  assert.equal(HEROES.length, 133);
   assert.deepEqual(validateHeroes(HEROES), []);
   const releaseErrors = validateHeroes(HEROES, { release: true });
   assert.ok(
@@ -44,14 +44,14 @@ test("preview data passes structure; release data fails pending source review", 
 test("all 133 legacy names are accounted for; incomplete entries cannot enter a session", () => {
   assert.deepEqual(validateRoster(ROSTER), []);
   assert.equal(ROSTER.length, 133);
-  assert.equal(PENDING_HEROES.length, 7);
+  assert.equal(PENDING_HEROES.length, 0);
   assert.deepEqual(
     ROSTER.map((hero) => hero.name).sort(),
     ML_HEROES.map((hero) => hero.name).sort(),
   );
   assert.equal(
     HEROES.reduce((sum, hero) => sum + hero.clues.length, 0),
-    630,
+    665,
   );
   assert.ok(
     PENDING_HEROES.every(
@@ -338,4 +338,11 @@ test("audio gate rejects missing rights, source, language, spoilers, playback, a
     assert.equal(audioEligibility({ ...audio, ...patch }).ready, false, JSON.stringify(patch));
   assert.equal(audioEligibility(null).ready, false);
   assert.deepEqual(playableAudioHeroes(HEROES), []);
+});
+
+test("setiap hero Solo Classic memiliki rekaman Tebak Suara yang tersedia", async () => {
+  const { default: clips } = await import("../src/features/hero-hunt/selection-clips.json", { with: { type: "json" } });
+  const { existsSync } = await import("node:fs");
+  assert.deepEqual(clips.map(c => c.name).sort(), HEROES.map(h => h.name).sort());
+  for (const clip of clips) assert.ok(existsSync("public" + clip.src), clip.name);
 });

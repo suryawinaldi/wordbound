@@ -2,7 +2,7 @@
 
 A mobile-first, Indonesian MLBB hero guessing game built on the existing React/Vite project. This implementation covers the redesigned guest Solo experience: home → five-hero session → reveal → results, with local statistics and settings.
 
-**Hero Hunt includes editorial-preview clues.** All 133 names in the legacy repository are now accounted for. The playable preview contains 126 heroes and 630 rewritten clues; seven entries are explicitly excluded because their legacy data contains placeholders or unsupported claims. These counts describe repository coverage, not the latest official MLBB roster. Source verification is pending: attempts to access the official MLBB site and community wiki were denied by the current environment proxy. Each clue has a source reference and individual review/evidence fields. `sourceUrl` is a review reference, not evidence of verification; all 630 clues still require external source review. No claim is made that these facts match the current game patch. `npm run check:release` intentionally fails while this remains unresolved.
+**Hero Hunt includes editorial-preview clues.** All 133 names in the legacy repository are now accounted for. The playable preview contains 133 heroes and 665 clues. These counts describe repository coverage, not the latest official MLBB roster. Source verification is pending: attempts to access the official MLBB site and community wiki were denied by the current environment proxy. Each clue has a source reference and individual review/evidence fields. `sourceUrl` is a review reference, not evidence of verification; all 665 clues still require external source review. No claim is made that these facts match the current game patch. `npm run check:release` intentionally fails while this remains unresolved.
 
 ## Run
 
@@ -88,7 +88,7 @@ npm exec --cache /workspace/.npm --yes --package=vercel@65.14.0 -- vercel whoami
 
 The current runtime also denies outbound access to the official MLBB site and `api.vercel.com` (proxy CONNECT 403). New domain additions are saved in the environment draft, not yet applied to the running instance. After settings are saved, check fresh connections, complete source review, authenticate Vercel, deploy the appropriate target, and run the browser suite against the returned HTTPS URL. Do not mark deployment complete on the basis of a local build or dry run.
 
-See [content review](docs/content-review.md) for the seven excluded entries and remaining editorial requirements.
+See [content review](docs/content-review.md) for source coverage and remaining editorial requirements.
 
 Hero Hunt is a fan-made trivia project and is not affiliated with MOONTON Games.
 
@@ -98,7 +98,7 @@ Solo setup now offers **Campuran** (default for new sessions) and **Kisah & meka
 
 Role facts have their own source/review metadata and are still editorial previews, not current-patch certifications. The strict editorial audit also requires role evidence. Gender is explicitly null until a source confirms it; it is never inferred from artwork, pronouns, role, or paired-character names. No generic gender clue is inserted.
 
-Tebak Suara draws five distinct heroes at page entry. When the player taps Play, the browser streams the selected recording as a small bundled MP3 from the game domain. Reviewed catalog entries take priority for the same hero. The original candidate catalog has 107 selection clip URLs tested for decoding and 26 entries without audio. Source attribution and editorial or license review are tracked separately from playback. A failed stream can be retried or skipped.
+Tebak Suara draws five distinct heroes at page entry. When the player taps Play, the browser streams the selected recording as a small bundled MP3 from the game domain. Reviewed catalog entries take priority for the same hero. The playable deck covers 133 heroes, including 107 selection clips and 26 recordings sourced from MLBB Tools (24 showcase and two character dialogue clips). Source attribution and editorial or license review are tracked separately from playback. A failed stream can be retried or skipped.
 
 Run `npm run audit:audio` to check the catalog or `node scripts/audit-hero-audio.js --write` to refresh the report. `AUDIO_REVIEWS` is currently empty. Before adding an asset it must have confirmed default-skin selection kind, matching English language, source evidence, license evidence, playback evidence, reviewer, spoiler clearance and a bundled `/audio/hero-hunt/` path. The build checks that every eligible file actually exists. No arbitrary URL proxy is used. Future gameplay must replace a failed audio round without taking HP; this behavior is described as planned, not implemented playback.
 
