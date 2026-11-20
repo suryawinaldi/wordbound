@@ -1,0 +1,4546 @@
+{
+  "Aamon": [
+    [
+      "Cyber Assassin",
+      "062fc47cc268a8e4f3b5c643c7e6b68c4e758903"
+    ],
+    [
+      "Duke of Shards",
+      "b19d7837eba024a34d2860f522ccc08499a98f25"
+    ],
+    [
+      "Night's Edge",
+      "f6c12c515ee2d303b7b1b4b72e6eed329cabd442"
+    ],
+    [
+      "Noble Crest",
+      "6c716b24b23a5213336c32574709a0af9d0d55fc"
+    ],
+    [
+      "Soul Reaver",
+      "62f503c72aea599dc58cf108bcc47b49c1aa026c"
+    ],
+    [
+      "Vessel of Deceit",
+      "48ffe33970ad0bdb147cf94eb266776708ed3fc7"
+    ]
+  ],
+  "Akai": [
+    [
+      "Akazonae Samurai",
+      "5b9b4f642ac6a486178afa9eb9d23b48a7db8263"
+    ],
+    [
+      "Imperial Assassin",
+      "a66d8f9865d90737732f475bfbc415c186ebf303"
+    ],
+    [
+      "Kung Fu Panda",
+      "b81db08f1a5e2132c2be9eed8436bb49453f425e"
+    ],
+    [
+      "Marvelous Maestro",
+      "a51a50134adc5e7aa64db3502ddb11339179dbd7"
+    ],
+    [
+      "Monk",
+      "f3a509609beaaba6ec6d201c2f853c961a142fe1"
+    ],
+    [
+      "Panda Warrior",
+      "bcc905352a5e29392dad12203256638b79cd5e43"
+    ],
+    [
+      "Pumpkin Brawler",
+      "3d09e5f9a3970ad73f4115665786d63659109a98"
+    ],
+    [
+      "Stream Recluse",
+      "87f4b9a600aba6a7f302dda4bdbf6bbaaa65fc4d"
+    ],
+    [
+      "Street Enforcer",
+      "2f5470d632e3f4b24bdda2fc7d2135aa6654f493"
+    ],
+    [
+      "Summer Party",
+      "93e68a920d6e619b608ecd108ce7d4da1758317e"
+    ]
+  ],
+  "Aldous": [
+    [
+      "Blazing Force",
+      "6a4baa86c06d1b6ad1edfe29050c993c06bbbe6f"
+    ],
+    [
+      "Contractor",
+      "1921eb74614c12556fc631d57f4bcc72ae61ed6b"
+    ],
+    [
+      "Death",
+      "a98d64e31648ef6fa3d570a341b89f2e30fd4fe2"
+    ],
+    [
+      "Fathom Terror",
+      "6362f83f209aae1fe81a1bb9c5a7b1f5608f156b"
+    ],
+    [
+      "King of Supremacy",
+      "07917a483d7710177600b0eebf91afc0970a1aa6"
+    ],
+    [
+      "Mistbender Aldous",
+      "43b70c17fe253c97c9a701e39b6ebf40f3eb5075",
+      "6a4baa86c06d1b6ad1edfe29050c993c06bbbe6f"
+    ],
+    [
+      "Realm Watcher",
+      "21f4b51b7f679ce352de77c80de8e33d125ba6f7"
+    ],
+    [
+      "Red Mantle",
+      "f85cfc9af668fd17f4190d685f13bd1cbc0e2ebc"
+    ],
+    [
+      "Starscream",
+      "cc487b9607382dfb5c0ff1cbbe26459df54a8258"
+    ],
+    [
+      "The Insentient",
+      "1ad6f391f918288bf93439029f38041cd7abe8e1"
+    ]
+  ],
+  "Alice": [
+    [
+      "Darknet Temptress",
+      "192b370b8ca741fadf31dfc85d4af14e4e02d79a"
+    ],
+    [
+      "Divine Owl",
+      "6e5ade1409462c90d006fbfa0eaf17d3b1dee56b"
+    ],
+    [
+      "Dreaming Mornach",
+      "9d7dad857aeeafe90cf2621ee50e7ff7f74b8236"
+    ],
+    [
+      "Jade Empress",
+      "4e7adf2d7f8c5716ab8dcc100484f564c4b21ac5"
+    ],
+    [
+      "Queen of Blood",
+      "624fa00e3940cd9e666e12de7ef95367e97f4263"
+    ],
+    [
+      "Spirit Woman",
+      "3e821b9413c2f4d99ab52dc2bdfc505d3d746edb"
+    ],
+    [
+      "Steam Glider",
+      "11264f8e243eafd03aa2f5ac724472d67d14d97b"
+    ],
+    [
+      "Wizardry Teacher",
+      "6970c547f0d723719e246e5f13c21db66d24d91f"
+    ]
+  ],
+  "Alpha": [
+    [
+      "Blade of Enmity",
+      "b785d636e2fa8a440c57a02ba964cb3c84d44bf1"
+    ],
+    [
+      "Crimson Warrior",
+      "7916ba4d8d87e23f3d18d405aa77e561aef33ac6"
+    ],
+    [
+      "Fierce Dragon",
+      "629f6bbf806aaa1ecdf69fa327e888884cb25fea"
+    ],
+    [
+      "General Void",
+      "932d99cb8ec0c74f079795752629ab14aa093c7d"
+    ],
+    [
+      "Mecha-King Perseus",
+      "ef02e5b25604908ce42d5874d05dc8a3097758a8"
+    ],
+    [
+      "Onimusha Commander",
+      "815a01601ceec00ab757cc5db950cdb9bb7cc1ec"
+    ],
+    [
+      "Revenant of Roses",
+      "ae50797d0fe5e3976c5227d7e398e7c8a7ddd88e"
+    ],
+    [
+      "Sea Gladiator",
+      "df57585b48f4088c61e2401e92be15d0f9856033"
+    ],
+    [
+      "Star Enforcer",
+      "cff042d00307bd47c8e153332803f1be0dd93097"
+    ]
+  ],
+  "Alucard": [
+    [
+      "Child of the Fall",
+      "915bd4448d0c23ae185375b0f20f566dce9301cf"
+    ],
+    [
+      "Demon Hunter",
+      "0582d2a9d4d71fe02c840131252e70d6c830c9be"
+    ],
+    [
+      "Demon's Bane",
+      "651493c196c710da64ac25e652bf1e8c4710acbc"
+    ],
+    [
+      "Empire Agent",
+      "dabf545c56c694375ac3539a245d89f1fd65a303"
+    ],
+    [
+      "Fiery Inferno",
+      "c771b1844cc3cc35cb4acca3dc971871fa32b7b5"
+    ],
+    [
+      "Lightborn - Striker",
+      "c8a603c4fcfd2d55e7a7a109dd23c967187b1671"
+    ],
+    [
+      "Lone Hero",
+      "39cda3319fed0782b3303529ce47bb5bb93e5444"
+    ],
+    [
+      "Obi-Wan Kenobi",
+      "4cb931bf11a0578a5af41341e728318fb6e4fe56"
+    ],
+    [
+      "Obsidian Blade",
+      "1502a528e365392b15dce0f2ebc010b36ce553ba"
+    ],
+    [
+      "Romantic Fantasy",
+      "a06e91a70ef57f5b4232a816104341da5891ecce",
+      "915bd4448d0c23ae185375b0f20f566dce9301cf"
+    ],
+    [
+      "Viscount",
+      "8609bbd426c194cc05362e67404911a776135bf3"
+    ]
+  ],
+  "Angela": [
+    [
+      "Avatar of Time",
+      "ce90958b52020a16d73508e86d83313aac151209"
+    ],
+    [
+      "Bunnylove",
+      "af417fce4cc4d28ac7994b185dab1397eb79388f"
+    ],
+    [
+      "Cyber Cherubin",
+      "5e856bd3aec5ad6267beb5e874d8700a527524af"
+    ],
+    [
+      "Dove&Love",
+      "0d20b337cdb24325195953ddc74f4bf99a89b308"
+    ],
+    [
+      "Floral Elf",
+      "8fabac6e27801e59305e6c077f3ac143e803be75"
+    ],
+    [
+      "Heartstring",
+      "670dcc87c6126f59891df71af2dc292187c9ce2a"
+    ],
+    [
+      "Scream Doll",
+      "adf64972a135569ac226df869f7bd09290a4b966"
+    ],
+    [
+      "Strings of Fate",
+      "19239de54b1893f7d3985b75781b45d6c20490f3"
+    ],
+    [
+      "Summer Vibes",
+      "7f68cc829edc92412e5098b1e31bdddbfe60464f"
+    ],
+    [
+      "V.E.N.O.M. Vespid",
+      "16d7e20531719ee9bf9c4ece67d2cab976a7ae74"
+    ]
+  ],
+  "Argus": [
+    [
+      "Catastrophe",
+      "a5cf5a2a6f46b70c2a5a776402526e3ee2a6be8d"
+    ],
+    [
+      "Dark Angel",
+      "01a218215953f38ac7452f7acbf9bd557cbe1428"
+    ],
+    [
+      "Dark Draconic",
+      "5c32a9963cbe82782b0c93c6b6e25407abdfd0c6"
+    ],
+    [
+      "Darth Vader",
+      "9b57776f4fe3a54e0e169f015240340d5e8f8b18"
+    ],
+    [
+      "Light of Dawn",
+      "ce781743c8daae002dacec42b29f81090a2332f5"
+    ],
+    [
+      "Winged Nightmare",
+      "2483eeadeb2cd56afd0716bba2c12a7014d45f5f"
+    ]
+  ],
+  "Arlott": [
+    [
+      "Aeon of Twilight",
+      "835e7db51e01d1d584b943ad9a9ea80047859ec6"
+    ],
+    [
+      "Fury of the Deep",
+      "6e5bc73f612e5b7f804410f4dcded9eb90c6dd3e"
+    ],
+    [
+      "Lone Lancer",
+      "5b9d907d14a409f5b69d303047c1fdd3cd5cb08d"
+    ],
+    [
+      "Wandering Spear",
+      "7ebe63aae7f3a097a310802746ff4747905242f2"
+    ]
+  ],
+  "Atlas": [
+    [
+      "Fuel Turbine",
+      "c17db0638d0c49e4f18df96ebb97320bb2c940e6"
+    ],
+    [
+      "Maelstrom Lurker",
+      "c45b9d741c08d67a294636f954f0f43feb54fdda"
+    ],
+    [
+      "Mecha Infernus",
+      "170db0852413f5809265ee3a588abc572969d25e"
+    ],
+    [
+      "Ocean Gladiator",
+      "270cdb4b694624df748620faf04d812742ca68fb"
+    ],
+    [
+      "Reactor Core",
+      "cf58bb45539d663d991781c2aa39f60bc75250da"
+    ],
+    [
+      "Rune Sentinel",
+      "3f589eb67df659454850ac4214e4a429faf6c561"
+    ],
+    [
+      "Space Mech",
+      "30e4add4ec24e7b14a190a307987fe5e470c1ddf"
+    ],
+    [
+      "Sunken Curse",
+      "cedec312282204520d3ea6e79d0332d14795b0fc"
+    ]
+  ],
+  "Aulus": [
+    [
+      "Barren Pioneer",
+      "c265cc185e65f7073ca4f23a764c658b1ae09773"
+    ],
+    [
+      "Berserker",
+      "2242c7288369c88c25acd4156715ff342503096d"
+    ],
+    [
+      "Ironmane Reaver",
+      "cfd9c9e860847559cd6eb6477490b9334bfd2ad3"
+    ],
+    [
+      "War Lion",
+      "b1c3dfbbf64ac08d061f7b806536c1f5926ad48c"
+    ],
+    [
+      "Warrior of Ferocity",
+      "344f928ba3248ee90adf3d8bc2748c3e6e83b82c"
+    ]
+  ],
+  "Aurora": [
+    [
+      "Aquarius",
+      "f39e9b45d909d0f9197be7c3598439b47786bbdb"
+    ],
+    [
+      "Foxy Lady",
+      "239e72f24d822d5cdf79c481efaf2c895e485945"
+    ],
+    [
+      "Heartbreak Empress",
+      "d0f4b599c905fd41608f5c0605d63a8375f2ea04"
+    ],
+    [
+      "Kula Diamond",
+      "87ea32487be1fb546ddef75d2d95985333b3c943"
+    ],
+    [
+      "Maiden of the Glacier",
+      "81901fef00c8d2e9e010859e40928fc60854d256"
+    ],
+    [
+      "Nature's Throne",
+      "67615749ea897a9c555661b88add074e91aa9180"
+    ],
+    [
+      "Veil of the Celestials",
+      "75ef70af90f3f48a682661bebfc739c69d3a1ffb"
+    ]
+  ],
+  "Badang": [
+    [
+      "Fist of Zen",
+      "679b7d407dff4b6d6eac3a55274b381ec4198f7a"
+    ],
+    [
+      "Ironfists",
+      "bffede511e164346241b2a4799c1a3a4fbb1f287"
+    ],
+    [
+      "Leo",
+      "2389385d3224d99e5612af83845f0fe72a76831f"
+    ],
+    [
+      "Pegasus Seiya",
+      "fb15bb8e25d1c4d116e43c1c4977ad4c7c2f9839"
+    ],
+    [
+      "Sagittarius Seiya",
+      "3b545af59c783a1e9534eadb9568a5fe283a8033"
+    ],
+    [
+      "Steel Arms",
+      "cf944dd6e9557371dc5a75375563b842f63df58e"
+    ],
+    [
+      "Susanoo",
+      "2b1339429810d61fbde740f73943f4e83d07faf8"
+    ],
+    [
+      "Tribal Warrior",
+      "65b61e71d6747929021e74b1e2c75469ba4593e5"
+    ]
+  ],
+  "Balmond": [
+    [
+      "Bioroid",
+      "46df5ed1398b474da5dccfb3340b01119d7c4020"
+    ],
+    [
+      "Bloody Beast",
+      "b4b94edaca2e1423d3a0cb37e841b246aed587a9"
+    ],
+    [
+      "Ghoul's Fury",
+      "ede57f80e7f10713c1679288707b5a8df993fbdf"
+    ],
+    [
+      "God of Mountains",
+      "673a162c8b64fc96d776bc23209318ea6e96193b"
+    ],
+    [
+      "Infernal Warlord",
+      "04296b0564011299dd12de269eed5e1172ed61e8"
+    ],
+    [
+      "Ironhide Berserker",
+      "c2c44be9303b4b7747b1d7065e16b06dfa9fa2b7"
+    ],
+    [
+      "Power Source",
+      "098795943e34b08fc04a6cbe44c0c579f062bf74"
+    ],
+    [
+      "Razor Edge",
+      "baaa338a97fb8d1468390421874e48717054c0b0"
+    ],
+    [
+      "Savage Hunter",
+      "a3530564797d776502539a50652fe7a239872f59"
+    ],
+    [
+      "Savage Pointguard",
+      "ec7e1b2bb65298058cfe92aa4cd5c4b7036e3e4d"
+    ]
+  ],
+  "Bane": [
+    [
+      "Castle Master",
+      "b4a8cbb55f5401d2763285f23699033d8e0c1efb"
+    ],
+    [
+      "Deep Sea Monster",
+      "9323374442b4a3968cd84dc89b08b8c050dbde67"
+    ],
+    [
+      "Frozen King",
+      "b28657312f85a4a7315ded12a7984ffa2006e760"
+    ],
+    [
+      "Lord of Scalding Seas",
+      "6d73fbf7df7688ff50461133b9b99372d3da6a26"
+    ],
+    [
+      "Soul Defiler",
+      "1097b2a1c508e74aa723d2df890258243272feb4"
+    ],
+    [
+      "Underworld Outlaw",
+      "c1acc21687e4381d97fabd424bd38ff42c25bee9"
+    ],
+    [
+      "Warlord",
+      "d48e36cf5be92a9ee5c4ff26e5fe8686afb4decc"
+    ]
+  ],
+  "Barats": [
+    [
+      "Armored Lizard",
+      "6b7652863f1874f98fbfd7db4d64bda64e515918"
+    ],
+    [
+      "Baratstein",
+      "caebce8911907862349e1227b846842c316e4b31"
+    ],
+    [
+      "Dino Rider",
+      "55282b28f9fbd3e67428a91bde4c9fddf825db94"
+    ],
+    [
+      "Sunken Predator",
+      "ebd41be159982e1a4a492e3a1302373606c4dec1"
+    ],
+    [
+      "Toy Rex",
+      "c894f34f68e8152e842d17623eee6f79d400ff22"
+    ],
+    [
+      "War Chief",
+      "1ed75db59d37d1aab165b743e3970785f198c593"
+    ]
+  ],
+  "Baxia": [
+    [
+      "Ba-tender",
+      "84d10a60a89f381b82daca8e5c24782732f7e0d8"
+    ],
+    [
+      "Badass Roller",
+      "fa1dec6dc05f212c36a2d4ea99f4597712b9fdff"
+    ],
+    [
+      "Black Tortoise",
+      "ada39b780f6eec63ac36892040550810c719aede"
+    ],
+    [
+      "Dauntless Shield",
+      "4a161e33730897aecff75ee9a40eedfc4904b627"
+    ],
+    [
+      "Mystic Tortoise",
+      "4882077d1350929cfa648011ac08341fa9a16c6f"
+    ],
+    [
+      "Wild Totem",
+      "80969cb61dcad3560259d35d39f5dc90ab133421"
+    ]
+  ],
+  "Beatrix": [
+    [
+      "Blitz Attack",
+      "aba40e4e1496ef36751154117c82a1098ea9e4cb"
+    ],
+    [
+      "Dawnbreak Soldier",
+      "3da7f9c73e9d7266b177bf0aa3daabc30e37ef27"
+    ],
+    [
+      "Light Chaser",
+      "24d95108ea453352aebc2c57b2f1b7a578d2ed12"
+    ],
+    [
+      "Sky Force Maverick",
+      "9a2626a30391c5a9e8153f691cebd5a8f05d8d89"
+    ],
+    [
+      "Space Agent",
+      "31ada3f579722a878039118b5484d25b42e9a69f"
+    ],
+    [
+      "Vibrant Fiesta",
+      "845bb170a4cd58cfb9abddde31338c132bcea19a"
+    ],
+    [
+      "X Factor",
+      "0c9e580911e648393904f8f805ee53750a7a6385"
+    ]
+  ],
+  "Belerick": [
+    [
+      "Arbiter of Stars",
+      "c2ca7e9694183587df7a522007053fa4c782f04e"
+    ],
+    [
+      "Emerald Guardian",
+      "d6fb8ed1fab42acd5fdee807fed84220eb5c21a5"
+    ],
+    [
+      "Guard of Nature",
+      "9046bbf11a0a59206428f436f49b546d0bf9591f"
+    ],
+    [
+      "The Deep One",
+      "4b5d36b1da7858b3d7d22a221c8094d4dfd9400a"
+    ],
+    [
+      "Tiger's Claw",
+      "3e238960944042302af0d80c32524b047ef42d5f"
+    ],
+    [
+      "Torch Guardian",
+      "ec50f523e151f17cadeab814b212c163207fe0d4"
+    ]
+  ],
+  "Benedetta": [
+    [
+      "Death Oath",
+      "a2fe4ed11e730790a61fb2e692f84de5e2dfec8a"
+    ],
+    [
+      "Honor Blade",
+      "3a074d08f7d8b9f76e6b873f94e473192347b6c2"
+    ],
+    [
+      "Moonblade",
+      "81ea7a17a30db2a123534ccf06dd9932dda2651a"
+    ],
+    [
+      "Panigale V4S Rider",
+      "da136344a28e96ee92b4d03332c5b33bb8bc5ff3"
+    ],
+    [
+      "Phantom Mirage",
+      "94d0df20ce1ca6bb8078289f05e49e753078687e"
+    ],
+    [
+      "Quantum Edge",
+      "0610f5bcf1c8e531a38a7166f559bbe432c54d0e"
+    ],
+    [
+      "Shadow Ranger",
+      "d3c64fd23bfbb5d98fae8fa814d2558fb0a7a7e5"
+    ],
+    [
+      "Street Thrasher",
+      "23b5063c5eed155cc8b87e3618f9c9bc6b514e98"
+    ],
+    [
+      "Vessel of Pride",
+      "30ef533d4d44b836cee8ea92b3f606d95dd057af"
+    ]
+  ],
+  "Brody": [
+    [
+      "APBren",
+      "d3902e60f7c70ca9bd58e554bf40b489d1a758ed"
+    ],
+    [
+      "Lethal Fang",
+      "443dcbc14a6cd0659c09cb3697cf20fa8b834b10"
+    ],
+    [
+      "Nameless Stray",
+      "c0ce675a445ce0d2baec6a7ea39c5e7a41b3a19a"
+    ],
+    [
+      "Neobeast Brody",
+      "920acfc559cbcdb34897a457a10bc2f868adcb64"
+    ],
+    [
+      "Ore-chemist",
+      "85714f71ac91fab2d342ff71bb3a5b9358ac5e1a"
+    ],
+    [
+      "Quantum Grip",
+      "7b0090a49bbb5320135c4f8344cc6765457d47dd"
+    ],
+    [
+      "S.T.U.N. Brody",
+      "2c8bee96cfc901d674f8317563ce892f12828006"
+    ],
+    [
+      "The Lone Star",
+      "7f3107769efd33d6aac71570b1eaa8c0c421bc83"
+    ]
+  ],
+  "Bruno": [
+    [
+      "Best DJ",
+      "2a07029ab7cedb01afab80d45701ba849783a96b"
+    ],
+    [
+      "Firebolt",
+      "702d7b14d2be21da5ee589190d6b424049f5b8af"
+    ],
+    [
+      "Halo Striker",
+      "a61fb4363a3936cf440b8e9f398bb89f557afa4e"
+    ],
+    [
+      "Neymar Jr",
+      "3110807b430f362b401915dba04c3491c4a6d204"
+    ],
+    [
+      "Street Football",
+      "e2d07d834036a71bcf0225c58b223c19ac9bdbd7"
+    ],
+    [
+      "Street Hype",
+      "5090f4c19293f8d7f48abb22ac9b392793650f6d"
+    ],
+    [
+      "The Falcon",
+      "259da9a7a17efb9e23ee20c4d4253fbf240adb95"
+    ],
+    [
+      "The Protector",
+      "7265d9726dcfe272dcf836c61888191a66b4bc62"
+    ]
+  ],
+  "Carmilla": [
+    [
+      "Astral Arcana",
+      "fbf5c58806a22db97009b72d2c87261b48c866ac"
+    ],
+    [
+      "Magician Girl",
+      "c0274c4894be01693ac985891bde7325c36d6197",
+      "fbf5c58806a22db97009b72d2c87261b48c866ac"
+    ],
+    [
+      "Phantom Countess",
+      "b91426d34230a0561dec8e47f63804a1dbb6cad6",
+      "fbf5c58806a22db97009b72d2c87261b48c866ac"
+    ],
+    [
+      "Shadow of Twilight",
+      "6f1b281697db7a7df463f7cccfa52864f1c3e72f"
+    ],
+    [
+      "Wisteria Countess",
+      "84fb62c9e6040f5e61ffc5c30639491101149c0b",
+      "fbf5c58806a22db97009b72d2c87261b48c866ac"
+    ]
+  ],
+  "Cecilion": [
+    [
+      "Crimson Wings",
+      "c7758e01109ca6dd8f0594140420d6e4346d4b22"
+    ],
+    [
+      "Embrace of Night",
+      "8ce4237fbebbe34cc065525efc72ca6bf66175f4"
+    ],
+    [
+      "Hisoka",
+      "81ab1050e6fadacd46f06cf28ebada9726792c26"
+    ],
+    [
+      "Phantom Count",
+      "b91426d34230a0561dec8e47f63804a1dbb6cad6",
+      "c7758e01109ca6dd8f0594140420d6e4346d4b22"
+    ],
+    [
+      "Stargazer",
+      "c1a7927a4e71081935e65b4402cb8f89e6a59893"
+    ],
+    [
+      "The Illusionist",
+      "c0274c4894be01693ac985891bde7325c36d6197",
+      "c7758e01109ca6dd8f0594140420d6e4346d4b22"
+    ],
+    [
+      "Vessel of Gluttony",
+      "3a5589d388d5041bbda99366983d2d1909fd492c"
+    ],
+    [
+      "Wisteria Count",
+      "84fb62c9e6040f5e61ffc5c30639491101149c0b",
+      "c7758e01109ca6dd8f0594140420d6e4346d4b22"
+    ]
+  ],
+  "Chang'e": [
+    [
+      "Crimson Moon",
+      "4b1eed7be08d19e8f11fc1dac0905ddb0d3da163"
+    ],
+    [
+      "Floral Elfo",
+      "38a703b8e64751f149b7c5704db28111feecf55d"
+    ],
+    [
+      "Lunar Magic",
+      "f88e0416e706fce33a4fe5ade53f8dd03e2c849f"
+    ],
+    [
+      "Moon Artist",
+      "b67917120648b5dacaeb060ec3ff13fb4a68b229"
+    ],
+    [
+      "Moon Palace Immortal",
+      "5907bbdb8b8f3a9afe7bdb51d1202af62e975b9c"
+    ],
+    [
+      "Moonstruck",
+      "13625d014e8a38a390288dcd8ea450a48ecefe28"
+    ],
+    [
+      "New Moon",
+      "0d2a4843285d5b950b7523255374eaa40e15ba23"
+    ],
+    [
+      "Strawberry Parfait",
+      "912cfed078e75f91ba3cf116d99a4efbc09a87ef"
+    ],
+    [
+      "Tech Tensai",
+      "d33857d841bf5d01d4be0dfccf27276f39219ddf"
+    ],
+    [
+      "Vine Cradle",
+      "47c5cec8fe9f1687e75e5a40307dfdc7aa27dce2"
+    ]
+  ],
+  "Chip": [
+    [
+      "Badlands Hiatus",
+      "aa48fe14e41521a1a9f6b1f91c38f1a2e7f70ba2"
+    ],
+    [
+      "Nexus Engineer",
+      "980b32705e612de801762b0767776f7af31720d6"
+    ],
+    [
+      "Phase Technician",
+      "e962b20abcaee5973e08bd2b868bf212450fed7d"
+    ],
+    [
+      "Player One",
+      "534571933c7a95f993de6845628ee4cc0fe5a8fb"
+    ]
+  ],
+  "Chou": [
+    [
+      "Dragon Boy",
+      "e16b6973c75aca8eeb708bfb8f40bfed9ee9cb8a"
+    ],
+    [
+      "Dragon Shiryu",
+      "60ed266910d959cd659c7b2323a417a4860f0373"
+    ],
+    [
+      "ECHO",
+      "c60a4b803f96a34bb8b8592c236ad7ff053b55c2"
+    ],
+    [
+      "Furious Tiger",
+      "1b35df550d5e71527f3302dfd17f1c70732f346b"
+    ],
+    [
+      "Go Ballistic",
+      "ff309542dea521910e2d26a081c7334b994b3e24"
+    ],
+    [
+      "Hip-hop Boy",
+      "2e2e7ff21746f8d2241934fbddfca29cdaecdba0"
+    ],
+    [
+      "Iori Yagami",
+      "f0987ec2300262326665ba8a9750da734ab1d7d0"
+    ],
+    [
+      "King of Muay Thai",
+      "2eb24921accbddb4b1e82e73e97345254b139d82"
+    ],
+    [
+      "Kung Fu Boy",
+      "4e274a08c77ea7a77bca97c99720da04888e6d5d"
+    ],
+    [
+      "Libra Shiryu",
+      "5bd6923e54b9bb1f2ecfe333b0a438368ba6fac0"
+    ],
+    [
+      "S.T.U.N. Chou",
+      "dc6d6ec611e8e8fc382d28d05773867548991991"
+    ],
+    [
+      "Thunderfist",
+      "3e56a2aaf4befc4786283bba9800da4377d089f5"
+    ]
+  ],
+  "Cici": [
+    [
+      "Buoyant Performer",
+      "49914f8079fd86963bdfacaa2c7f674c4f93ebf2"
+    ],
+    [
+      "Circus Reverie",
+      "21f65f470e0f2cb299ecd389e04eeb97b9ff4a5a"
+    ],
+    [
+      "P.ACE Cici",
+      "aeeb4bdb5bb09a97e580019f3bdd9a713a4a7678"
+    ],
+    [
+      "Whimsical Carnival",
+      "4e450caa229abf404934833c77a9478ebc1c9453"
+    ]
+  ],
+  "Claude": [
+    [
+      "Bad Bro",
+      "86c2ccccb6e43ea557e84bb0241770fa2c11423b"
+    ],
+    [
+      "Blazing Trace",
+      "5fb1a44ec9f838a44afe8e890af990963313ec85"
+    ],
+    [
+      "Challenger's Flare",
+      "cf76fb3006d868ece019d5630f929d7c297a88f9"
+    ],
+    [
+      "Challenger's Spark",
+      "8989fbf54e2daf68327154bddba21c67fffad620"
+    ],
+    [
+      "Christmas Carnival",
+      "2d7ac4a34838d4a0e1885985dc4454c5091f2ebe",
+      "86c2ccccb6e43ea557e84bb0241770fa2c11423b"
+    ],
+    [
+      "Cosmic Blaze",
+      "8f8999e43c8e640caa213a212d82733fcfe9c578"
+    ],
+    [
+      "Earth's Mightiest",
+      "26b601be997fc869dd95419c4b1dfa561f66c96c"
+    ],
+    [
+      "Golden Bullet",
+      "37502676c7138133beefa0f4a93de031e5ac6e41"
+    ],
+    [
+      "Heart Aflame",
+      "42cb214cf3f10a00740e320f9f5c95fab29e7fc3"
+    ],
+    [
+      "Master Thief",
+      "d82bc53dfc222015dfca3ed569ba2a7b87aff763"
+    ],
+    [
+      "Mecha Dragon",
+      "ee7daf0dfa293c7125d78e54a88763ef78b0a944"
+    ],
+    [
+      "Plunderous Pirate",
+      "508548b4e2f0fd78d2d7926ee40f06ea72126520"
+    ],
+    [
+      "Summer Chill",
+      "90f2754c0019dcd4534c8879c3464c61ace252c8"
+    ]
+  ],
+  "Clint": [
+    [
+      "Badminton Champion",
+      "9ef08df61565a5c2dea872359d366e455d38c1fc"
+    ],
+    [
+      "Captain of the Reefs",
+      "4a2afff49c667b9206e74ccc39e54b4e11a19255"
+    ],
+    [
+      "Crimson Blast",
+      "4a869e7d608a9704646672a1880556a4a76431d2"
+    ],
+    [
+      "Dragon's Maw",
+      "295a38fa5af15fd7dfca2ea60ecbd5f55139c6d8"
+    ],
+    [
+      "Guns and Roses",
+      "28fda63d967b11f046c1cc0674b3e5e28260e7db"
+    ],
+    [
+      "Operator CL",
+      "992b309250c4046596c6ca028f08013f8f2ec88b"
+    ],
+    [
+      "Rock and Roll",
+      "85215f2998e6889b5155ab1208267cba17ea3078"
+    ],
+    [
+      "Shadow Omen",
+      "3a285f947008375eeeada7fc4f0e4975a8ade251"
+    ],
+    [
+      "Summer Blast",
+      "d30737ca021246c19ade005b5d4bef6501f81205"
+    ],
+    [
+      "Vessel of Ruin",
+      "4f2a84db85aa7c269fd4a4949c4d1a5055369e80"
+    ],
+    [
+      "West Justice",
+      "e16e78c2c5cb974abaa8c353e4bfdd066d29f205"
+    ],
+    [
+      "Witch Hunter",
+      "c109e1740b49b0efd3256b387c860a85946f02e1"
+    ]
+  ],
+  "Cyclops": [
+    [
+      "Deep Sea Rescuer",
+      "05fba0aafafbce49317b0c523eb3e55843346a44"
+    ],
+    [
+      "Exorcist",
+      "eebf60a6af2e70ced666b7d6ed6b2d25dd706fd2"
+    ],
+    [
+      "Master Yoda",
+      "83a94fb8408eb9adb0eecd121d921f4f674c67dd"
+    ],
+    [
+      "S.A.B.E.R. Enforcer",
+      "dcea462263968715942131bf683b0a84772bdfd6"
+    ],
+    [
+      "SpongeBob",
+      "d0deb6bf0ef2495821bb191c602a3404793e8368"
+    ],
+    [
+      "Starsoul Magician",
+      "49d23bc4e411ffacdf302f2d0813083527607b78"
+    ],
+    [
+      "Straw Doll",
+      "6165b0befc8c1babe057b065ccfbdee35841c6ac"
+    ],
+    [
+      "Super Adventurer",
+      "0a76db2e99573a132739aaf7a2ddcd191863d74a"
+    ],
+    [
+      "Yokai Warlock",
+      "3cd4bc491e23a58c90cb2e57eba9f26399ee12c2"
+    ],
+    [
+      "Zombie Bambino",
+      "ac707efdcfc8838b91107b4fc673752caf8cc92a"
+    ]
+  ],
+  "Diggie": [
+    [
+      "Circus Clown",
+      "8f264ff630414ca44052e6c10e291899451f6429"
+    ],
+    [
+      "Constellation",
+      "20ac9e79a602df8a8e586a938c8bc08755fd4f08"
+    ],
+    [
+      "Fairytaler",
+      "55b2e0c8c0473b7bf82b9c6a8df3e6726b8e1e4f"
+    ],
+    [
+      "Pigeoneer",
+      "18d5380b3e82e7d95edd1b0290695f51be2faa2d"
+    ],
+    [
+      "Timekeeper",
+      "7902f310d6e90b372f43461f489d278c4f0aab6f"
+    ],
+    [
+      "Underwood Steward",
+      "5e7d6657a71a065a57f5682204dede1c8140a1ab"
+    ]
+  ],
+  "Dyrroth": [
+    [
+      "Gon",
+      "adee74f1418d38a2336c63c4d3f808d6372ca729"
+    ],
+    [
+      "Naraka Flame",
+      "81d61f0def5349b86c39f21a5c5243147c8a6407"
+    ],
+    [
+      "Orochi Chris",
+      "9402ed487fec635b45dbc628ce50f69d34033690"
+    ],
+    [
+      "Prince of the Abyss",
+      "3372a65565d181fb5408c23bb350136d76e8f6f5"
+    ],
+    [
+      "Ruins Scavenger",
+      "36a30232671176e00273c8395c91c2ce5c6921b0"
+    ],
+    [
+      "Scalebore",
+      "e1116e6affbe680c5389d9ec31948bd2d3273f1a"
+    ],
+    [
+      "V.E.N.O.M. Cobra",
+      "9e800a4e050d660c09c9db8278dae4f171f4128a"
+    ]
+  ],
+  "Edith": [
+    [
+      "Ancient Guard",
+      "9b81e6b68451776ccf2720b6f6763511b810de0c"
+    ],
+    [
+      "Ancient Warden",
+      "c92702b16de32023716f6fbd721559dcfe9bcf69"
+    ],
+    [
+      "Beyond the Clouds Edith",
+      "77c130b589902c811a6f8d7de4a3934750e234d3"
+    ],
+    [
+      "Celestial Safeguard",
+      "e37d7b6518648822512d08e4e4b6a4fd3e3ca106"
+    ],
+    [
+      "Prismatic Sentinel",
+      "abec3b08ae945ca35fe61de1a4777ecf0487595b"
+    ],
+    [
+      "Red Bastion",
+      "85505451e2dff40b84a73cf0e0ce95d2c6751bb1"
+    ],
+    [
+      "Verdan Knight",
+      "f1bd174b4b4f76bae161d70e13579dddb517b9c5"
+    ]
+  ],
+  "Esmeralda": [
+    [
+      "Astral Muse",
+      "0e774954efd30380fe53bf712d20efe401d35027"
+    ],
+    [
+      "Astrologer",
+      "0f439e6d73cbd946530cb70f0d3b495dcc116712"
+    ],
+    [
+      "Blazing Shadow",
+      "edaf7ad7a0ace136cd1f0421840d46f913d52021"
+    ],
+    [
+      "Cleopatra",
+      "7e2e8440778fe36aabeb696d79cfa8df8f89d9fb"
+    ],
+    [
+      "Lady Thief",
+      "9abe05e6aeacca3841f056062eb2ee57c1dcf463",
+      "0e774954efd30380fe53bf712d20efe401d35027"
+    ],
+    [
+      "Light Envoy",
+      "5ece253543f53ea927d495bc50608ccdee5d11ca"
+    ],
+    [
+      "Petal's Razor",
+      "579c7e446b3bfabaa5475700e2056ef5abca8ff3"
+    ],
+    [
+      "Poison Vine",
+      "76d43375ce5873221f164f8f101243b98bf1713b"
+    ],
+    [
+      "Ruddy Dusk",
+      "bc4817177996d76771eb865755a8ce496bfc3085"
+    ],
+    [
+      "The Foreseer",
+      "6db43a7f0bb05781b4459ad6229b8b3e1b9d2f53"
+    ]
+  ],
+  "Estes": [
+    [
+      "Arcane Magistrate",
+      "4fb8fdda36a3fa6ccd6a17ab1d82dcd76b84d68b"
+    ],
+    [
+      "Blacklist International",
+      "eb6c515f2cfcb4df983e201b4b7fbad953332650"
+    ],
+    [
+      "Crow Bishop",
+      "c640a611984bb08da68ef197909780cbaaaf3dc6"
+    ],
+    [
+      "Galaxy Dominator",
+      "808006b7911cdbd96bde6f2d0cafea43bf378953"
+    ],
+    [
+      "Holy Priest",
+      "65c38858d67ae25a9c3a6c2fe7775e2d1d441d9e"
+    ],
+    [
+      "Moon Elf King",
+      "7d8aa5fc0e4874e63a3f11a3cf5b8a3aeea391b3"
+    ],
+    [
+      "Rattan Dragon",
+      "b15a915186954e37ce5789f5a9e188d38370ec55"
+    ],
+    [
+      "SPARKLE Estes",
+      "ddf9876f370da3f1f3f595212c3f9a0b6eec1b23"
+    ],
+    [
+      "White Crane",
+      "7fd20e120e26ba7b8d848df0b2ec1680be1ad9b2"
+    ]
+  ],
+  "Eudora": [
+    [
+      "Atomic Pop Eudora",
+      "6e01864874f034f9018213ff3313858d92ac19bd",
+      "5e60bb5ca35a778072bf2e25b2afcfd24720c1c4"
+    ],
+    [
+      "Christmas Carnival",
+      "7d8d05b71d380423ba705c4d6b8556bf823d7e60",
+      "5e60bb5ca35a778072bf2e25b2afcfd24720c1c4"
+    ],
+    [
+      "Cosmic Voyage",
+      "5e60bb5ca35a778072bf2e25b2afcfd24720c1c4"
+    ],
+    [
+      "Countess Scarlet",
+      "bef0877cae9d9824683d9b0e84d4d7ff76724a06"
+    ],
+    [
+      "Emerald Enchantress",
+      "9625d29a5f64b03f6a488f41f65163874dbf5cb1"
+    ],
+    [
+      "Flame Red Lips",
+      "e21577a6b8b05a8d53c51ca06092681bf4a739a7"
+    ],
+    [
+      "Lightning Weaver",
+      "fc90f74341ae78be1781a56902a09e89341b1c92"
+    ],
+    [
+      "Midnight's Allure",
+      "688f970177a095c175e11d9c23f3c0ed03079684"
+    ],
+    [
+      "Vivo Selfie Goddess",
+      "127f26d8cdb37dd25e3bee0c7fb24ee00fd48306"
+    ]
+  ],
+  "Fanny": [
+    [
+      "Blade Dancer",
+      "305fc1d37fed48c5d7b116cf3862026d585b4f7d"
+    ],
+    [
+      "Blade of Kibou",
+      "4cd8dcb3a5ad086e2d314cf0a8c80f8c8aee7417"
+    ],
+    [
+      "Campus Youth",
+      "e810520099b9f59dbe0cd621616280bcfcfc5ed9"
+    ],
+    [
+      "Christmas Carnival",
+      "e299f72966ba8aa1ac5ce52b0dfb55a9e04d9cc7",
+      "305fc1d37fed48c5d7b116cf3862026d585b4f7d"
+    ],
+    [
+      "Galactic Starhawk",
+      "09cd7aa64c63fca56455229396f326403e256e39"
+    ],
+    [
+      "Heart Afloat",
+      "4374e227c9bc2601c61129865c06c29e028f9017"
+    ],
+    [
+      "Imperial Warrior",
+      "8c9a41ad84344074cc9599e04ca3e1f99605defc"
+    ],
+    [
+      "Lightborn - Ranger",
+      "9a5f951b1fc9942283614b6bc6bdd6b948c9fea6"
+    ],
+    [
+      "Mikasa",
+      "9f47a17f1ae962bd52ae16be70446f7dd72eb598"
+    ],
+    [
+      "P.ACE Fanny",
+      "5f04ddd2cb770664fb5e3a7fd538292b8a2c6215"
+    ],
+    [
+      "Punk Princess",
+      "6b2e2c6120db1ad47bf6480212d2009d8f190507"
+    ],
+    [
+      "Royal Cavalry",
+      "eec14cfb2d1d80dc4eae22a0d0f540d9402001a7"
+    ],
+    [
+      "Skylark",
+      "c52daf9c4ad4d1354d33888902880ceda9d3cec9"
+    ],
+    [
+      "Summer Rescue",
+      "afdb787ef578079e8276ad0c792752b76d58cc98"
+    ]
+  ],
+  "Faramis": [
+    [
+      "Dark Necro",
+      "348416f218f83d729e86aebf8475c0cbe18c1ad5"
+    ],
+    [
+      "Enigmatic Wayfarer",
+      "6159ff3c2bc856272b81f2aa9028290641226aa5"
+    ],
+    [
+      "Infernal Magister",
+      "daa3977d4def43f31691d122101f39ee74b58c10"
+    ],
+    [
+      "Royal Magus",
+      "133e1345ebfb4a7b7d3658248156893317aaf2b2"
+    ],
+    [
+      "Soul Binder",
+      "ab03ab177289250ddddd019f77932b1c446382a5"
+    ],
+    [
+      "Summer Sparks",
+      "034c303ca905f4b26ea54d3b6c9c49b38599eeb8"
+    ]
+  ],
+  "Floryn": [
+    [
+      "Fluffy Dream",
+      "fa1f92bab430d3c0112691aced6f5075cc9cfcdf"
+    ],
+    [
+      "Melody of Light",
+      "04347a8320c9142d0a5a853fbbd4211fbcccc903"
+    ],
+    [
+      "Paw Power",
+      "d35c76437f760739f4377af81b70f619899a316e"
+    ],
+    [
+      "Springtide",
+      "dcc63d6a3ba65794f52cda9bde0a782a51e79cf2"
+    ],
+    [
+      "The Budding Hope",
+      "7cfedbd9fc08151033b8edd27aeb134397203f5e"
+    ],
+    [
+      "Yatai Waitress",
+      "a3a0212ac30f5496340608639311a352e0a7ab3f"
+    ]
+  ],
+  "Franco": [
+    [
+      "Apocalypse",
+      "f6f287f9f4d991739f77cc434bbd75643cfcd4ad"
+    ],
+    [
+      "Blazing Axe",
+      "a31b2d5de573e2a4a1b3e3b0470d8ce749a41028"
+    ],
+    [
+      "Bone Crusher",
+      "979f15a2e246983189971d940c9db0e192e98add"
+    ],
+    [
+      "Captain of the Lost",
+      "452b2590478fdaa7265acf6308895254bf1b3b00"
+    ],
+    [
+      "Frozen Warrior",
+      "021fb612897f107554c84c74c5ae85042a896aec"
+    ],
+    [
+      "King of Hell",
+      "d6579d7eb4ee78035ee6869b281b951d7e854d71"
+    ],
+    [
+      "Locomotive",
+      "6e856057edc52d22cec68e737eeb917e22a5a1f2"
+    ],
+    [
+      "Quantum Vanguard",
+      "879c38253a5f61683c7ce911c95bc5fa30dff154"
+    ],
+    [
+      "Valhalla Ruler",
+      "9654044144ed7db0daaa28c9c5ec8f165ff0c292"
+    ],
+    [
+      "Wheatfield Nightmare",
+      "f04a64cd3858c98d42fb1d5a682e7dedc20dc9e6"
+    ]
+  ],
+  "Fredrinn": [
+    [
+      "Jewel Connoisseur",
+      "85ccfcd199eae1f1f61df9d4caf4b44be89a94ff"
+    ],
+    [
+      "Neobeast Fredrinn",
+      "0f1173731ba9f511f8f2adcd42e93aa3107152d7"
+    ],
+    [
+      "Regal Renegade",
+      "9335a8d8dd5eac35550e07ca4500812bb4bc0c0e"
+    ],
+    [
+      "Rogue Appraiser",
+      "8e51689fb6fe4bfe06a8a1f35cc9ba176ed6011f"
+    ],
+    [
+      "Royal Marshal",
+      "64f14226c9b1dee825c1fca9420978e54da6c3e1"
+    ],
+    [
+      "SPARKLE Fredrinn",
+      "6e3c09b60fe66f9acff4c8f3af4b1d64378451a7"
+    ]
+  ],
+  "Freya": [
+    [
+      "Beach Sweetheart",
+      "bebf2e8ec13b951e46170ce2516c513b2140716c"
+    ],
+    [
+      "Christmas Carnival",
+      "2d7ac4a34838d4a0e1885985dc4454c5091f2ebe",
+      "bebf2e8ec13b951e46170ce2516c513b2140716c"
+    ],
+    [
+      "Dark Rose",
+      "229d5700d2beb0a54d8ad1f37c57c206eea0e3ff"
+    ],
+    [
+      "Dragon Hunter",
+      "0ee27d735f1f753b335578a26cc3ee742c01908d"
+    ],
+    [
+      "Galactic Vanquisher",
+      "bd08ef4fb05807ee9b329aab8dfcc407babcbd0b"
+    ],
+    [
+      "Gladiator",
+      "9d25943c4282c66bc1903f9bb6ad030b0c0dc69b"
+    ],
+    [
+      "Raven Shogun",
+      "ba6b6aeac65f6502dfd14d523e3224ae4bce3d63"
+    ],
+    [
+      "S.A.B.E.R. Manhunter",
+      "f33a30a4d84fb76248d9ee1432780b28129f4d68"
+    ],
+    [
+      "Starborn Resolve",
+      "a2f0b86aa90343bd9fd7190f14d742fb7656be56"
+    ],
+    [
+      "Valkyrie",
+      "0eb698c7b70d2a373689b40be0d6ff3756325c8c"
+    ],
+    [
+      "War Angel",
+      "bc3f30c2e58eb6ebb1acf010879110cd7019c3ea"
+    ]
+  ],
+  "Gatotkaca": [
+    [
+      "Arhat King",
+      "1661b0e18a492c4fbb76c989e76f167dbc3253a3"
+    ],
+    [
+      "Mighty Guardian",
+      "a08dd275eba1a50ef517106510f9f61a345598f9"
+    ],
+    [
+      "Mighty Legend",
+      "58e5a6a80456d2f5045c2d30860a2a10e7470c2c"
+    ],
+    [
+      "Nutcracker Monarch",
+      "71f9ffe49964f290fdc7bff57d30e73a4c508187"
+    ],
+    [
+      "Sentinel",
+      "39847dcc1134678b6785eaff68268102b3aeff5a"
+    ],
+    [
+      "Spark",
+      "fa319e7319371cd593391ad78f7e3f3a6390ced7"
+    ],
+    [
+      "Tide Preserver",
+      "6d9fbd31487da77ce3da19f2d9342882a2d159e4"
+    ]
+  ],
+  "Gloo": [
+    [
+      "Jellyman",
+      "38d2dcd2daa0424177a0090bf617b27f4fb8f365"
+    ],
+    [
+      "Patrick",
+      "37cf61863cc4c0c39ba47322a7992e57dc82b2cf"
+    ],
+    [
+      "Swamp Spirits",
+      "22f8db4178d223b7a40bf6e952abe08084452749"
+    ],
+    [
+      "Verdant Enchanter",
+      "0a4f807d363829298fa253d6de236cd3ee5b4783"
+    ]
+  ],
+  "Gord": [
+    [
+      "Christmas Carnival",
+      "17d1a6788864e8eb47f45b874cb4fb4f9644a87b"
+    ],
+    [
+      "Conqueror",
+      "ca7a35afebb7a742313f4960896bfe46fddffe0a"
+    ],
+    [
+      "Cyber Hacker",
+      "c4363746f8d9f0210ecb11521c987ae09ab1191d"
+    ],
+    [
+      "Imperator Vitalis",
+      "4e62a8c6c4baf475c3307e99b51a5f9c2e8f40e9"
+    ],
+    [
+      "New Baron",
+      "961264314fd78f3a3a14e93351fa46fe1dcbdb01"
+    ],
+    [
+      "No.1 Controller",
+      "a98d6fe66d27379b93387b6d724f8a3a2cefa3da"
+    ],
+    [
+      "Professor of Hell",
+      "d132f334a02d02b779e660e951e70ae657cbeed5"
+    ],
+    [
+      "Professor of the Mystics",
+      "c5bc55351eff51e9b8d38facb52514d3bea42cd6"
+    ],
+    [
+      "Techno Hazard",
+      "062b8aa801555eecec5ab25257bc4f715c3fe76c"
+    ]
+  ],
+  "Granger": [
+    [
+      "Agent Z",
+      "e2221774d07de2f02e885a49e6bf8c53257407ee"
+    ],
+    [
+      "Alluring Enigma",
+      "f7223e2999de3e39cecf2163b37c4c965175302c",
+      "e2221774d07de2f02e885a49e6bf8c53257407ee"
+    ],
+    [
+      "Bardic Whisper",
+      "b02dde2c9dc46cb074b6cfeaab2b36b8171e82d4"
+    ],
+    [
+      "Biosoldier",
+      "ae45080495b3bd59b71b49afd511206a4f0ac16f"
+    ],
+    [
+      "Cosmic Finality",
+      "a9c98351375a3b196939a1e6c41bcc7aafda64bf"
+    ],
+    [
+      "Death Chanter",
+      "40919618b4aa40c73115c7a240f4f5ecfaa68791"
+    ],
+    [
+      "Doomsday Terminator",
+      "1fecf930f30c3a22bf49dc3c73f77cc7a124a58a"
+    ],
+    [
+      "Exorcist Granger",
+      "320b96a78eeafb00f336803ba113784b86517079"
+    ],
+    [
+      "Hellbringer",
+      "1029141fb4d64ffeab44714cfac860366cff29d2"
+    ],
+    [
+      "Lightborn - Overrider",
+      "646a243f7f9269858e50e7dbf76b8130abf3f760"
+    ],
+    [
+      "Megatron",
+      "f2de00af5ed7a142b1f718d6d64e889461af3013"
+    ],
+    [
+      "Starfall Knight",
+      "26399536f4df4283fa2c44e5a641c66804f2e3ae"
+    ],
+    [
+      "Thunder Ascendant",
+      "16cf0d0ceaddca09b19f33cbafc0cf200518ca6e"
+    ]
+  ],
+  "Grock": [
+    [
+      "Ancient Golem",
+      "53cf1bd6b8cbf376d1099f2f7c35601b59dae21d"
+    ],
+    [
+      "Castle Guard",
+      "c87b4ceda94dba9b27df2bbe9d770a78e2b343ac"
+    ],
+    [
+      "Codename: Rhino",
+      "4d0429a47bc35bab82eb891fb6b3ae649a5c3f4d"
+    ],
+    [
+      "Fortress Titan",
+      "a6db8a8c069c237b4883115a233435ad42d085d3"
+    ],
+    [
+      "Grave Guardian",
+      "4597ec38e7a28f475958b9034c94d5d767f8b943"
+    ],
+    [
+      "Iceland Golem",
+      "c24ea2cdcee1b3ecde78be7b877a5d377e8b6980"
+    ],
+    [
+      "Tremor of the Deep",
+      "be737abc259c51c1e99674c91986ad0ef9d6e9a9"
+    ],
+    [
+      "V.E.N.O.M. Monitor Lizard",
+      "ac8c5c11931906eb2adb2d60b7d5c3c5afcd3ab3"
+    ],
+    [
+      "Wasteland Psycho",
+      "56a2ca283bece858ab603aaa7a9b251103b2b5bd"
+    ]
+  ],
+  "Guinevere": [
+    [
+      "Amethyst Dance",
+      "9417cbcc2d00f733fbab2039b739c1274a18ec75"
+    ],
+    [
+      "Athena Asamiya",
+      "2667756a8045f2a7c260bf55ec2b361f0d84eb5c"
+    ],
+    [
+      "Daybreak Halo",
+      "e7cde5b8cb7390614b92e4cb10557c90c33ce96e"
+    ],
+    [
+      "Elegant Butterfly",
+      "abe7c2017a48338d2545987eb616324e99f90437"
+    ],
+    [
+      "Fleur de Bleau",
+      "aa0a243337b367543fb2e29d09839cf63629494f"
+    ],
+    [
+      "Lady Crane",
+      "f8a74290e0a11dcb43a8322b566e0fea19d7a8b7"
+    ],
+    [
+      "Lotus",
+      "781e899ed976553a0c1baba45de7c8b214e7f9fe"
+    ],
+    [
+      "Ms. Violet",
+      "5272f56d18f99fb6d5292d1987c15238a45c95f2"
+    ],
+    [
+      "Psion of Tomorrow",
+      "7baadc6ea0f6fcb4041dceed386447cb08dd2c8e"
+    ],
+    [
+      "Sakura Wishes",
+      "c04857d7c1e9236c1bd6aecc62ee5e41ad35f86c"
+    ],
+    [
+      "Summer Breeze",
+      "2b6a28752ee361adee2c8198ca05197a10cb6e21"
+    ]
+  ],
+  "Gusion": [
+    [
+      "Cosmic Gleam",
+      "75b5eaed1ed07397e59f31bab0d6b9b052ec6ad7"
+    ],
+    [
+      "Cyber Ops",
+      "a4feb264c07d651bce0e0a0abc9f299f9683ae1d"
+    ],
+    [
+      "Dangerous Liaison",
+      "df3a1747b65cff8ab7e9726a6dd1d36a1a0367c4",
+      "75b5eaed1ed07397e59f31bab0d6b9b052ec6ad7"
+    ],
+    [
+      "Desert Spider",
+      "20915ff336e88aa615e14ba3ec53146ea7924c05"
+    ],
+    [
+      "Dimension Walker",
+      "5831a921fd19d76a27705336f0efb10ca2e65e6e"
+    ],
+    [
+      "Hairstylist",
+      "6448062e5a672a12f0b68e88c0e8515daac398bc"
+    ],
+    [
+      "Holy Blade",
+      "13ace7758313392add63a41cfba48397afbc7c49"
+    ],
+    [
+      "K'",
+      "da1ccbd1d9fdb03e1d0df2b008bb12f1d53ecb68"
+    ],
+    [
+      "Minato Namikaze",
+      "97e7deb9ea22405ebe05672f683b18200ba36b98"
+    ],
+    [
+      "Moonlight Sonata",
+      "6da9b8fb3fdc84d14dc72b362eb232d39182e9a4"
+    ],
+    [
+      "Night Owl",
+      "e06b4e974747a81ac2fed35652dfc874fe0ed2e4"
+    ],
+    [
+      "Soul Revelation",
+      "1e52248cd8174ec14fd3fb54cc7ca23c94150cb3"
+    ],
+    [
+      "V.E.N.O.M. Emperor Scorpion",
+      "c8c4422ec426070773bf1712864684e0af4a09d3"
+    ]
+  ],
+  "Hanabi": [
+    [
+      "Chic Glamour",
+      "b48e70d39b0510bf8ea3fa74ee639fa71ea84cbc"
+    ],
+    [
+      "Field Op",
+      "43fc329e5be44a7dae0a457cba3195434cd9675f"
+    ],
+    [
+      "Fiery Moth",
+      "a3cc8ba6a277844b8e8971d63481cee6ad1da458"
+    ],
+    [
+      "Moonlit Ninja",
+      "b5bb976e052bfe9bcb08e5377bc181fb075651ae"
+    ],
+    [
+      "Neonscape Icon",
+      "47fca9919b8784649dabafcbb7a9ce6a05e70f43"
+    ],
+    [
+      "Rakshesha",
+      "3d6eed55c509281fcdc95253ccbc9e05ce00df61"
+    ],
+    [
+      "Resplendent Iris",
+      "92ec35801680825b957e0a89019a3222f909467e"
+    ],
+    [
+      "Riverland Phoenix",
+      "94560c8289d01acfaa82fc3d2786ea7119320f56"
+    ],
+    [
+      "Scarlet Flower",
+      "955abf525591eab01578cfde79c21dbc8db93272"
+    ],
+    [
+      "Twin Crescent",
+      "63fa531d3fba7d1db28e8d0ff8aedd51a2c6441d"
+    ],
+    [
+      "V.E.N.O.M. Nephila",
+      "c625797f99357227a8b65aedbf6709d08c52f484"
+    ],
+    [
+      "Vessel of Rage",
+      "9b18b33f637275b9cd80d422e6792609eb1c510e"
+    ],
+    [
+      "Viper",
+      "2bbdf451ab9b6ce5f4ea8e6552dde907720e910f"
+    ]
+  ],
+  "Hanzo": [
+    [
+      "Soulfire Netherlord",
+      "ff8d3884440594fce26c92850f84c1ecfcefb352"
+    ],
+    [
+      "The Pale Phantom",
+      "451cb968f3db6052bc4119e56f3ca3dd3e3073d7"
+    ]
+  ],
+  "Harith": [
+    [
+      "Christmas Carnival",
+      "dab00234453ebdab256f5c7d6ab1938203aa57c8"
+    ],
+    [
+      "EVOS Legends",
+      "3b19c02ea2056b6f5aa262cca2f86ee78ab42d5f"
+    ],
+    [
+      "Fashion Expert",
+      "1bc100da41dc393b9efe7ae52f9c5e6f54565ea3"
+    ],
+    [
+      "Killua",
+      "5baee52f52cccb7a3a66fd56e22b3e43561d4211"
+    ],
+    [
+      "Lightborn - Inspirer",
+      "81db9da7d1d9a0e128137fd100240e01fef67c7f"
+    ],
+    [
+      "Psychic",
+      "a69ba2b38913576463783e29b41692cb0b4052ce"
+    ],
+    [
+      "Rebel Emberfang",
+      "64fc9fe01306d5091a3174ca0646d457f46312bf"
+    ],
+    [
+      "Savannah Cat",
+      "2b67f28f073bd267a20003fc38992fd330bf2060"
+    ],
+    [
+      "Stardust",
+      "a1cfdc5f2313a91e614c625523cbcda436a49279"
+    ],
+    [
+      "Time Traveler",
+      "e66635fb0bddeea89187f2ac5ebd100bec36eac0"
+    ]
+  ],
+  "Harley": [
+    [
+      "Dream Caster",
+      "f16c9477d2f59c5cc4cf4f363544ade45ab82c3f"
+    ],
+    [
+      "Great Inventor",
+      "0fa12c35aa26a6f9f85c19844140263d5008fbae"
+    ],
+    [
+      "Mage Genius",
+      "d325fb51a43fc0e1064d7b60013079ad76c24495"
+    ],
+    [
+      "Naughty Joker",
+      "a02043fb9785dcab70a85447b5492374f8912dc7"
+    ],
+    [
+      "Pulsar Prodigy",
+      "8e016a92ccb5e98ce5ec7e30d843f342a06cbe51"
+    ],
+    [
+      "Referee",
+      "64b974192acc42d481f66b4b4d6112d10a399ae7"
+    ],
+    [
+      "Royal Magister",
+      "59ea07337fc10d0090800afcd40929e053494e26"
+    ],
+    [
+      "Star Magician",
+      "5e6b68237ea4f181f8a310984649607a0cf08f0f"
+    ],
+    [
+      "V.E.N.O.M. Octopus",
+      "5e269ae1404098ec4143d2286bf415b5e48e51cc"
+    ]
+  ],
+  "Hayabusa": [
+    [
+      "Biological Weapon",
+      "10136a8ef3f3e950c75c64e25e01d0363f5a436e"
+    ],
+    [
+      "Crimson Shadow",
+      "524dc0e78f4375f5e7fde42a2a976aae80bdd324"
+    ],
+    [
+      "Exorcist Hayabusa",
+      "ae94602caec5068a1b1fdd44f57f3047483499e9"
+    ],
+    [
+      "Experiment 21",
+      "c661c6392b84fbb33c5f1b3da34dc0a5fd0d8146"
+    ],
+    [
+      "Future Enforcer",
+      "d842bfdd00e9c301c334dbf8282d61111e93bb54"
+    ],
+    [
+      "Kakashi Hatake",
+      "f9cf2565024e0c25dc1d76906750b273cdf104e8"
+    ],
+    [
+      "Shadow of Obscurity",
+      "b76b396ff4350bb349e8ff0bf70a71a5f8660902"
+    ],
+    [
+      "Shura",
+      "c2dedc3fc44fd39cc14bd528ae8cc283fd9e9814"
+    ],
+    [
+      "Spacetime Shadow",
+      "3792b81c44b4a8dcc3a335957a2168fd9e474c55"
+    ],
+    [
+      "Sushi Master",
+      "60024101aede3d660c1fb09aa3d05a997eab479c",
+      "10136a8ef3f3e950c75c64e25e01d0363f5a436e"
+    ],
+    [
+      "Techie Ninja",
+      "a5dd1ee55fef3bcedc40ce04a840550578494845"
+    ]
+  ],
+  "Helcurt": [
+    [
+      "Dream Prowler",
+      "006391688b327ae27f378949eaa1bf963474dd08"
+    ],
+    [
+      "Evolved Predator",
+      "e77ea690a4126debcf7752f9da32b3eb661564fe"
+    ],
+    [
+      "Exoracial Executer",
+      "70405c55dca80a8f3d1705ca716f300e5189dbe9"
+    ],
+    [
+      "Ice Scythe",
+      "a4108b8fd448374b80ef5d82a3a6dfc5eaf61f38"
+    ],
+    [
+      "Scorpio",
+      "f578514614460050bfb4c5e25285a96b7c8a2e34"
+    ],
+    [
+      "Shadowbringer",
+      "0819f170f7dab457763f887d0f4efe2bc7b5257e"
+    ]
+  ],
+  "Hiara": [
+    [
+      "Fallen Scarlet",
+      "79ab52bed2d4f5de463fb7271dd62e84d06b4249"
+    ],
+    [
+      "Gilded Embers",
+      "c7e6c09661b54d0657828d708cccb2e589f84d84"
+    ]
+  ],
+  "Hilda": [
+    [
+      "Aries",
+      "f50f6b3c22eeb444c98e1e194d90f313fa269a92"
+    ],
+    [
+      "Bass Craze",
+      "b25b8f702f267cb556e87a3237939ac2f5af4a5f"
+    ],
+    [
+      "Flower of the Wastes",
+      "8bc371fc0c0a708d7dd9d561e8f5dfb113f78a96"
+    ],
+    [
+      "Guardian Battalion",
+      "6e01864874f034f9018213ff3313858d92ac19bd",
+      "f50f6b3c22eeb444c98e1e194d90f313fa269a92"
+    ],
+    [
+      "Power of Megalith",
+      "92c346b43b863d8ed96778e1fc0f998d2db21495"
+    ],
+    [
+      "Power of Wildness",
+      "c957257423cf4839907fd98a1212f8647f3b27cd"
+    ],
+    [
+      "Sacred Guard",
+      "5ee94ec8f88a02910f708c3522fb3b028586a0b6"
+    ]
+  ],
+  "Hylos": [
+    [
+      "Abyssal Shaman",
+      "62cda2da3d7c1d8d29dfa16c94a6a0b64100b00d"
+    ],
+    [
+      "Bloodhoof Marauder",
+      "85e2cc99a9d5050731a593416f1ced58e3ee0336"
+    ],
+    [
+      "Grand Warden",
+      "69dcb5527864fb377c3b6be0762cf9b71ce4f080"
+    ],
+    [
+      "Iron Steed",
+      "c0c168b65c34b2bb153f887bdccad3ac3d2629a1"
+    ],
+    [
+      "Jungle Watcher",
+      "dc197b3844a2a03bc2d8d8a9581987c1d41e30ae"
+    ],
+    [
+      "Lord of the Tundra",
+      "89807d6cc7e2d7034a84477650448ba23bc4153f"
+    ],
+    [
+      "Phantom Seer",
+      "d76f8384058509755e525e892adb7e73270b97fb"
+    ]
+  ],
+  "Irithel": [
+    [
+      "Astral Wanderer",
+      "5b9480c633d141a6971b5c01058616c72e0de229",
+      "eeac4ac8d527568bbd08419751b0b70a5f3cdb61"
+    ],
+    [
+      "Checkered Knight",
+      "eeac4ac8d527568bbd08419751b0b70a5f3cdb61"
+    ],
+    [
+      "Hellfire",
+      "e0b2fa48a91d721b99b7dd228f963e1c71f9437d"
+    ],
+    [
+      "Jungle Heart",
+      "840f9029784c91119d2be0cd85d827a118aadcbb"
+    ],
+    [
+      "Monster SP Rider",
+      "2b1d59e2506d6fc41da7b07f2faed07dd0ca645e"
+    ],
+    [
+      "Nightarrow",
+      "bc7c65e0050b2dc93b8f7b5cf3ed3e353e88a881"
+    ],
+    [
+      "Sagittarius",
+      "2e43810ba5b6480e7bda2b69c34fd03e5e13c3e7"
+    ],
+    [
+      "Silver Cyclone",
+      "782cc901a7eeaa9c7f86c4df88123d7584d650bd"
+    ]
+  ],
+  "Ixia": [
+    [
+      "Dynamic Streak",
+      "3df9e277215a7b9ac6d6496ce690134c0a7e838b"
+    ],
+    [
+      "Invoker's Command",
+      "8eca32f8e3b63c0deb6232c19666a87428a3fe49"
+    ],
+    [
+      "Shifting Sand",
+      "137e53c23f99a289f80378ba9cf9311f535abfa5"
+    ]
+  ],
+  "Jawhead": [
+    [
+      "Candy Bear",
+      "c8c2e88ea71934cdfdaf345b3ebbeff2a91a3139"
+    ],
+    [
+      "Cyber Ranger",
+      "e0be6360279062389143265725ce7ca68dbc7abc"
+    ],
+    [
+      "Foo Quarterback",
+      "64f62199fcc6a7ddcf2f5eeb52172eda7a9ec76d"
+    ],
+    [
+      "Girl Scout",
+      "85a80193203ffb06397247e176db0d250350cd38"
+    ],
+    [
+      "Proto Guardian",
+      "ca42eab032953a2954381f5d807d11303fb42881"
+    ],
+    [
+      "Samurai Mech",
+      "6cd6bfc6977a5361c9c1c3e5ffc21c24ff79ab09"
+    ],
+    [
+      "Space Explorer",
+      "7faa25077cbe335a34a3994488f9f7c3f34841e6"
+    ],
+    [
+      "Steel Sweetheart",
+      "5e7f3abfc0ac546c9d0a9399073070b3cb17fa7b"
+    ],
+    [
+      "The Nutcracker",
+      "ee1c965006d73c207634323348436cfde8b084b4"
+    ],
+    [
+      "Victory Loader",
+      "c9292a93a915855608316a4dcf2609c7a25aca47"
+    ]
+  ],
+  "Johnson": [
+    [
+      "Death Ride",
+      "435f9fcc7836e723e2ec522ba4fe2c65cf097753"
+    ],
+    [
+      "Fire Chief",
+      "96c6602c49da02d7a5c7f33eda19ef7d103552a1"
+    ],
+    [
+      "Jeepney Racer",
+      "fe599b46b0aeba00ddd16d10284a2241ff9932a7"
+    ],
+    [
+      "Optimus Prime",
+      "49a8d2ffe1642fc2a602ad767d9fd5f68f5d05e6"
+    ],
+    [
+      "S.A.B.E.R. Automata",
+      "0c879e68b7d2bd69e38ed9286064e1b43f7c3c2c"
+    ],
+    [
+      "Sovereign of Realms",
+      "2cf64fc7392188df86bfc8e4b9fc5ff5bc758d53"
+    ],
+    [
+      "Starblazer",
+      "5246ddf07fe34436bcff5827efa8089353059247"
+    ],
+    [
+      "Wild Engine",
+      "42abc2e3434910f9e612a8ca1d0c5ab16ffa610b"
+    ],
+    [
+      "Wreck King",
+      "5219ab45706e5f37899bf0379a6cc3df3494f880"
+    ]
+  ],
+  "Joy": [
+    [
+      "Exostar Scout",
+      "72ac99a053d0004feac84e9f127d4d77bf90bd12"
+    ],
+    [
+      "Feline Ranger",
+      "d1ceac02e4fe61174f316e039c559efcd5072595"
+    ],
+    [
+      "Flash of Miracle",
+      "fffafe8461b10c81d0924229496dfc4ab52e2d67"
+    ],
+    [
+      "ONIC PH",
+      "556aa1a30d88da57d8b4a939299e8364f283d9f1"
+    ],
+    [
+      "Royal Protector",
+      "aae33edc159bdcd6f62555a90e9093894d2c7309"
+    ]
+  ],
+  "Julian": [
+    [
+      "Itachi Uchiha",
+      "38bccb8be3c3eb0caeeed699b898c7bf545d4936"
+    ],
+    [
+      "Kurapika",
+      "e4eecfc98b87cdfad34d47898ad6aa1bfd8d3de4"
+    ],
+    [
+      "Megumi Fushiguro",
+      "1e552269dc54fd119826870caaa7479c85acd2cf"
+    ],
+    [
+      "Meowkin Tracker",
+      "a8d820b780fb757f59f513d461f1cc5401668f88"
+    ],
+    [
+      "Scarlet Raven",
+      "50cde848b5a38b02764f2fd510afdbd1ce86ab24"
+    ],
+    [
+      "Silent Edge",
+      "a16e637c2789260465f00dd6ab9c1519c4dffcef"
+    ]
+  ],
+  "Kadita": [
+    [
+      "Atlantean Princess",
+      "c8d56df687acf08269b13ef75108272eebea6a75"
+    ],
+    [
+      "Heart of the Sea",
+      "7988b0796eb88c24f61d826a9fe6e8837540dd46"
+    ],
+    [
+      "Hydromancer",
+      "252024bd097cef080fde9b6b6e27de674d33ecec"
+    ],
+    [
+      "Maiden of the Tide",
+      "48843667a831f0f6511ee05161123130c767ba24"
+    ],
+    [
+      "Ocean Goddess",
+      "42737df55ac04975cee0c2d061c7c898b72e90be"
+    ],
+    [
+      "White Robin",
+      "fbd92b29eb60718cfdc3f304f2420a2e4753b8c6"
+    ]
+  ],
+  "Kagura": [
+    [
+      "Beyond the Clouds Kagura",
+      "d2570eb3eb4cfcdd55fda599e18fd76634cccecb"
+    ],
+    [
+      "Cherry Witch",
+      "35b4beb926c48c8956b5127e6d1b9a30dbe39c09"
+    ],
+    [
+      "Dragon Maiden",
+      "56d43b49d54124419e03cc90c6485cd49d5e7fcc"
+    ],
+    [
+      "Exorcist Kagura",
+      "a405c9ccbdaf4a55ac4eb28f67a3a7d4f9a2e1d2"
+    ],
+    [
+      "Flower Season",
+      "df625e5a593ccb05aa0759a0ebdbbfa888f345f7"
+    ],
+    [
+      "Jade Blossom",
+      "951bbd25884adc4e86976e455c6661273507af8c"
+    ],
+    [
+      "Lady Parasol",
+      "13713015d5658401323de5d520b6e51cd520080e"
+    ],
+    [
+      "Onmyouji Master",
+      "b110165f3c990959cc567828793a802d04c632d8"
+    ],
+    [
+      "Rainy Walk",
+      "f950cdf2ed33491c414c5551cd32ac8085023ce1"
+    ],
+    [
+      "Summer Festival",
+      "60024101aede3d660c1fb09aa3d05a997eab479c",
+      "d2570eb3eb4cfcdd55fda599e18fd76634cccecb"
+    ],
+    [
+      "Water Lily",
+      "a39ac7768ec5545915f3c3c716b73172e237447e"
+    ]
+  ],
+  "Kaja": [
+    [
+      "Horror Whiplash",
+      "c83d206257199abcba7d587acb7c9ef6e9ba2387"
+    ],
+    [
+      "Inferno Taskmaster",
+      "2d8b88cf2dff1504ef1bb93897d1110a6200eba6"
+    ],
+    [
+      "Kaminari",
+      "cbc1638dbc865274b0ed53611cfc9b2da5cc052d"
+    ],
+    [
+      "Skyblocker",
+      "8c974cc9e655fc9faf7564ca749e3cb2f3c24de7"
+    ]
+  ],
+  "Kalea": [
+    [
+      "Sakura Haruno",
+      "8e628e2e48526b370842264b1ad4fdfbcf3e7ccb"
+    ]
+  ],
+  "Karina": [
+    [
+      "Black Pearl",
+      "f4ca537d461a06b74eda8e5bcf38601a71dfef26"
+    ],
+    [
+      "Blood Moon",
+      "e827bd020423eb48c25987e2ed41738f4975bbc4"
+    ],
+    [
+      "Christmas Carnival",
+      "2ad3f30f6c139f6eff06e9cdf9b8586e4e56c64e"
+    ],
+    [
+      "Doom Duelist",
+      "8f86b69fdc85814a7ff47e5a9f1461bfd7844afa"
+    ],
+    [
+      "Gemini - Halo",
+      "9344201097029e995c1f5efd24e654f8ca03a394",
+      "f4ca537d461a06b74eda8e5bcf38601a71dfef26"
+    ],
+    [
+      "Keyforged Champion",
+      "0af51b0976c46bda4de319228de32b0b4b84cc38"
+    ],
+    [
+      "Leona",
+      "c232368e89e524ab910cf68f11579a309752e0ae"
+    ],
+    [
+      "Phantom Blade",
+      "f6d7dd944889497b57e63ac7103dbb90703efad4"
+    ],
+    [
+      "Shadow Blade",
+      "24dce54f257dce32c522f09796ec10875e3d711e"
+    ],
+    [
+      "Spider Lily",
+      "31b49af318bddf9189e9e13ce1c116c12afa2308"
+    ]
+  ],
+  "Karrie": [
+    [
+      "Bladed Mantis",
+      "350703aa8b2419ad34cbf90194c036eed2861638"
+    ],
+    [
+      "Breath of Naraka",
+      "5a7985497c971ddc51a9a897ff39b35457e383ea"
+    ],
+    [
+      "Dragon Queen",
+      "1d2044f9b7a861d7ff29b92d2be92a44325b4390"
+    ],
+    [
+      "Gill-Girl",
+      "6e8cb692250b4bfdad4889466a5e6a2d6b2e0c5a"
+    ],
+    [
+      "Hawkwatch",
+      "78a74fc7e2f635ab151037d751fd8bb42814a756"
+    ],
+    [
+      "Ice Talon",
+      "837821c9e9eb637ceded32e06e25b105f761e1b1"
+    ],
+    [
+      "Jester",
+      "921a249856ce955cfdbf27ea89010378e7ee9cc6"
+    ],
+    [
+      "Lost Star",
+      "1c96558e3eee518a3bdc6db490cd681b3d0f9d0d"
+    ],
+    [
+      "Neon Lightwheel",
+      "deb059c244d9bbbc1f3724e5b7288bba826eefd8"
+    ],
+    [
+      "Quantum Razor",
+      "38787f5c1cdf0c1f097c85525020370c16c69cf1"
+    ],
+    [
+      "Rising Star",
+      "dfa9777d0f88809fd87e878d580049bddcc940d2"
+    ],
+    [
+      "Wheel of Justice",
+      "c82e3cccd7efc663d5b72dec1ac01a9c3fd24dee"
+    ]
+  ],
+  "Khaleed": [
+    [
+      "Crescent Scimitar",
+      "294be8cea0fdfadf959b396437a3bec1cb9cbcbb"
+    ],
+    [
+      "Desert Salamander",
+      "9ba6f57382c79b44958246cabf6bb6d37d6897ad"
+    ],
+    [
+      "Desert Scimitar",
+      "c83f2e61c6dbb59e669f3637d8116e623df04502"
+    ],
+    [
+      "Prince of Sand",
+      "83b027e9669f5105d75880419128e42cd5b93b57"
+    ],
+    [
+      "Wave Strider",
+      "79894029b13e405445a7e1caf84d60b9b4587166"
+    ]
+  ],
+  "Khufra": [
+    [
+      "Apophis",
+      "606e0059672f9065d0244a97ae560ac9546908d9"
+    ],
+    [
+      "Cursed Scroll",
+      "10bae86be129e3c1865a51082da6ad55669e29a8"
+    ],
+    [
+      "Desert Owl",
+      "599c9d4e2bfc1b43d4516271e4493734624a95fc"
+    ],
+    [
+      "Desert Tyrant",
+      "a0238da65c079102374a25b484885971bb816732"
+    ],
+    [
+      "Dreadful Clown",
+      "0f6756a656bd0d5d62196c1773b4643bd0478996"
+    ],
+    [
+      "Gentleman Thief",
+      "9abe05e6aeacca3841f056062eb2ee57c1dcf463",
+      "606e0059672f9065d0244a97ae560ac9546908d9"
+    ],
+    [
+      "Iron Hook",
+      "ee19f6ab5454a9e2bc1ef569743bbb929ee0ed6c"
+    ],
+    [
+      "Volcanic Overlord",
+      "510ca8644e119f96c6c29fced66a7ca45a03b007"
+    ]
+  ],
+  "Kimmy": [
+    [
+      "Astrocat",
+      "3260306fdd32f3d9844118557959adfcbb8698fb"
+    ],
+    [
+      "Bio Frontier",
+      "662332176ccd8ec703586f4d2c9bab04dc7dcd02"
+    ],
+    [
+      "Charge Leader",
+      "41936c1d81f48c08d268510803e576d049b3a336",
+      "3260306fdd32f3d9844118557959adfcbb8698fb"
+    ],
+    [
+      "First Order Jet Trooper",
+      "21a9b6873c945f70b1645d2ab59e9933fe6c43aa"
+    ],
+    [
+      "Frost Wing",
+      "41936c1d81f48c08d268510803e576d049b3a336",
+      "3260306fdd32f3d9844118557959adfcbb8698fb"
+    ],
+    [
+      "High Seas Cadet",
+      "524f2f210d59004ec22bb1045af23b481c9e3a31"
+    ],
+    [
+      "Hoverjet Outrider",
+      "0fb371f0e528a5e7b377902339d4de08a14ab12d"
+    ],
+    [
+      "Rising Nova",
+      "41b001b982698e735a2de13ba1f1ad5f75c1c792"
+    ],
+    [
+      "Starbound Sentry",
+      "ac85ebb10128c12cc1e01a72553481877bc6a06b"
+    ],
+    [
+      "Steam Researcher",
+      "aafae7b9085d344852aa0f05557d7962d445f28a"
+    ]
+  ],
+  "Lancelot": [
+    [
+      "Blade of Devotion",
+      "b68dfdf9318c8261fe1ecd4101385a1da21f43ac"
+    ],
+    [
+      "Blade of Roses",
+      "2f1f693a8f6ddeb54c9b918b13466d0007f24091"
+    ],
+    [
+      "Bren Esports",
+      "b2a1aeef6b1bd10e9bd12d387409ab7b14b1ff3c"
+    ],
+    [
+      "Christmas Carnival",
+      "e299f72966ba8aa1ac5ce52b0dfb55a9e04d9cc7",
+      "b68dfdf9318c8261fe1ecd4101385a1da21f43ac"
+    ],
+    [
+      "Dark Earl",
+      "d77d08fe1d7ea4332911d97eb1cf0b3384bf8f90"
+    ],
+    [
+      "Empyrean Flame",
+      "777d6c8380222fe7b671e97048fb38a8103455ea"
+    ],
+    [
+      "Floral Knight",
+      "28cb3c9010d75bbcf1cb99c0064b6dd0e1b5bef4"
+    ],
+    [
+      "Guardian of the Shrine",
+      "5976fd32e79a9179dffccf19b42345f807abb51a"
+    ],
+    [
+      "Marques of Blades",
+      "bb5335c31bbc4ad2d6c8428dda8503828e626cf4"
+    ],
+    [
+      "Masked Knight",
+      "51a1d77254fd2759e036d73161d0dcd9624225d0"
+    ],
+    [
+      "Pisces",
+      "f885da244a0f8950215ca0465c23efcb916a449b"
+    ],
+    [
+      "Royal Matador",
+      "c2b66ec5cf0e12c6920710cf4cf5e7445afe73fc"
+    ],
+    [
+      "Swordmaster",
+      "9445500150932d871947c2c2fb4e94c2922170d7"
+    ]
+  ],
+  "Lapu-Lapu": [
+    [
+      "Adlaw's Chosen",
+      "aea2b77360903879625174c5ba1955e895661752"
+    ],
+    [
+      "Ancestral Blade",
+      "02b38f6c00abd34fb21e35001fd5ccc477bab3b2"
+    ],
+    [
+      "Courageous Blade",
+      "18caee170641922f442698aac414db3564b47601"
+    ],
+    [
+      "Imperial Champion",
+      "40df2f4580988a624cd85f3921c4a74fffce1cc7"
+    ],
+    [
+      "Son of the Wild",
+      "9e6a81b499fa96487da2bbef03388530ea20ffce"
+    ],
+    [
+      "Special Force",
+      "cb631c201db9417a7d7ed0714e9c99c40d02a142"
+    ],
+    [
+      "Vulcan",
+      "7d21991508ee3e414119dea18d0db2a207a8ae5c"
+    ]
+  ],
+  "Layla": [
+    [
+      "Blazing Gun",
+      "90dfeb4483c88df43d48bd2234626998f25d8d91"
+    ],
+    [
+      "Blue Spectre",
+      "f17d661bffe9c554d2114a8bbb00d1dde837e3aa"
+    ],
+    [
+      "Bunny Babe",
+      "9fdfe38ef224ba1a7808ff028036c097b62749bc"
+    ],
+    [
+      "Cannon and Roses",
+      "a3aacf8b3568bff52acee03130953c4451ee380b"
+    ],
+    [
+      "Classic Malefic Gunner",
+      "03b6e502077a2f34b2319078f8c78c4814848bb1"
+    ],
+    [
+      "Energy Gunner",
+      "e5ce37ee76a4e193e7910531ced0121ea1b27adb"
+    ],
+    [
+      "Green Flash",
+      "58e77573cad6a4d6412309eb819568c820664230"
+    ],
+    [
+      "Miss Hikari",
+      "f351e7f6d4f880beac4e97b368b94e01aaa1717e"
+    ],
+    [
+      "Paranormal Operative",
+      "f0d37205fc0c82e206e811096bbaa4545624e860"
+    ],
+    [
+      "S.A.B.E.R. Breacher",
+      "624a740d932175ecd44de930cde6b8b48d25ea6d"
+    ],
+    [
+      "Sunset Waltz",
+      "ebf2654414511cb9dd13459e8bd1958f367939ad"
+    ],
+    [
+      "The Beacon",
+      "f9b97db67067b8b216475edd08cfa9063cb0b3ed"
+    ],
+    [
+      "Twilight Waltz",
+      "794e445d346e7bc516fe22025c8a7668ecc5245a"
+    ]
+  ],
+  "Leomord": [
+    [
+      "Auspicious Blaze",
+      "41e41e97fbfffff9ea709afbd8db64800b785b90"
+    ],
+    [
+      "Diavel V4 Rider",
+      "9ff2e0d3fca1143b7b0cef80ff68223297365732"
+    ],
+    [
+      "Frostborn Paladin",
+      "9de86be6609971a39d7497bc978f26f1a538fadc"
+    ],
+    [
+      "Hell Knight",
+      "d023dd7801757fad2c23c49fe9e8ea0c3b501c9d"
+    ],
+    [
+      "Inferno Soul",
+      "85f75d83dc557b495a000539d2958f21d43e4ec1"
+    ],
+    [
+      "Jack-o'-lantern",
+      "1f61cac3eccabecab17850f6e48e8856e54c6921"
+    ],
+    [
+      "Nightmare Count",
+      "1ddac9aa323457840dad5c0fb3d86fc1490265a4"
+    ],
+    [
+      "Shadow Knight",
+      "90c26fe9a01303e608d8bf5e6e7920f989698b47"
+    ],
+    [
+      "Sworn Sword",
+      "603bd6e1867a1c586c3970ded58e6e67d19fe7d9"
+    ],
+    [
+      "Triumph - Eagle",
+      "7239d68dd40bc5b9ad8a9d203f7143930114ebb9"
+    ]
+  ],
+  "Lesley": [
+    [
+      "Angelic Agent",
+      "6d82f285b0084b204b181cc7a15b8c2090506b97"
+    ],
+    [
+      "Cheergunner",
+      "8a88c064b27429a482aac91daa1da69fce48cb66"
+    ],
+    [
+      "Dangerous Love",
+      "df3a1747b65cff8ab7e9726a6dd1d36a1a0367c4",
+      "6d82f285b0084b204b181cc7a15b8c2090506b97"
+    ],
+    [
+      "Deadeye Spectre",
+      "4dd2f4a48ec7691da160094b36178a79d179f407"
+    ],
+    [
+      "Deadly Sniper",
+      "35f1efc1855a7c58ae207b111fa7e4cdae105f9f"
+    ],
+    [
+      "Duchess of Tides",
+      "8396b76cf647bc4f8ee716e0cfee5133ad517321"
+    ],
+    [
+      "Falcon Mistress",
+      "7e15c198ff9fd750a9af21bd7d59a5d323116125"
+    ],
+    [
+      "General Rosa",
+      "9f8ab14e4774f79c6663ffc4887862991e902e47"
+    ],
+    [
+      "Hawk-eyed Sniper",
+      "6f553e35a343a7a262ac04c0f6f48b36ff33ec98"
+    ],
+    [
+      "Lethal Lady",
+      "f2d932f3c1ad10fd859795b3fbd766d80cf62454"
+    ],
+    [
+      "Meowkin Hunter",
+      "d87cf8bf7e1f1dc93133c1fa0f32984285464a29"
+    ],
+    [
+      "Royal Musketeer",
+      "d93ad13e027bee18edc313d93dd64446923189cc"
+    ],
+    [
+      "Stellaris Ghost",
+      "477c0911f59a899fb3e1d2ec14da95c5d9cbb78b"
+    ]
+  ],
+  "Ling": [
+    [
+      "Cosmo Guard",
+      "08171932654e225fb0ddf5157c46f3f0784dd2c7"
+    ],
+    [
+      "Cyan Finch",
+      "2c1c3c701695b1aaa97096d0bc69dac7caa5ec44"
+    ],
+    [
+      "Fiery Dance",
+      "201e0c16d4c5419fb3c421fb7e89f09868c9bc62"
+    ],
+    [
+      "Lord Shen",
+      "48963211e5a25f5eb16f74f87fe941d583f8e8fe"
+    ],
+    [
+      "M-World Ling",
+      "2560502c4943c8f79ab8fa04cc7b6efcc60bbef1"
+    ],
+    [
+      "Neobeast Ling",
+      "2f10670aa7673f6278a1b2515cad228d47dde1b7"
+    ],
+    [
+      "Night Shade",
+      "94306cb6228072870ed09038052ec4c4c4375d89"
+    ],
+    [
+      "Phantom Current",
+      "bb9977403ae272d7f86a0491914a9ba443a628c3"
+    ],
+    [
+      "Serene Plume",
+      "9c8b35f4569ef935b441995510bb3c1fe76db8ad"
+    ],
+    [
+      "Street Punk",
+      "f7a3c3e3ee4ea307200bb8267464e300b3fce08b"
+    ]
+  ],
+  "Lolita": [
+    [
+      "Angelic Fan",
+      "c55a8bdeb650baf6095835a8ab175d86981e9697"
+    ],
+    [
+      "Astro Mallet",
+      "e606a834dc130b4517c862dd3784ee2e56a04701"
+    ],
+    [
+      "Genki Slam",
+      "af7ba25eca33b23530b2fbd05ff9ea5815395f91"
+    ],
+    [
+      "Impish Trickster",
+      "7e97ec7316c866058adb59b8aa1dd3e565b8e050"
+    ],
+    [
+      "Lion Dance",
+      "dda9cf3fc104b358f1643e8a21f66dcfe5994d33"
+    ],
+    [
+      "Soldier in Training",
+      "3ec7cded0242080dadbe42923a35b1e5b83a544b"
+    ],
+    [
+      "Special Op",
+      "49441abbfc7e37f92dcb8806e1ab3ad3eedd66b1"
+    ],
+    [
+      "Starwatcher",
+      "8fc0e5aa09e25171d8ed65421b8b00d5128a9568"
+    ],
+    [
+      "Steel Elf",
+      "e5641a1a2b6e0b02f700225417792929a9360338"
+    ]
+  ],
+  "Lukas": [
+    [
+      "Naruto Uzumaki",
+      "47de90cfacaf1b950a5cf307620c50d9e6d05e45"
+    ]
+  ],
+  "Lunox": [
+    [
+      "Ash Blossom",
+      "d9339e8c96af22ef1267162b6c472eae9bcb5dc7"
+    ],
+    [
+      "Bloody Mary",
+      "691ea11d07b926d75d641473a092bd8a62b1906b"
+    ],
+    [
+      "Butterfly Seraphim",
+      "0be77deb2047235aa9af3b49fb5242190b027128"
+    ],
+    [
+      "Cosmic Harmony",
+      "28c38c7a8e8fcbc28cf23572728b9f3283194bb8"
+    ],
+    [
+      "Dawn Revelation",
+      "11505c1281e49415f8b923b63ebc22c9332c87d3"
+    ],
+    [
+      "Divine Goddess",
+      "c65f4c6ebce36a428b3f3bd72ff218f3c9f3365d"
+    ],
+    [
+      "Eyes of Eternity",
+      "9b361685281b8dfcae814ac16a98dd00f10e02e2"
+    ],
+    [
+      "Libra",
+      "676e1757c4ca91f071d9cdba6e759a26c48811d1"
+    ],
+    [
+      "Nature's Harmony",
+      "5a37470a2c395359450e8752b785ec66c5c83a82"
+    ],
+    [
+      "Quantum Polarity",
+      "72de708b295c485a15a0d986f3dee41cbc793471"
+    ],
+    [
+      "Twilight Goddess",
+      "2670103d1e428efbbb51f5527ed3d22d20d4e766"
+    ]
+  ],
+  "Luo Yi": [
+    [
+      "Dawning Fortune",
+      "5016451f1d517db937c99fb3d1f98d729fdd725c"
+    ],
+    [
+      "Elysium Guardian",
+      "b9ad3a5487ec812012b385f390137c66fef53e49"
+    ],
+    [
+      "Lady Dragon",
+      "ee5974304b4fcd796e6a9301d784f39d3bcbbcbf"
+    ],
+    [
+      "Oracle of Sol",
+      "bff9f13f9b890817c9fd556b032a4acecb575050"
+    ],
+    [
+      "Siren Priestess",
+      "0eb896f5f20d2c3e9380891233393d143b90a6ea"
+    ],
+    [
+      "Starborne Matron",
+      "f09beace9f402ae7d0201f1f29c81f5636f48ce5"
+    ],
+    [
+      "Tenko",
+      "3a627cf4091f8884e57ef9ebd8fba9d97e33eccd"
+    ],
+    [
+      "Yin-yang Geomancer",
+      "fd6afa8a1df8d374c7318d84a687de52648d5999"
+    ],
+    [
+      "Yin-yang Mage",
+      "57c2addca110bfd496f7b676964a5cff373a1913"
+    ]
+  ],
+  "Lylia": [
+    [
+      "Future Star",
+      "b50f0a148a266718f4619be74c351b4efb33c797"
+    ],
+    [
+      "Haunted Doll",
+      "6383cc042c7427f456bd1ba119a7c7c62ea1b16d"
+    ],
+    [
+      "Little Witch",
+      "c3ebabd40a6b960dad56386f97bc730b63cb0fb2"
+    ],
+    [
+      "Magitech Arsenal",
+      "af3a6a2c28d8f215c49740e861496766982c43c1"
+    ],
+    [
+      "Neobeast Lylia",
+      "48fbf7718dea4984eca2cb70765575f10ba29a6e"
+    ],
+    [
+      "Phantasmal Revelry",
+      "1b04a70b0f51b1052bd0548ac3ebe2e6f06e9b34"
+    ],
+    [
+      "School Idol",
+      "d7a6e00059fc3a3b7a8fe39610c4d1f70aa12c19"
+    ],
+    [
+      "Star Student",
+      "dca64692696ca30527cd27006bc57165289bf798"
+    ]
+  ],
+  "Marcel": [
+    [
+      "Soul Photographer",
+      "bb7281f61ac44a942a48741d2095bf24b35922f5"
+    ],
+    [
+      "Split Shadows",
+      "d8ba090fb6c241a38468e0b92152a125cfe4eadf"
+    ]
+  ],
+  "Martis": [
+    [
+      "Ashura King",
+      "b149f5eb9f4f0ba06af84fb0ad414d5c64ff1241"
+    ],
+    [
+      "Capricorn",
+      "a9b2a06a27dfdf0aa0656eb1cb2627966a2d01e7"
+    ],
+    [
+      "Darkwater Terror",
+      "09a4800c06ddaec65afe68deec9e900bc776cbd6"
+    ],
+    [
+      "Deathrock",
+      "310f91dab30cca53ea09930e292b368b46677a26"
+    ],
+    [
+      "God of War",
+      "3f24001270e163d39608d9b79f262f54a6f0b380"
+    ],
+    [
+      "Levi",
+      "3303850074594e08fc57552d4556cdfda363f2d6"
+    ],
+    [
+      "Searing Maw",
+      "80e483c6e8a4954dfedb20512cc03659999f0053"
+    ],
+    [
+      "Tyrant",
+      "173226d9ccf0126ea633cf25350793223dcfdafe"
+    ],
+    [
+      "Warlord King",
+      "09b75f91b2be27c82dcdb7fc98397792a56b951f"
+    ]
+  ],
+  "Masha": [
+    [
+      "Combat Maiden",
+      "a00662d97193d25c61abc7b6db7dab5b06124500"
+    ],
+    [
+      "Dragon Armor",
+      "f883e80f846f761d2f0a7eb4b4cf74f55f03b328"
+    ],
+    [
+      "Mai Shiranui",
+      "bcbba94324f8e65d41c1208cfe853aee2cba3e77"
+    ],
+    [
+      "Rogue Talon",
+      "60f8ed8a1f7789bb47137997094a14105e8bfee4"
+    ],
+    [
+      "Spirited Gauntlet",
+      "dab8418e004dc7bf8b2938bc865c0bd196630a80"
+    ],
+    [
+      "Wild-oats Fist",
+      "abdb77ca2f94c58ccbd7b1074c0c6a2f328b3191"
+    ],
+    [
+      "Winter Guard",
+      "4127fce2f0b9d7c28b5122e4f61690c31e4b6c32"
+    ]
+  ],
+  "Mathilda": [
+    [
+      "Dream Groove",
+      "4bd04e6fa17e75ed9d25f537009fe63e03edb028"
+    ],
+    [
+      "Dreambound Pixie",
+      "9968a6b3e621229f4a62e1a1ea813638ad2bb88f"
+    ],
+    [
+      "Floral Crown",
+      "c131dbe1717776c6b6223ee0b0b27b3a5baef7db"
+    ],
+    [
+      "Swift Plume",
+      "a84b30501d74b32673b62f90f4a69a1b4bb859e0"
+    ],
+    [
+      "Unrestrained Delight",
+      "bddc1798d8d41adb8b13ddf8d8dea02c9b29dc52"
+    ]
+  ],
+  "Melissa": [
+    [
+      "Cursed Needle",
+      "1cf84824242312e14141eb56d3a73f7d97db6f62"
+    ],
+    [
+      "Nightwalker",
+      "cd8bf67e7e9f12581b899080dbcfc073474eacb2"
+    ],
+    [
+      "Nobara Kugisaki",
+      "c7c1471dee91085a4c0aeb7ca5beb6044c7765eb"
+    ],
+    [
+      "SHIMMER Melissa",
+      "b63bc2a30e3bd1925cc01d7cc085ee0c466d45f9"
+    ],
+    [
+      "SPARKLE Melissa",
+      "d63bc4c18f72ce945ec0a9d0c654ecd4d56569ef"
+    ],
+    [
+      "Twinge Weaver",
+      "182d49870cde2db3dcd2d6b211615f6afff8e845"
+    ],
+    [
+      "Umbra Bloom",
+      "85fc8d926d7cb79d7d2f18e617b9d9d932e0e671"
+    ]
+  ],
+  "Minotaur": [
+    [
+      "Bursting Yama",
+      "6f05e732ec8c0813ff6bb3b459f23b55d0da545e"
+    ],
+    [
+      "Dreadnought",
+      "dd40b62b25c65a768b3ea6912fcaf907d2a30a8e"
+    ],
+    [
+      "Nether Overseer",
+      "5762fadb5ba58b5b2840ae9dc4e226c324db6978"
+    ],
+    [
+      "Orbiter",
+      "921a0396f9bd3d78e8fb84856a9d58c5211cbd00"
+    ],
+    [
+      "Sacred Hammer",
+      "1e5ed41da5cd03160a70cd254de8a81dab620b74"
+    ],
+    [
+      "Son of Minos",
+      "11038e3e25d9e77bbc90d44f1f13133767ffe8e9"
+    ],
+    [
+      "Taurus",
+      "e33f93d2e693fe0c03f53c4b54aa58ba74b0e573"
+    ]
+  ],
+  "Minsitthar": [
+    [
+      "Courageous Warrior",
+      "2e171a94ff2ca2709a58f9ea1bf9fac1ef5944be"
+    ],
+    [
+      "Gilded King",
+      "eccae939794006626d13b7de27866c8def1ddf20"
+    ],
+    [
+      "Golden Marshall",
+      "37d53bdcf90d573c26c7115d1e7bc45070158709"
+    ],
+    [
+      "King of War",
+      "de50fdcd8e6f19466d7054c3d2816fa8c70c1dce"
+    ],
+    [
+      "Sol Invictus",
+      "9500bb355bbf82baa4840c380a0d55fc3295fe79"
+    ],
+    [
+      "Symbol of Valor",
+      "b819f97924d4af3f36e45d76de492dd97dc0ba51"
+    ]
+  ],
+  "Miya": [
+    [
+      "Arrow of Spring",
+      "3c073ed5482b9d767df7ec81e5dbb873e4868331"
+    ],
+    [
+      "Atomic Pop Miya",
+      "7a48845f1dae9d3cf18f94027fdbe51a5da7c26d"
+    ],
+    [
+      "Burning Bow",
+      "b61fa08d50ede6795a5edc38542e8323b3a63698"
+    ],
+    [
+      "Captain Thorns",
+      "85999277b4c19c2cd22ff1f4de712984b901f34f"
+    ],
+    [
+      "Christmas Carnival",
+      "7d8d05b71d380423ba705c4d6b8556bf823d7e60",
+      "3c073ed5482b9d767df7ec81e5dbb873e4868331"
+    ],
+    [
+      "Doom Catalyst",
+      "85e58ea6ef43d4d03d1ca1e39ee21ea6b949d637"
+    ],
+    [
+      "Honor",
+      "109a510c6e3f1ea00e2c8eecfded6ef16330e0b9"
+    ],
+    [
+      "Jungle Ranger",
+      "710a3a6efe953a8f58a5b1fee0818315214cf30c"
+    ],
+    [
+      "Modena Butterfly",
+      "bacafd90e895296bbf4f8c764f8d45fc1aa841ee"
+    ],
+    [
+      "Moon Priestess",
+      "f844708184de5387eaef196ac89028941e380817"
+    ],
+    [
+      "Moonlight Archer",
+      "dee6aabc5ec52cb01a532412713222046f8b2e29"
+    ],
+    [
+      "Nightowl Huntress",
+      "7981d24cab8ae2339eb6bad96f9156a4d3d5d7fd"
+    ],
+    [
+      "Suzuhime",
+      "f1927ebd65bbb6e5c4b3d416f5800f55689a9831"
+    ],
+    [
+      "Sweet Fantasy",
+      "a06e91a70ef57f5b4232a816104341da5891ecce",
+      "3c073ed5482b9d767df7ec81e5dbb873e4868331"
+    ]
+  ],
+  "Moskov": [
+    [
+      "Blood Spear",
+      "04544a7f1e7244b0e25a1e4c0356685eb1442d00"
+    ],
+    [
+      "Decapitator",
+      "100b5aac777b55d900517beff87a09da849b6f64"
+    ],
+    [
+      "Doom Incarnate",
+      "fe548e6405e27be047880b9ae4384bb1f85a0138"
+    ],
+    [
+      "Infernal Wrymlord",
+      "36d6cabe56be0cbcf3a8c4e3f6cc4c243f94a828"
+    ],
+    [
+      "Javelin Champion",
+      "0a1aed41f37f98cbc3a04f114428bdfff179e2cb"
+    ],
+    [
+      "Snake Eye Commander",
+      "e5320dd0bb9dbfd53c482f8bc3bdc1499b28f303"
+    ],
+    [
+      "Spear of Bone Dragon",
+      "9ddb69daaceffae07ab301829b184fd481f48b74"
+    ],
+    [
+      "Spear of Quiescence",
+      "703a9abfb818301371fbab61dd35d96bd5dad074"
+    ],
+    [
+      "Twilight Dragon",
+      "ec5536df6a2cd3eb36929cae7729d94b5c4db12b"
+    ],
+    [
+      "Violet Spear",
+      "afebb59b8b047165c636b4891bf50b4ffa00b1e6"
+    ],
+    [
+      "Yasha",
+      "62c7aedfc682f813d19b741811104d70647d2891"
+    ]
+  ],
+  "Nana": [
+    [
+      "Aqua Pura",
+      "dc141c7070857b0bf523e6c2c14b525be1af020a"
+    ],
+    [
+      "Clockwork Maid",
+      "b509c2f5f6b1836aa0edff1c265b48f4d7cb18fb"
+    ],
+    [
+      "Cyclone Clash",
+      "d66e40bc831628199e27a9bcdbfe16549165f23e"
+    ],
+    [
+      "Graveyard Party",
+      "1df5b97fcc8bf45ea83bb50db9bb37be3103b703"
+    ],
+    [
+      "Mecha Baby",
+      "bd7b1a6272bf551e46dc5fc4ddd2be87a668b538"
+    ],
+    [
+      "Mistbender Nana",
+      "43b70c17fe253c97c9a701e39b6ebf40f3eb5075",
+      "dc141c7070857b0bf523e6c2c14b525be1af020a"
+    ],
+    [
+      "Slumber Party",
+      "a0ef18e8682de43b516603c284dde634ae52af0e"
+    ],
+    [
+      "Summer Fun",
+      "d117222be53108e6c9088484d2f4e00b3b87ad22"
+    ],
+    [
+      "Sweet Leonin",
+      "892b5946750542e55345d37f5dfbe958c3df71a9"
+    ],
+    [
+      "Wind Fairy",
+      "147b564628da29dcbe4a47538f84c249ce2b6c50"
+    ]
+  ],
+  "Natalia": [
+    [
+      "Bright Claw",
+      "a65fb0bc5e03509fa3224dd6dbd12c30101bae90"
+    ],
+    [
+      "Cyber Spectre",
+      "58b6a8b5a4d1b0d207ce4b25695d2da295a37cc5"
+    ],
+    [
+      "Deadly Mamba",
+      "8ece5c83255f1ebe8aa54ead10691f7340442758"
+    ],
+    [
+      "Glass Blade",
+      "5cf75e12f5787048690dc4ac9a43b7e60f951bf6"
+    ],
+    [
+      "Grim Strangler",
+      "5fb512e3ff86d2480b72865894b1fb27f80f4dfd"
+    ],
+    [
+      "Midnight Raven",
+      "5f1c6b24b7649278c5c81e41397a1f3d492ed773"
+    ],
+    [
+      "Phantom Dancer",
+      "25df1f449a2dcc2081134b390ae88120c8bc2cdd"
+    ],
+    [
+      "Soul Huntress",
+      "d22601eaaf53d231ac63a85eee1bd9ec7b058dd6"
+    ],
+    [
+      "Warrioress Paragon",
+      "80c6f526cec61e6641b3d5e5128c52dde8a3dafc"
+    ]
+  ],
+  "Natan": [
+    [
+      "Archon of Knowledge",
+      "344b50f66652c12178c44c7410ad6ab0d2e15b49"
+    ],
+    [
+      "Captain Chrono",
+      "af1a695377c044091dd9088b66e4c424a0c4d8e3"
+    ],
+    [
+      "Chaos Hunter",
+      "badec386775eb09f43d358e8553b2d5c330b0142"
+    ],
+    [
+      "Sanguine Steward",
+      "24fecad4a29ee3e2e9fcfd01a9b4a217c3ecd74e"
+    ],
+    [
+      "Spacetime Walker",
+      "dd83e705debc086274ba97160a39b8b35e6755ab"
+    ],
+    [
+      "Temporal Vortex",
+      "9cf9a1172f83ba9c2beca7577a775c259e3a7908"
+    ],
+    [
+      "Tidal Lord",
+      "4f50512ed7349b785c3a777364d5088da872e152"
+    ],
+    [
+      "Time Wielder",
+      "dcef197780a2ba088ae1d288d80e25918be690ef"
+    ]
+  ],
+  "Nolan": [
+    [
+      "Cosmic Wayfinder",
+      "099dbbd1896d5249e06c5e825c5c822c315a334c"
+    ],
+    [
+      "Fashion Mogul",
+      "668d15e99a37130566e90ab35980dd1d050e5d4c"
+    ],
+    [
+      "The Navigator",
+      "980170cadb18d7fb48102d1d33ef8606877d892f"
+    ],
+    [
+      "Voidwalker",
+      "75473037d9f54ef9d93da5ef210c20d3f368897e"
+    ]
+  ],
+  "Novaria": [
+    [
+      "Dragonsworn",
+      "35a6fcd40799b8e4d79e7c8c82ffcc6fb17df2ec"
+    ],
+    [
+      "Lunar Scion",
+      "13297ff72d87db87f45f0252d9efcf2ca067a379"
+    ],
+    [
+      "Star Rebel",
+      "322715e62967d1ee3f694fa9e8825365f3424de1"
+    ],
+    [
+      "Sugar Glaze",
+      "6da2288f392111998330caadf98a1ac56ecbc5c9"
+    ],
+    [
+      "Void Star",
+      "318e42209d4a2fd27cb76c0b52408ef9f2704cd7"
+    ]
+  ],
+  "Obsidia": [
+    [
+      "Magitech Wraith",
+      "198f642223246780874f93509b02c03f6baed5c4"
+    ],
+    [
+      "Sovereign of Dark's End",
+      "74bc43f219bd7e4a54a09b5eb16bd98ea681e6a2"
+    ],
+    [
+      "Undying Remnants",
+      "65b35ac7af203200a28e5f815cefa306628ec0ae"
+    ]
+  ],
+  "Odette": [
+    [
+      "Auspicious Charm",
+      "a593fc31bf5c4853c963a80910ab329e64f5128c"
+    ],
+    [
+      "Black Swan",
+      "63aa7a9b6c6c6b4c49d9a49d3839c188f6993958"
+    ],
+    [
+      "Butterfly Faerie",
+      "a976ac7e2878e50bdc6742173747f10186ef772d"
+    ],
+    [
+      "Butterfly Goddess",
+      "fc224fa794d680fb12be52a00e115b7a485acb4f"
+    ],
+    [
+      "Christmas Carnival",
+      "41232dfd53ab097bfbb5b21a05411ba8586d9713",
+      "a593fc31bf5c4853c963a80910ab329e64f5128c"
+    ],
+    [
+      "Mermaid Princess",
+      "7ccd0d0eee8be23e9e587e352ec22836374af50e"
+    ],
+    [
+      "Sage of the Currents",
+      "6568b185a8af3727fd3b03d420b1ed8619fa0b2e"
+    ],
+    [
+      "Song of Devotion",
+      "bac336867952393556c3b4bd0ef6e25ca6b33d94"
+    ],
+    [
+      "Swan Princess",
+      "1aaa0a49b684dfa7fe737a9759d1bc4b34b0093c"
+    ],
+    [
+      "Virgo",
+      "f88b1ecf961df53cb3b1b88cc5745c4cc8b3b055"
+    ],
+    [
+      "Wisdom of Devotion",
+      "a8fbba1e9e5f2d5e00117ccb23d0751a9f7a0975"
+    ],
+    [
+      "Wisdom of the Stars",
+      "3f372dcbbad0eb6bb9a0b4c751a413e142231fe8"
+    ]
+  ],
+  "Paquito": [
+    [
+      "Blazing Tiger",
+      "f545581f391a97661728898ad11fffa16b67576a"
+    ],
+    [
+      "Death Blow",
+      "f75a7a8f566a7d68a884997e02cf45cb75e8ef0d"
+    ],
+    [
+      "Fist of Glory",
+      "d0b82f654414999d04fa84f2316f3338be0fb982"
+    ],
+    [
+      "Fist of Light",
+      "a2e15c3509a0dfb853abf30fecda7c2217c9608d"
+    ],
+    [
+      "Fulgent Punch",
+      "48b614082bb57dbe419273d11693dbc8d151ff97"
+    ],
+    [
+      "Manny Pacquiao",
+      "d0919ecb55ac65c05f2573bcc5988b9790dcf0ab"
+    ],
+    [
+      "Terry Bogard",
+      "568ebaf2b179356e9c5d08e5bd6bc6a377e7bc9b"
+    ],
+    [
+      "The Heavenly Fist",
+      "c7506636a7a59b8d4cdd84b163af817b481fa9a4"
+    ],
+    [
+      "Underground Boxer",
+      "72214cce63e5eab6260f7134ee5648fa32c8f4a9"
+    ]
+  ],
+  "Pharsa": [
+    [
+      "Empress Phoenix",
+      "d1e6ddb951b8c294d010e8fde7223db602821934"
+    ],
+    [
+      "Enchanting Witch",
+      "501d988b4edc82d5c79e9dcf4fa161f5c6a36b04"
+    ],
+    [
+      "Hierophant",
+      "2ccf2d2ef2a184f9b51881e860ae1c8f0b12d5f7"
+    ],
+    [
+      "Indigo Aviatrix",
+      "2d8163be904815e36fa8adb49d3a760cfda6682d"
+    ],
+    [
+      "Neobeast Pharsa",
+      "f41e8d6a16c071eeb1b6c86af1ed33083381a6df"
+    ],
+    [
+      "Neon Shingetsu",
+      "4112707b74782bfbc22b726a38728f32a627128f"
+    ],
+    [
+      "Peafowl's Dance",
+      "2b52768359cefe8516ad7d4a76943abd5a630738"
+    ],
+    [
+      "Peony Bloom",
+      "99b6bb6b17c45d6beb56393db8d37f8a66e7f07b"
+    ],
+    [
+      "Samba Muse",
+      "7c5b6b02af59ad20101ff368da2c53e162cdb5e6"
+    ],
+    [
+      "Seasworn Oracle",
+      "d124db9980ecd8f1c55244e50f5c610e5ed7fed9"
+    ],
+    [
+      "Wings of Heaven",
+      "96647a662e85e85d7aa771990c41d71670ae25ac"
+    ],
+    [
+      "Wings of Vengeance",
+      "3c18b0b254cd0aa170c390c8a3cb9d086f1ee5f3"
+    ]
+  ],
+  "Phoveus": [
+    [
+      "Chains of Sin",
+      "9ffde21c1dafe16987bc096e2676a863f4906933"
+    ],
+    [
+      "Matrix Maverick",
+      "ca0ff579da60d2ecb0150c66bd4430c5bd4046e9"
+    ],
+    [
+      "Monolith Watcher",
+      "ea4fe451366e8629825d35d994b8f387cfc2361a"
+    ]
+  ],
+  "Popol and Kupa": [
+    [
+      "Hunting Pals",
+      "dacc9a7728b20be454dca4e7fb00277b5020d7c5"
+    ],
+    [
+      "Icefield Companions",
+      "c60614dfbdd2f1b2435ac8cb2459099283b35b83"
+    ],
+    [
+      "Proto Hunter",
+      "ddf61c71f7e5cf67e055d4a53a0eb4b78e1fde1b"
+    ],
+    [
+      "Soundwave & Ravage",
+      "b885b3f0e5ce7abd758ede402c2aa6fad957a487"
+    ],
+    [
+      "Spirit of the Brush",
+      "156b013cf266325dacfd7d65a1973d741ed7ac45"
+    ],
+    [
+      "Tribal Howl",
+      "a40ceae038d8a8c6105258ce4d06b45ff40178a8"
+    ],
+    [
+      "Trouble Makers",
+      "8906e0ed08f83d6ca0ac10b1eb8f827decc701be"
+    ]
+  ],
+  "Rafaela": [
+    [
+      "Angelic Sonata",
+      "b46780ebe2d9c15157ec6d89a491d479d561f641"
+    ],
+    [
+      "Biomedic",
+      "d95ec0521e7a41d3bde54d57fdf164eaac11e8d3"
+    ],
+    [
+      "Bloom of Abundance",
+      "8e2e8cf31ef6c141a0984d2e802ecfe376523550"
+    ],
+    [
+      "Fertility Goddess",
+      "0655e23aae059dcd0a93c7f9e7f3e13a75733965"
+    ],
+    [
+      "Flower Fairy",
+      "3e030c12daee8aa8d4ef4f762f6a83ea178e8cd7"
+    ],
+    [
+      "S.A.B.E.R. Savior",
+      "0791ab164b5d9c9a287b4a95fb272281d9f6e5ff"
+    ],
+    [
+      "Seraphic Selfie",
+      "5b136eb92b76b34bc534f0898c798cdecddffb91"
+    ],
+    [
+      "Star Chaser",
+      "178367129f499d42c33090d38b58457b25f11669"
+    ],
+    [
+      "Wings of Holiness",
+      "2c10f05e6b466e8de2f464ce6b58664162273a74"
+    ]
+  ],
+  "Roger": [
+    [
+      "Anubis",
+      "81dff6ef3c0c153609f2e23d891e5f3fe5d1f82d"
+    ],
+    [
+      "Ashbone Gunslinger",
+      "e546473db38a1ca60aa3885036fc4cd2613da693"
+    ],
+    [
+      "Cyborg Werewolf",
+      "19d2116783b6493c727da272e81faa07c51ac224"
+    ],
+    [
+      "Dark Gent",
+      "babebf3e7fe15f4681f7cdf06bfb142f566a87d2"
+    ],
+    [
+      "Dire Wolf Hunter",
+      "4daee10f0e9e77729f01ef1d6208171d71b7664b"
+    ],
+    [
+      "Dr. Beast",
+      "cffa46ddfdf7fe805b326ab819cec3942458e5ad"
+    ],
+    [
+      "Fiend Haunter",
+      "91fca78ba4158dfc633626a1385bd4186a2ce033"
+    ],
+    [
+      "Grimlock",
+      "b256839abac5e51a6d8eff14834b196e1d424624"
+    ],
+    [
+      "Invoker's Restraint",
+      "f9394e34d4ee3a3416d622c27ff287b186e718f9"
+    ],
+    [
+      "Phantom Hunter",
+      "89cb9c75c13fa3af271574775334b78faffe9a65"
+    ],
+    [
+      "Phantom Ranger",
+      "f7cfbf5c36a96b4112650f070425e1e7a7caec4b"
+    ]
+  ],
+  "Ruby": [
+    [
+      "Cat Girl",
+      "e02eb0752c22ede39a1e6bd52ba1a65f3fe692bf"
+    ],
+    [
+      "Crescent Dervish",
+      "d56348abad210649b375c16f89423d7a3f72ce75"
+    ],
+    [
+      "Edelweiss",
+      "923ca65a05af643fb28e4d13a291948540b2d2b3"
+    ],
+    [
+      "Hidden Orchid Butterfly",
+      "769694effe4f0782369b738734a13eb06e149639"
+    ],
+    [
+      "Lady Zombie",
+      "60045844bf3e84169d1b36b6eb57752d790bae2d"
+    ],
+    [
+      "Little Red Hood",
+      "58fde69f7b7c094df29e1b23b9e19275a2a10fc5"
+    ],
+    [
+      "Mecha Maiden",
+      "5fe1b7471a9de4d620eefd659b33b2624ab7c7cc"
+    ],
+    [
+      "Neon Edge",
+      "46a851ac4cb11d623357b6ea1fcf48a67d1922c7"
+    ],
+    [
+      "Pirate Parrot",
+      "642a57c2bff18ac708cb8e2a6ea822c192a7c952"
+    ],
+    [
+      "Prismatic Plume",
+      "bdac1c6cc273f4ae6263e8e4ca024de1c10feb27"
+    ],
+    [
+      "Soul Reaper",
+      "6825bdaafe1c79254d0f2685765c5917f4975d8a"
+    ]
+  ],
+  "Saber": [
+    [
+      "Codename - Storm",
+      "9723159317a98473b029f5d9fb4a8c10e429cbd7"
+    ],
+    [
+      "Force Warrior",
+      "54137903930586037811412d49d352dea990df99"
+    ],
+    [
+      "Fullmetal Ronin",
+      "b9aaa2094bdfe71beaeec18307b121ceebfc6426"
+    ],
+    [
+      "Golden Flash",
+      "5a0c42ac9a4ea8daec0891d182c035518dd43bc3"
+    ],
+    [
+      "Hound of Steel",
+      "3641910e091b017c8b38db6b711d6312399865ab"
+    ],
+    [
+      "Iron Hound",
+      "866e3c7d541310b07e8f1998a4c1528a5b25c6a6"
+    ],
+    [
+      "Onimaru",
+      "c5b29adf87bf74346272b2cb1239424559a6b289"
+    ],
+    [
+      "S.A.B.E.R. Regulator",
+      "337b9be98fa378c461a800606ccd3e422aebc3e6"
+    ],
+    [
+      "Silver Edge",
+      "ffbba8855a8abb4bdc4bead8229599d432038f4d"
+    ],
+    [
+      "Wandering Sword",
+      "5392e0014a0bb900015f14bb29cba443fac2ada1"
+    ]
+  ],
+  "Selena": [
+    [
+      "Abyssal Witch",
+      "f040c506b23480ed89752e3fa92019a32e956315"
+    ],
+    [
+      "Curse of Cinder",
+      "cd651f0e863633e0845046185f99b8fa8e5d6940"
+    ],
+    [
+      "Double Identity",
+      "95a8e25525abe322604ecd522476be7fe5445413"
+    ],
+    [
+      "Gemini - Shadow",
+      "9344201097029e995c1f5efd24e654f8ca03a394",
+      "f040c506b23480ed89752e3fa92019a32e956315"
+    ],
+    [
+      "Gothic Curse",
+      "3d58d0f96486c250f8039d01664114f021edf260"
+    ],
+    [
+      "Lady Vengeance",
+      "10c860921fc4f51e51d2f9f4501a0db470e2174d"
+    ],
+    [
+      "S.T.U.N. Selena",
+      "2409015d297240c0a2a8f1a649fc9f1d29a0f234"
+    ],
+    [
+      "Thunder Flash",
+      "901c262719dab57c31c5b2c420455f396f9b9d97"
+    ],
+    [
+      "Virus",
+      "f90ab5b43fc2a0a226ce7d05c80f973babcdf2c3"
+    ],
+    [
+      "Wasp Queen",
+      "e84db4a5f3f9883450fe45cc18d0e3b7d6888225"
+    ]
+  ],
+  "Silvanna": [
+    [
+      "Alluring Mystique",
+      "f7223e2999de3e39cecf2163b37c4c965175302c",
+      "88ff3f749bf350efc070611e1e66280ca7e9adbe"
+    ],
+    [
+      "Classroom Charm",
+      "88ff3f749bf350efc070611e1e66280ca7e9adbe"
+    ],
+    [
+      "Future Cop",
+      "a7519c180b5cdeec29df8558043e867b961c1f73"
+    ],
+    [
+      "Hallowed Lance",
+      "935297d0541173574a558ab557909ce1bababa19"
+    ],
+    [
+      "Imperial Knightess",
+      "8fefe363bd6186ad133ff500a408e4bb4ad3605b"
+    ],
+    [
+      "Meowkin Warden",
+      "dd2e99c1b838039f39b79c242b27a8f673a9c86f"
+    ],
+    [
+      "Midnight Justice",
+      "17efbf005a816a3f3d1c661d2816c441c044081d"
+    ],
+    [
+      "Pure Heroine",
+      "e6df7a6ba877f6694832d87755cd9299e787c6e4"
+    ],
+    [
+      "Queen Frost",
+      "9df21b1350e26905fd252599bd1bb8dfac8fbfb5"
+    ],
+    [
+      "Verdant Lancer",
+      "3ac816dfcc68aec55410189a837103dffcfc283a"
+    ]
+  ],
+  "Sora": [
+    [
+      "Azure Cloud",
+      "470ddac4e5ee9e8386dae034d34e64e5ded3b446"
+    ],
+    [
+      "Shifting Cloud",
+      "723a46f295c8ced8805e059a846864db0c7d08c2"
+    ]
+  ],
+  "Sun": [
+    [
+      "Battle Buddha",
+      "2a211c6dc6f5ab5f60b41079e204f05e9ab314db"
+    ],
+    [
+      "Celestial Outlaw",
+      "211aeb7c5a96746c8608c5b908ca188d4b474173"
+    ],
+    [
+      "Monkey King",
+      "b62bb3cfe7f8ee8279f3d145c2b1023ead08d8be"
+    ],
+    [
+      "Rock Star",
+      "5da25812d6d82494dd5191e4925827d048e6070a"
+    ],
+    [
+      "Simian Curse",
+      "eb6b7fcdb444d17d5f8dae59c04edde6bf27df8a"
+    ],
+    [
+      "Spring Blessings",
+      "8bcc012e60cfd9917fb3101cf3300452ef9b3627"
+    ],
+    [
+      "Street Legend",
+      "323fea6068f78443f3efd97859a81fed5ed0ed7c"
+    ],
+    [
+      "Wicked Flames",
+      "66e68662f58a9cd0ca6006db30f43c3da6ce8b19"
+    ]
+  ],
+  "Suyou": [
+    [
+      "Frostblade Duelist",
+      "b5250dbeba2016b43abcd7884fbd4ead25e03092"
+    ],
+    [
+      "Mask of the Immortal",
+      "00ba6d8d9fcd8c4fbcdae8f0f6ddb57811ef35a5"
+    ],
+    [
+      "Sasuke Uchiha",
+      "5e258e6c5b0e77d1e11db9192b1061354b20f486"
+    ],
+    [
+      "Venerated Vigilance",
+      "8098a4946d2cab23786fb6fb0ebdef6ab44d8e0a"
+    ]
+  ],
+  "Terizla": [
+    [
+      "Abyss Guard",
+      "c91de153805fe2c52dc8b9a55154b2a99aa61efa"
+    ],
+    [
+      "Executioner",
+      "fd36b718b53d02617ee2fc70541702f02a0e5783"
+    ],
+    [
+      "Flames of Judgement",
+      "68a52d59f6918c5b2ad96c6e3c2fd9fb6b72ed30"
+    ],
+    [
+      "Flare",
+      "49084ad39115548b5b9daf8483027bf4602979be"
+    ],
+    [
+      "Hammer Giant",
+      "ea66192cfb59044796105a42655cbf201fbf916b"
+    ],
+    [
+      "Rustwreck",
+      "ebca461207a140d6846bb6b2b44b17d8334338eb"
+    ],
+    [
+      "Soulblight Tyrant",
+      "6f7361d6a82988510062f912333dceba1aae7e67"
+    ]
+  ],
+  "Thamuz": [
+    [
+      "Abyssal Reaper",
+      "de0f9bdbb093276b9caf3e1f4fb68688c1f9188d"
+    ],
+    [
+      "General Kai",
+      "ffd19f3f6c57496d9e0f37f3a2ac40c98ee781dc"
+    ],
+    [
+      "Liquid Fire",
+      "b56223f4392e18950a93ed0e544ee16002c1e0bc"
+    ],
+    [
+      "Lord Lava",
+      "5a48e794162cd1107900d44f34c55e250858780f"
+    ],
+    [
+      "Lord of Wraith",
+      "9816fd90cd892d332ff06289932cba21b5b853d0"
+    ],
+    [
+      "Sanctified Flame",
+      "bdcbbda73c08fd644cc43789f76d18f878d611a0"
+    ],
+    [
+      "The Annihilator",
+      "42c2e442312e4fb04dcb8e4bcb50cd57f9f80c30"
+    ]
+  ],
+  "Tigreal": [
+    [
+      "Celestial General",
+      "038d55078763035a97cfb16ad02e072501504d18"
+    ],
+    [
+      "Dark Guardian",
+      "b692a5b68dc5422da5747462c7302d8f826ffd99"
+    ],
+    [
+      "Fallen Guard",
+      "38052a59ed9a51c4b4d1c2ffde4ded91091b8000"
+    ],
+    [
+      "Galactic Marshal",
+      "6e1d73634b37fbfd3ff78d541e6f1192de7518b0"
+    ],
+    [
+      "Gold Baron",
+      "02773484eb42bc85fedee9d72bc8c5ff663301ff"
+    ],
+    [
+      "Lightborn - Defender",
+      "2e341105655d77d8f1eb9124e2daf3137f0b08ac"
+    ],
+    [
+      "Pasha of Justice",
+      "681a501f5ea1f955cad29008cec06ea62f57de40"
+    ],
+    [
+      "Steel Guardian",
+      "e11fdaf81009e51fff096268bed73ebd11bbb88e"
+    ],
+    [
+      "Warrior of Dawn",
+      "fa906482ba094ba2f9531ee78c130edd428758cd"
+    ],
+    [
+      "Wyrmslayer",
+      "dbb6a7b90371eb44750b76ec243d8e3809ce04cd"
+    ]
+  ],
+  "Uranus": [
+    [
+      "Aethereal Defender",
+      "09e53e9778a807326f76b33e7cb147a9050daee4"
+    ],
+    [
+      "Ancient Soul",
+      "fd2c439a3c7737c473689abfa04c540caac4213a"
+    ],
+    [
+      "Celestial Bastion",
+      "3eca498343fba33e67eb119d1f8a46a6d9af3f1c"
+    ],
+    [
+      "Earthen Relic",
+      "71840df5bc1f5ccc5d1405cffe890bd414eab158"
+    ],
+    [
+      "Mech Protector",
+      "df6d2c0d6945a958c496eb6cd0b8e7d69db25c87"
+    ],
+    [
+      "Pinball Machine",
+      "9bc1e4c77e3242f01626e4fb01f2d54759957315"
+    ],
+    [
+      "Video-Game Dominator",
+      "8065d148933a4c5fbb27b3b8765442ca5eedaf78"
+    ]
+  ],
+  "Vale": [
+    [
+      "Blizzard Storm",
+      "95b9b8a8fb82cfd8129bc5d281a8a7e60fa9119e"
+    ],
+    [
+      "Cerulean Winds",
+      "02f5a319f555ad01f23e523ba50c45b7a7c1716b"
+    ],
+    [
+      "Concerto of Light",
+      "b958e7f1c503df5d92b758df50bc895d9c0075bf"
+    ],
+    [
+      "Gaara",
+      "c8866443ce56382093bc062d40f58d64cf833675"
+    ],
+    [
+      "Kannagi",
+      "aee7be216ee1516728a10fbefc1d644eac518489"
+    ],
+    [
+      "Keeper of the Winds",
+      "da5158029bea165b7718e56fb8d40e6f841cdd1c"
+    ],
+    [
+      "Soaring Devata",
+      "dbe36856f08f50d84cab9418c7ad17c060e7fe6f"
+    ],
+    [
+      "Supernal Tempest",
+      "5d132e2c750956a289fb7d3a2572b2e8ca8d9a89"
+    ],
+    [
+      "Windtalker",
+      "8010cef2c44d509f5cf57afab9f9ffd6ff731193"
+    ]
+  ],
+  "Valentina": [
+    [
+      "Archmagister",
+      "671ac48c7e4af2a538bd960fa59ecb39a74a69a1"
+    ],
+    [
+      "Celestial Judicator",
+      "e1bfa0a434986407a8ec98afa921043f43ad83d4"
+    ],
+    [
+      "Cyber Agent",
+      "3f8348f925a478d867e8349817dd6d1965182862"
+    ],
+    [
+      "Dark Nexus",
+      "e79c1ed90210fd70a207f87f16e70a664287a21a"
+    ],
+    [
+      "Grand Gala",
+      "0effa6da2724a1229e761eae850483ab79bb256c"
+    ],
+    [
+      "Prophetess of the Night",
+      "c3d5a64fd9e8d4daec73d776372533731cab5fc0"
+    ],
+    [
+      "Twilight Charmer",
+      "99c8a96169c89ce8305e1058ccdc767f3dc7c05a"
+    ]
+  ],
+  "Valir": [
+    [
+      "Arcane Seeker",
+      "1644f5dc6e9eb9adbd2ae1ec0aa2a25f9c46a1ed"
+    ],
+    [
+      "Demonlord",
+      "5d85b0c0c56582bb136ca3d7351f2c64d71b1979"
+    ],
+    [
+      "Dictator",
+      "9e2fd1a2c29fca51d2a6b721a6f35a40c2aea75d"
+    ],
+    [
+      "Draconic Flame",
+      "4ef79dbbc9ed234053239fda3bf1f9b636c25927"
+    ],
+    [
+      "Ember Glaze",
+      "80f3108c1f9051a813b0fe0050f41a417975c38b"
+    ],
+    [
+      "Infernal Blaze",
+      "298a122c9fed0b2518a6e29e392e7cbe0788238a"
+    ],
+    [
+      "Kyo Kusanagi",
+      "388877d151c15c84c2306c5a210f2dfe52fbb667"
+    ],
+    [
+      "Leo Ikki",
+      "c0add2ad711e8f524f16288af49d6519dcb0a0d5"
+    ],
+    [
+      "Pale Flame",
+      "7e613348afe1af38225536b150314b5f4d27b2a4"
+    ],
+    [
+      "Phoenix Ikki",
+      "9291c2fbbfcada8c2bbdcf8a40729f51f34e615f"
+    ],
+    [
+      "Shikigami Sumonner",
+      "c198ca5330155c03662809a396aebac1bdd62b22"
+    ],
+    [
+      "Son of Flames",
+      "0e1abd2f278bafa3c360ee54835397a94326e190"
+    ]
+  ],
+  "Vexana": [
+    [
+      "Circus Magician",
+      "09416219ad9bccbf5d90f850f2eec0a68db0e34a"
+    ],
+    [
+      "Cursed Shackle",
+      "d277dacaf8675d63603da2994a4d21549026a7e7"
+    ],
+    [
+      "Eternal Vows",
+      "7bbe102599d396c8fa3fd224fb28ff8e576a4d0d"
+    ],
+    [
+      "Lucent Beacon",
+      "b9b2863399adfe80fc389fe19b2233528dc0012c"
+    ],
+    [
+      "Sanguine Rose",
+      "d78ae1a486249b6c0ea6670f2c53d4071cc5ebc0"
+    ],
+    [
+      "Shimmer of Hope",
+      "bdb48902d068dd669e6b3102795bc5ad78faa6ff"
+    ],
+    [
+      "The Sun Empress",
+      "ec148589b5fc400cc56f66e5c418390904815e35"
+    ],
+    [
+      "Twilight Star",
+      "ff76846617feb21fd4862357882d36345c65bc84"
+    ],
+    [
+      "Twisted Fairytale",
+      "29a99c2e65183d37951b7ae1d6e0275430962565"
+    ]
+  ],
+  "Wanwan": [
+    [
+      "Agile Tiger",
+      "33b0642a933cced792969693cf8af01515a5eead"
+    ],
+    [
+      "Darting Star",
+      "bda8eb59132a8cfd098576cf48656792be0df6ce"
+    ],
+    [
+      "E-girl",
+      "e9de1f2e09414be6d254e11cb0609070b054d390"
+    ],
+    [
+      "Flying Swallow",
+      "3fa94eefc7d971611bd3eb239e2a77feaabe75c1"
+    ],
+    [
+      "M-World Wanwan",
+      "90ccf2b264eac15aa8d0088ac3598917677d55bf"
+    ],
+    [
+      "Pixel Blast",
+      "5035961e2aabb1f44be5e35a3e0beebc8e705c6e"
+    ],
+    [
+      "Shoujo Commander",
+      "51f1a1f1ee62a111e0b42c0b558e20e2c4bc94b3"
+    ],
+    [
+      "Summer Splash",
+      "004c81fb1d65c9db53acee9835ba3a7ff072e6ae"
+    ],
+    [
+      "Teen Pop",
+      "470eb50aab9809e01ad1aca3d3b6f7853fc761f1"
+    ]
+  ],
+  "X.Borg": [
+    [
+      "Blue Storm",
+      "d7cade4c200e49a54153e75ef355c0e4e3b5d7b3"
+    ],
+    [
+      "Bumblebee",
+      "17f1e981f7538902636d17bd405b653f12bf1ed8"
+    ],
+    [
+      "Firaga Armor",
+      "72e3f643f1d3ca4f889fccad579cebbc9cdf37ad"
+    ],
+    [
+      "Graffiti Fashion",
+      "3bb37aec62665bb1a15bc15963d96445284bf91a"
+    ],
+    [
+      "Invoker's Flame",
+      "d68752970b808847423e0a6cfa780a51499886ff"
+    ],
+    [
+      "Moto Drifter",
+      "e22cc5b97b3570ae34105e3674036ecec19ceffd"
+    ],
+    [
+      "Pecados Rioter",
+      "8f3a8a694ff517f153e9f5447d68631697fa7093"
+    ],
+    [
+      "Tesla Maniac",
+      "4175addbf87f3e75dbfaf5799732af0525a06fda"
+    ]
+  ],
+  "Xavier": [
+    [
+      "Beyond the Clouds Xavier",
+      "108ef661a9888d1e3f94bec4d97ef9fc86c9ae5d"
+    ],
+    [
+      "Defier of Light",
+      "c4bb63641d34f7712e867691b28a3d463814f0cf"
+    ],
+    [
+      "Hardlight Artificer",
+      "85041ed15248ae517098d3c2d1962648b92be06b"
+    ],
+    [
+      "Satoru Gojo",
+      "9c96f0dcdca53e387e109850197ba3371e65d30c"
+    ],
+    [
+      "Sunborn Monarch",
+      "4a7267067eec516463ee628bc828582ed250931a"
+    ],
+    [
+      "Verdict of Light",
+      "6ff2e25e57dfdddb52eedf728e66ec3f86a77adb"
+    ]
+  ],
+  "Yi Sun-shin": [
+    [
+      "Apocalypse Agent",
+      "640398f79f26e928b52113ac018660776dfa8cd1"
+    ],
+    [
+      "Azure Sentry",
+      "efab6394be3fb0e90680a86db8d1e3f908304236"
+    ],
+    [
+      "Fleet Warden",
+      "8039d74a1268b3aa756ddd68a2181b3c3c5f1979"
+    ],
+    [
+      "Lone Destructor",
+      "5b9480c633d141a6971b5c01058616c72e0de229",
+      "640398f79f26e928b52113ac018660776dfa8cd1"
+    ],
+    [
+      "Major General",
+      "d24aadac24f5e9218275c5eb30e5afb9eff9417f"
+    ],
+    [
+      "Paenlong Legend",
+      "085b8c0e34e7814ac281f74fc091e1a49ab3d0b7"
+    ],
+    [
+      "Roguish Ranger",
+      "e8749bd868e7e7a7355a871393e502e506d3dc3d"
+    ],
+    [
+      "Surging Torrent",
+      "8baa0592138ef23d65c50aec3402dd03e8287042"
+    ],
+    [
+      "Wavebreaker",
+      "b0510aaefad98a31b77c9e56c1484ef295685cf7"
+    ]
+  ],
+  "Yin": [
+    [
+      "Eren",
+      "e382db1ca980fca29df455d69ccb94ad9ac20e63"
+    ],
+    [
+      "Eternal Guardian",
+      "4e970dd5cf6935a1f99d174f7a25170084c1f957"
+    ],
+    [
+      "Fists of Valor",
+      "14c299e4ce8175447d21c1aa0a6c17157b458315"
+    ],
+    [
+      "M-World Yin",
+      "01118790b1a6cf699521c6feb3dcd38f0f0ea87f"
+    ],
+    [
+      "Martial Genius",
+      "292b8b47689d58115fc0c5c6b5d4d953bb1bdb34"
+    ],
+    [
+      "Yuji Itadori",
+      "c5549ad3c16fb99c2149662969f8e5d5ebde56ce"
+    ]
+  ],
+  "Yu Zhong": [
+    [
+      "Biohazard",
+      "b03f7c2f0926c2c5782e161d827f8e7243503069"
+    ],
+    [
+      "Black Dragon",
+      "f1d1eb3d6e48827c395d7653c0dd047aae287439"
+    ],
+    [
+      "Blood Serpent",
+      "0bb0869b0d7ef89ba4dc5a8d13a44cac738ec224"
+    ],
+    [
+      "Cosmic Dragon",
+      "191d4af8168a42433cc093bbc0907a4b887cd94b"
+    ],
+    [
+      "Dragon's Shade",
+      "fd6b42787dc8a9fbc981ed30e64072bfd63c616b"
+    ],
+    [
+      "Emerald Dragon",
+      "e742eae0a5f2c903a2a8e8048ee1c672109627f8"
+    ],
+    [
+      "Exorcist Yu Zhong",
+      "6f295b0d9cb52e92cc3c9dfacb5ce4a6acf79cdd"
+    ],
+    [
+      "Tidescale Sealord",
+      "098d8f5795883b125a199d96233b4a88c3e88733"
+    ]
+  ],
+  "Yve": [
+    [
+      "Astrowarden",
+      "e0233d4626f4e603fe274ae6ce9fa1ecda3bce2b"
+    ],
+    [
+      "Flame Lotus",
+      "0fd98f9237beee45423e10ccdedcda83f8ab457f"
+    ],
+    [
+      "Forest Hymn",
+      "0467580764a82b89892527a0160745952dd319d4"
+    ],
+    [
+      "Ruin Protectress",
+      "5f840d61efb822d1f3a7262ee1405e66ce7a032e"
+    ]
+  ],
+  "Zetian": [
+    [
+      "Celestial Empress",
+      "217e031ae74ae6270259429860d115935dc1d261"
+    ],
+    [
+      "Heavenly Splendor",
+      "225b2d37eab19a6e5bf78c95139ba2a6e88bfef0"
+    ],
+    [
+      "Sunset Luminance",
+      "827fcc13f8aedc2322d88fafdf79dcfda44d2235"
+    ]
+  ],
+  "Zhask": [
+    [
+      "Bone Flamen",
+      "71d4d17e4e79dc34724b1602cf7dd164d3da797c"
+    ],
+    [
+      "Cancer",
+      "57dd806d071af37b582ee09ea4752607379ab621"
+    ],
+    [
+      "Crystallized Predator",
+      "b894756f7e6763f903a36ee72cae19f11cce7e9d"
+    ],
+    [
+      "Death's Shadow",
+      "07fab19e5c88a50c8a6bede5dfbe40b24eb9f8ec"
+    ],
+    [
+      "Extraterrestrial",
+      "4b837f968dd504eebb789427e2a0a2c61c4b8238"
+    ],
+    [
+      "The King of Swarms",
+      "fee40a82b5d0c850ec8be4c0942c17f1d03d1493"
+    ]
+  ],
+  "Zhuxin": [
+    [
+      "Beacon of Spirits",
+      "ce322c1a06878cb634fb6f8f78cbfa4d5f7c6832"
+    ],
+    [
+      "Emberwisp Mystic",
+      "8898dbc394c4230d1137746a3181f3f8ae3ff6bd"
+    ],
+    [
+      "Ethereal Serenity",
+      "4574796ca84fc6736f8198517ef4c62b440bfba4"
+    ],
+    [
+      "P.ACE Zhuxin",
+      "f29bec7abbead52f98eed1954b2cc39fea0ffbad"
+    ]
+  ],
+  "Zilong": [
+    [
+      "Blazing Lancer",
+      "dda3736d1d90322131423de476ecb8a76e61245e"
+    ],
+    [
+      "Changbanpo Commander",
+      "cfdabba8783b71923e5fd68ac172a4ba4f340f6a"
+    ],
+    [
+      "Christmas Carnival",
+      "41232dfd53ab097bfbb5b21a05411ba8586d9713",
+      "dda3736d1d90322131423de476ecb8a76e61245e"
+    ],
+    [
+      "Dragon of Prosperity",
+      "560bc5b77b7907aadf7f78d2baa4426f936e1a1f"
+    ],
+    [
+      "Eastern Warrior",
+      "2b93e1a0d744f6e6fd7e77fe426656e147b6b1df"
+    ],
+    [
+      "Elite Warrior",
+      "aeeec6d8a5635dd8f3e06c41334ac4793212e537"
+    ],
+    [
+      "Empyrean Paladin",
+      "94bb1e06f3ede3dbc62b4327c8c741f472264e4a"
+    ],
+    [
+      "Glorious General",
+      "f696f88ffb9d9551bd9dcced330dbb44e952b777"
+    ],
+    [
+      "Loyal Spear",
+      "1ccf6a14c11e2050b15cc442d2772212aedb8310"
+    ],
+    [
+      "Spear of Dragon",
+      "7684c081c53ea9849a8b60204aac7d05a4fbc368"
+    ],
+    [
+      "Storm Rider",
+      "2422e274351e33a7704c14492266fe04d53b2b16"
+    ],
+    [
+      "Summer Waves",
+      "7ce8eadb9120c6aced0c0ee8b855b3c963f4e4a9"
+    ]
+  ]
+}

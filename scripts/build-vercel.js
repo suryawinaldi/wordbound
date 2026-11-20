@@ -19,7 +19,7 @@ console.log(
   `Building Hero Hunt for ${target}. Production requires completed content verification.`,
 );
 run(["scripts/check-hero-content.js", ...(target === "production" ? ["--release"] : [])]);
-run(["--test", "tests/hero-hunt.test.js"]);
+run(["--test", "tests/hero-hunt.test.js", "tests/party.test.js"]);
 run(["scripts/audit-hero-audio.js"]);
 // A new directory prevents the tracked legacy dist snapshot from being deployed.
 run(["node_modules/vite/bin/vite.js", "build", "--outDir", "dist-hero-hunt", "--emptyOutDir"]);

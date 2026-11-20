@@ -87,6 +87,7 @@ export default function PartyPage() {
         {room.phase === "lobi" && <p>Bagikan kode enam digit ini ke temanmu. {room.players.length}/9 pemain sudah bergabung.</p>}
         <div className="party-cards">{room.players.map(p => <article key={p.id} className={play && p.id === room.active ? "current" : ""}>
           {room.phase !== "lobi" && (p.image ? <img src={p.image} alt={"Kartu milik " + p.name} /> : <div className="party-back" aria-label="Kartumu tertutup">?</div>)}
+          {p.reference && <details><summary>Potret pembanding</summary><img src={p.reference} alt="Hero yang sama pada gambar lain" /></details>}
           <strong>{p.name}{p.id === room.me && " (kamu)"}</strong>
           {p.hero && <span>{p.hero} · {p.skin}</span>}
           {room.phase !== "lobi" && <small>{p.status === "main" ? p.lives + " nyawa" : p.status === "benar" ? "Berhasil" : "Nyawa habis"}</small>}

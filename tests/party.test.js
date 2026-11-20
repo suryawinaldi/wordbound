@@ -12,6 +12,7 @@ test("sembilan kartu unik dan respons pribadi, tiga nyawa serta voting pemain se
   for (const p of r.players) {
     const visible = view(r,p.token);
     assert.equal(visible.players.find(x=>x.id===p.id).image,undefined);
+    assert.equal(visible.players.find(x=>x.id===p.id).reference,undefined);
     assert.ok(visible.players.every(x=>!x.hero && !x.token));
     assert.ok(existsSync("public"+p.image));
   }
@@ -32,4 +33,22 @@ test("sembilan kartu unik dan respons pribadi, tiga nyawa serta voting pemain se
   }
   while(r.phase!=="selesai") move(r.players[r.index].token,"guess",r.players[r.index].hero);
   assert.ok(view(r,"k1").players.every(x=>x.hero && x.skin));
+});
+
+test("semua entri Splash dapat diundi dan merujuk ke kartu lokal", async () => {
+  const { default: deck } = await import("../server/party-skins.json", { with: { type: "json" } });
+  assert.equal(choices.length, 133);
+  let count = 0;
+  for (const hero of choices) {
+    const cards = deck[hero];
+    assert.ok(cards.length > 0, hero);
+    for (const [skin, id, reference] of cards) {
+      count++;
+      assert.ok(skin);
+      assert.match(id, /^[0-9a-f]{40}$/);
+      assert.ok(existsSync("public/assets/party/splash/" + id + ".webp"), hero + " " + skin);
+      if (reference) assert.ok(cards.some(card => card[1] === reference && reference !== id));
+    }
+  }
+  assert.equal(count, 1061);
 });

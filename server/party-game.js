@@ -1,9 +1,6 @@
 import { randomInt, randomUUID } from "node:crypto";
 
-const skins = {
-  Akai: [], Franco: [["masterchef", "Masterchef"]], Miya: [["suzuhime", "Suzuhime"]],
-  Balmond: [], Nana: [["slumber-party", "Slumber Party"]], Tigreal: [], Saber: [], Layla: [], Cyclops: [],
-};
+import skins from "./party-skins.json" with { type: "json" };
 export const choices = Object.keys(skins);
 export const votes = ["Ya", "Tidak", "Ragu"];
 function check(condition, message) { if (!condition) throw new Error(message); }
@@ -62,9 +59,10 @@ export function act(room, token, body, now = Date.now()) {
     const pool = [...choices];
     for (const p of room.players) {
       p.hero = pool.splice(randomInt(pool.length), 1)[0];
-      const variants = [["", "Default"], ...skins[p.hero]];
-      const [slug, label] = variants[randomInt(variants.length)];
-      p.image = "/assets/party/" + [p.hero.toLowerCase(), slug].filter(Boolean).join("-") + ".webp";
+      const variants = skins[p.hero];
+      const [label, imageId, referenceId] = variants[randomInt(variants.length)];
+      p.image = "/assets/party/splash/" + imageId + ".webp";
+      if (referenceId) p.reference = "/assets/party/splash/" + referenceId + ".webp";
       p.skin = label;
     }
     room.index = -1;
@@ -117,6 +115,7 @@ export function view(room, token) {
     players: room.players.map(p => {
       const reveal = p.status !== "main" || room.phase === "selesai";
       return { id: p.id, name: p.name, lives: p.lives, status: p.status,
-        image: p !== me || reveal ? p.image : undefined, hero: reveal ? p.hero : undefined, skin: reveal ? p.skin : undefined };
+        image: p !== me || reveal ? p.image : undefined,
+        reference: p !== me || reveal ? p.reference : undefined, hero: reveal ? p.hero : undefined, skin: reveal ? p.skin : undefined };
     }) };
 }

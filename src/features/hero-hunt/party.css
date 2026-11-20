@@ -7,7 +7,7 @@
 .party-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(116px, 1fr)); gap: .6rem; }
 .party-cards article { min-width: 0; max-width: 200px; padding: .5rem; border: 1px solid var(--border); border-radius: 9px; overflow-wrap: anywhere; }
 .party-cards .current { border-color: var(--gold); }
-.party-cards img, .party-back { display: grid; place-items: center; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; margin-bottom: .5rem; }
+.party-cards img, .party-back { display: grid; place-items: center; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 5px; margin-bottom: .5rem; }
 .party-back { background: #273645; color: var(--gold); font: 3rem Georgia,serif; }
 .party-panel small,.party-cards span { display: block; color: var(--muted); }
 .party-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
