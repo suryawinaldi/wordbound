@@ -287,7 +287,7 @@ export function PlaySetupPage() {
   return (
     <div className="page-width setup-page">
       <PageIntro eyebrow="SOLO CLASSIC" title="Perburuan dimulai di sini.">
-        Lima hero. Lima petunjuk. Seberapa cepat kamu mengenalinya?
+        Easy dan Hard menyesuaikan riwayatmu setelah kamu mencoba 10 hero. Normal memakai seluruh daftar.
       </PageIntro>
       <div className="setup-panel">
         <div className="setup-art" hidden>
@@ -628,7 +628,7 @@ export function ResultsPage() {
   const previousBest = Math.max(
     0,
     ...history
-      .filter((item) => item.id !== result.id && item.difficulty === result.difficulty)
+      .filter((item) => item.id !== result.id && item.difficulty === result.difficulty && (item.clueProfile || "story") === (result.clueProfile || "story"))
       .map((item) => summarize(item).score),
   );
   const newBest = summary.score > previousBest;

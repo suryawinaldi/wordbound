@@ -118,3 +118,10 @@ Pemain menjawab berdasarkan hero dasarnya. Voting selesai saat semua penjawab me
 Rooms offer fast (30/15/15 seconds) and relaxed (90/30/45 seconds) turns, in-room host rematches, explicit leaving, and removal after two unattended question turns. Room credentials persist on the same browser across tabs. Background tabs poll less frequently. Joining and creation are rate-limited together to 30 attempts per minute per address.
 
 Listening rounds allow three guesses, skipping, session recovery and local results. Solo history is retained beyond 50 sessions from this version onward. Previously discarded history cannot be recovered. Cross-device recovery, human calibration of clue difficulty, and full device audio quality checks still require further work.
+
+
+### Gameplay refinement
+
+Room hosts can choose all skins or a training deck with one consistent single-hero image per hero. The training option retains the source catalog labels and does not claim that those images are default skins. Nine independent local clients were exercised with eight concurrent votes.
+
+The listening meter reads the playing clip through Web Audio and respects reduced motion. After at least ten different heroes have been played, Easy samples the easier half of the roster and Hard the harder half based on that browser's wrong guesses, clues used and skipped heroes. Normal retains the complete roster. This is personal adaptation; broad human difficulty calibration and nine physical phones on the production Redis service remain unverified.

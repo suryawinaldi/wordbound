@@ -9,7 +9,7 @@ function player(name, token) {
   return { id: randomUUID(), token, name: name.trim(), lives: 3, status: "main" };
 }
 export function create(code, name, token) {
-  return { code, players: [player(name, token)], pace: "fast", game: 1, phase: "lobi", index: 0, turn: 0, log: [] };
+  return { code, players: [player(name, token)], pace: "fast", skinMode: "all", game: 1, phase: "lobi", index: 0, turn: 0, log: [] };
 }
 function next(room, now) {
   for (let offset = 1; offset <= room.players.length; offset++) {
@@ -53,6 +53,12 @@ export function act(room, token, body, now = Date.now()) {
     return;
   }
   check(me, "Kamu belum bergabung.");
+  if (body.action === "skins") {
+    check(room.phase === "lobi" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]), "Pengaturan hanya untuk host.");
+    check(["all", "simple"].includes(body.value), "Pilihan kartu tidak valid.");
+    room.skinMode = body.value;
+    return;
+  }
   if (body.action === "configure") {
     check(room.phase === "lobi" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]), "Pengaturan hanya untuk host.");
     check(["fast", "relaxed"].includes(body.value), "Pilihan tempo tidak valid.");
@@ -88,7 +94,7 @@ export function act(room, token, body, now = Date.now()) {
     const pool = [...choices];
     for (const p of room.players) {
       p.hero = pool.splice(randomInt(pool.length), 1)[0];
-      const variants = skins[p.hero];
+      const variants = room.skinMode === "simple" ? skins[p.hero].filter(card => !card[2]).slice(0, 1) : skins[p.hero];
       const [label, imageId, referenceId] = variants[randomInt(variants.length)];
       p.image = "/assets/party/splash/" + imageId + ".webp";
       if (referenceId) p.reference = "/assets/party/splash/" + referenceId + ".webp";
@@ -140,7 +146,7 @@ function ambiguous(counts) {
 export function view(room, token) {
   const me = room.players.find(p => p.token === token);
   check(me, "Kamu belum bergabung.");
-  return { code: room.code, pace: room.pace || "relaxed", game: room.game || 1, host: (room.players.find(p => p.status !== "keluar") || room.players[0]).id, phase: room.phase, turn: room.turn, deadline: room.deadline, me: me.id,
+  return { code: room.code, skinMode: room.skinMode || "all", pace: room.pace || "relaxed", game: room.game || 1, host: (room.players.find(p => p.status !== "keluar") || room.players[0]).id, phase: room.phase, turn: room.turn, deadline: room.deadline, me: me.id,
     canClarify: room.phase === "tebak" && !room.clarified && Boolean(ambiguous(room.log.at(-1)?.counts)),
     active: room.players[room.index]?.id, voted: Boolean(room.ballots?.[me.id]), log: room.log, choices,
     players: room.players.map(p => {

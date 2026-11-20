@@ -1,3 +1,4 @@
+import { useAudioMeter } from "./AudioMeter.jsx";
 import { recordActivity } from "./activity.js";
 import portraits from "./hero-portraits.json";
 import { useEffect, useRef, useState } from "react";
@@ -26,7 +27,7 @@ export default function AudioPage() {
   const [saved] = useState(() => {
     try {
       const data = JSON.parse(sessionStorage.getItem("hunt.audio.session"));
-      if (data && Array.isArray(data.deck) && data.deck.length === 5 && data.deck.every(c => selectionClips.some(x => x.name === c.name && x.src === c.src)) && Number.isInteger(data.index) && data.index >= 0 && data.index <= 5 && Number.isInteger(data.score)) return data;
+      if (data && Array.isArray(data.deck) && data.deck.length === 5 && data.deck.every(c => selectionClips.some(x => x.name === c.name && x.src === c.src)) && Number.isInteger(data.index) && data.index >= 0 && data.index <= 5 && Number.isInteger(data.score) && data.score >= 0 && data.score <= 5 && (data.attempts === undefined || Number.isInteger(data.attempts) && data.attempts >= 0 && data.attempts <= 3) && (data.result === undefined || data.result === null || typeof data.result === "boolean")) return data;
     } catch {}
     return null;
   });
@@ -44,6 +45,7 @@ export default function AudioPage() {
     try { sessionStorage.setItem("hunt.audio.session", JSON.stringify({ id: sessionId, deck, index, score, attempts, result })); } catch {}
   }, [sessionId, deck, index, score, attempts, result]);
   const audio = useRef(null);
+  const meter = useAudioMeter(audio, playing);
   const muted = useHuntStore(state => state.settings.muted);
   useEffect(() => { if (muted) audio.current?.pause(); }, [muted]);
   const done = index === deck.length;
@@ -93,7 +95,7 @@ export default function AudioPage() {
         <button onClick={() => { setSessionId(crypto.randomUUID()); setDeck(rounds()); setIndex(0); setScore(0); setResult(null); setAnswer(""); setHeard(false); setFailed(false); setAttempts(0); }}>Main lagi</button>
       </> : <>
         <p>Ronde {index + 1} / {deck.length} · {clip.kind === "voice" ? "Dialog hero" : clip.kind === "showcase" ? "Suara showcase" : "Suara draft pick"}</p>
-        <div aria-hidden="true" className={'audio-bars ' + (playing ? 'playing' : '')}>{[0,1,2,3,4,5,6,7,8].map(n => <i key={n} style={{'--beat': n}} />)}</div>
+        <div ref={meter} aria-hidden="true" className="audio-bars">{[0,1,2,3,4,5,6,7,8].map(n => <i key={n} style={{'--beat': n}} />)}</div>
         <audio key={index} ref={audio} preload="none" src={clip.src}
           onPlaying={() => { setHeard(true); setPlaying(true); setFailed(false); }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)} />
         {result === null ? <>

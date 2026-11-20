@@ -104,8 +104,26 @@ export const useHuntStore = create((set, get) => ({
   },
   storageWarning: false,
   start() {
+    const difficulty = get().settings.difficulty;
+    const records = get().history.flatMap(session => session.rounds);
+    const experience = new Map();
+    for (const round of records) {
+      const current = experience.get(round.heroId) || { count: 0, effort: 0 };
+      current.count++;
+      current.effort += round.extraClues + round.wrong + (round.outcome === "correct" ? 0 : 5);
+      experience.set(round.heroId, current);
+    }
+    let pool = HEROES;
+    if (experience.size >= 10 && difficulty !== "normal") {
+      const ranked = [...HEROES].sort((a, b) => {
+        const x = experience.get(a.id), y = experience.get(b.id);
+        const score = item => item ? item.effort / item.count : 3;
+        return (score(x) - score(y)) * (difficulty === "easy" ? 1 : -1);
+      });
+      pool = ranked.slice(0, Math.max(20, Math.ceil(ranked.length / 2)));
+    }
     const session = {
-      ...createSession(HEROES, get().settings.difficulty),
+      ...createSession(pool, difficulty),
       contentVersion: CONTENT_VERSION,
       clueProfile: get().settings.clueProfile || "mixed",
     };

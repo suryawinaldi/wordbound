@@ -110,6 +110,7 @@ export default function PartyPage() {
           {p.hero && <span>{p.hero} · {p.skin}</span>}
           {room.phase !== "lobi" && <small>{p.status === "main" ? p.lives + " nyawa" : p.status === "benar" ? "Berhasil" : p.status === "keluar" ? "Keluar" : "Nyawa habis"}</small>}
         </article>)}</div>
+        {room.phase === "lobi" && host && <label>Pilihan kartu<select value={room.skinMode} disabled={busy} onChange={e => send("skins", e.target.value)}><option value="all">Semua skin · acak</option><option value="simple">Latihan · satu gambar tetap per hero</option></select></label>}
         {room.phase === "lobi" && host && <label>Tempo permainan<select value={room.pace} onChange={e => send("configure", e.target.value)}><option value="fast">Cepat · 30 / 15 / 15 detik</option><option value="relaxed">Santai · 90 / 30 / 45 detik</option></select></label>}
         {room.phase === "lobi" && (host ? <button disabled={busy || room.players.length < 2} onClick={() => send("start")}>Mulai permainan</button> : <p>Menunggu host memulai.</p>)}
         {room.phase === "lobi" && <button className="quiet" disabled={busy} onClick={() => send("leave")}>Keluar dari lobi</button>}
