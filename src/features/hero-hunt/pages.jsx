@@ -136,21 +136,13 @@ function Modes() {
           Lihat kesiapan audio <ArrowUpRight size={18} />
         </span>
       </Link>
-      <article className="mode-card upcoming">
-        <div className="mode-icon">
-          <UsersRound size={23} />
-        </div>
-        <span className="mode-status">
-          <LockKeyhole size={12} /> SEGERA HADIR
-        </span>
-        <h3>Gantian</h3>
-        <p>
-          Satu perangkat, dua pemburu.
-          <br />
-          Tantang teman di sebelahmu.
-        </p>
-        <span className="mode-footnote">Bermain bersama, tanpa akun pasangan</span>
-      </article>
+      <Link className="mode-card" to="/play/room">
+        <div className="mode-icon"><UsersRound size={23} /></div>
+        <span className="mode-status">2–9 PEMAIN</span>
+        <h3>Siapa hero gue?</h3>
+        <p>Tanya teman, kumpulkan suara, lalu tebak kartu rahasiamu.</p>
+        <span className="mode-action">Masuk room <ArrowUpRight size={18} /></span>
+      </Link>
       <article className="mode-card upcoming">
         <div className="mode-icon">
           <Swords size={23} />
