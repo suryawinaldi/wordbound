@@ -1,3 +1,5 @@
+import { playableAudioHeroes } from "./audio-catalog.js";
+import { ROSTER as audioRoster } from "./content.js";
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useBlocker, useNavigate, useParams } from "react-router-dom";
 import {
@@ -125,15 +127,15 @@ function Modes() {
         <div className="mode-icon">
           <Volume2 size={23} />
         </div>
-        <span className="mode-status">5 RONDE</span>
+        <span className="mode-status">{playableAudioHeroes(audioRoster).length ? "TERSEDIA" : "DALAM PERSIAPAN"}</span>
         <h3>Tebak Suara</h3>
         <p>
-          Dengarkan suara misterius.
+          Kenali suara asli hero saat draft pick.
           <br />
           Bisakah kamu mengenali heronya?
         </p>
         <span className="mode-action">
-          Main Tebak Suara <ArrowUpRight size={18} />
+          Lihat Tebak Suara <ArrowUpRight size={18} />
         </span>
       </Link>
       <Link className="mode-card" to="/play/room">
