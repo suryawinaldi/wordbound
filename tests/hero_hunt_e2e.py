@@ -198,7 +198,7 @@ class HeroHuntBrowserTests(unittest.TestCase):
     def test_story_profile_and_audio_game(self):
         self.page.goto(BASE + '/play/audio')
         expect(self.page.get_by_role('heading', name='Satu suara. Siapa heronya?')).to_be_visible()
-        expect(self.page.get_by_text('Rekaman asli draft pick belum tersedia.')).to_be_visible()
+        expect(self.page.get_by_label('Impor paket suara dari perangkat')).to_be_visible()
         expect(self.page.locator('audio')).to_have_count(0)
         self.no_overflow()
         self.page.goto(BASE + '/play')

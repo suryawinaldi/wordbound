@@ -7,10 +7,12 @@ import { playTone, useHuntStore } from "./store.js";
 import { AUDIO_REVIEWS, playableAudioHeroes } from "./audio-catalog.js";
 import { ROSTER } from "./content.js";
 
-function rounds() {
+function rounds(imported = []) {
   const deck = playableAudioHeroes(ROSTER).map(hero => ({
     name: hero.name, src: AUDIO_REVIEWS[hero.id].localAssetPath,
   }));
+  const names = new Set(deck.map(clip => clip.name));
+  deck.push(...imported.filter(clip => !names.has(clip.name)));
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -19,6 +21,24 @@ function rounds() {
 }
 export default function AudioPage() {
   const [deck, setDeck] = useState(rounds);
+  const [imported, setImported] = useState([]);
+  const [importError, setImportError] = useState("");
+  async function importPack(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      if (file.size > 24 * 1024 * 1024) throw Error();
+      const pack = JSON.parse(await file.text());
+      const clips = ROSTER.flatMap(({name}) => {
+        const data = pack?.[name];
+        if (typeof data !== "string" || !data.startsWith("T2dnUw") || !/^[A-Za-z0-9+/]+=*$/.test(data)) return [];
+        return [{name, src: "data:audio/ogg;base64," + data}];
+      });
+      if (!clips.length) throw Error();
+      setImported(clips); setDeck(rounds(clips)); setIndex(0); setScore(0);
+      setAnswer(""); setResult(null); setFailed(false); setHeard(false); setPlaying(false); setImportError("");
+    } catch { setImportError("Paket audio tidak terbaca. Pilih berkas .huntaudio dari Hero Hunt."); }
+  }
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -65,9 +85,11 @@ export default function AudioPage() {
       Dengarkan klip berbahasa Inggris, lalu tebak nama heronya.
     </PageIntro>
     <section className="party-panel audio-round">
-      {deck.length === 0 ? <p>Rekaman asli draft pick belum tersedia.</p> : done ? <>
+      {(deck.length === 0 || done) && <label>Impor paket suara dari perangkat<input type="file" accept=".huntaudio" onChange={importPack} /></label>}
+      {importError && <p role="alert">{importError}</p>}
+      {deck.length === 0 ? <p>Pilih paket .huntaudio untuk memainkan rekaman draft pick dari perangkatmu.</p> : done ? <>
         <h2>{score} dari {deck.length} hero tertebak</h2>
-        <button onClick={() => { setDeck(rounds()); setIndex(0); setScore(0); }}>Main lagi</button>
+        <button onClick={() => { setDeck(rounds(imported)); setIndex(0); setScore(0); }}>Main lagi</button>
       </> : <>
         <p>Ronde {index + 1} / {deck.length} · Suara draft pick</p>
         <div aria-hidden="true" className={'audio-bars ' + (playing ? 'playing' : '')}>{[0,1,2,3,4,5,6,7,8].map(n => <i key={n} style={{'--beat': n}} />)}</div>

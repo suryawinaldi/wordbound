@@ -5,3 +5,4 @@ dist-hero-hunt
 *.pdf
 *.log
 .env*
+local-audio/

@@ -10,3 +10,4 @@ dist-hero-hunt
 .vercel
 
 __pycache__
+local-audio/

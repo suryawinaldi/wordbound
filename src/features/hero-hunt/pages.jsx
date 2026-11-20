@@ -127,7 +127,7 @@ function Modes() {
         <div className="mode-icon">
           <Volume2 size={23} />
         </div>
-        <span className="mode-status">{playableAudioHeroes(audioRoster).length ? "TERSEDIA" : "DALAM PERSIAPAN"}</span>
+        <span className="mode-status">{playableAudioHeroes(audioRoster).length ? "TERSEDIA" : "IMPOR AUDIO"}</span>
         <h3>Tebak Suara</h3>
         <p>
           Kenali suara asli hero saat draft pick.
@@ -135,7 +135,7 @@ function Modes() {
           Bisakah kamu mengenali heronya?
         </p>
         <span className="mode-action">
-          Lihat Tebak Suara <ArrowUpRight size={18} />
+          Main Tebak Suara <ArrowUpRight size={18} />
         </span>
       </Link>
       <Link className="mode-card" to="/play/room">
