@@ -628,7 +628,7 @@ export function ResultsPage() {
   const previousBest = Math.max(
     0,
     ...history
-      .filter((item) => item.id !== result.id && item.difficulty === result.difficulty && (item.clueProfile || "story") === (result.clueProfile || "story"))
+      .filter((item) => item.id !== result.id && item.completedAt < result.completedAt && item.difficulty === result.difficulty && (item.clueProfile || "story") === (result.clueProfile || "story"))
       .map((item) => summarize(item).score),
   );
   const newBest = summary.score > previousBest;
@@ -760,6 +760,7 @@ function CompassIcon() {
 export function StatsPage() {
   const activities = useActivities();
   const history = useHuntStore((s) => s.history);
+  const discoveredHeroes = new Set(history.flatMap(session => session.rounds.filter(round => round.outcome === "correct").map(round => round.heroId))).size;
   const totals = history.map(summarize);
   const correct = totals.reduce((sum, item) => sum + item.correct, 0);
   const wrong = totals.reduce((sum, item) => sum + item.wrong, 0);
@@ -785,6 +786,12 @@ export function StatsPage() {
           <span>Akurasi percobaan menjawab</span>
         </div>
       </div>
+      <section className="party-panel">
+        <h2>Koleksi hero tertebak</h2>
+        <p>{discoveredHeroes} dari {HEROES.length} hero ditemukan di Solo Classic.</p>
+        <progress max={HEROES.length} value={discoveredHeroes} aria-label="Progres koleksi hero Solo" />
+        <Link className="text-link" to="/play">Lanjutkan koleksi →</Link>
+      </section>
       <h2 className="stats-subheading">Mode lainnya</h2>
       <div className="best-grid">{[["audio", "Tebak Suara"], ["multiplayer", "Main bareng"]].map(([mode, label]) => {
         const sessions = activities.filter(item => item.mode === mode);
@@ -792,14 +799,14 @@ export function StatsPage() {
       })}</div>
       <h2 className="stats-subheading">Rekor per kesulitan</h2>
       <div className="best-grid">
-        {Object.entries(DIFFICULTIES).map(([key, value]) => (
-          <div key={key}>
-            <span>{value.label}</span>
+        {Object.entries(DIFFICULTIES).flatMap(([key, value]) => Object.entries(CLUE_PROFILES).map(([profile, info]) => (
+          <div key={key + profile}>
+            <span>{value.label} · {info.label}</span>
             <strong>
               {Math.max(
                 0,
                 ...history
-                  .filter((item) => item.difficulty === key)
+                  .filter((item) => item.difficulty === key && (item.clueProfile || "story") === profile)
                   .map((item) => summarize(item).score),
               )}
               <small> poin</small>
@@ -808,11 +815,11 @@ export function StatsPage() {
               {value.hp} HP awal · {value.base} poin dasar/hero
             </span>
           </div>
-        ))}
+        )))}
       </div>
       <div className="section-heading history-heading">
         <h2>Riwayat perburuan</h2>
-        <span>Hingga 50 sesi terakhir</span>
+        <span>Riwayat di perangkat ini</span>
       </div>
       {!history.length ? (
         <div className="empty-state">

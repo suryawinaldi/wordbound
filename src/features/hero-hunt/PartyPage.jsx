@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageIntro } from "./components.jsx";
 import "./party.css";
-import { playTone } from "./store.js";
+import { gameSound, playTone } from "./store.js";
 
 async function request(token, body) {
   const response = await fetch("/api/party", { method: "POST", headers: {
@@ -83,6 +83,21 @@ export default function PartyPage() {
       correct: Number(room.players.find(p => p.id === room.me)?.status === "benar"), total: 1, date: Date.now(),
     });
   }, [room]);
+  const previousPhase = useRef(null);
+  const warned = useRef(null);
+  useEffect(() => {
+    if (previousPhase.current === "voting" && room?.phase === "tebak") gameSound("vote");
+    if (previousPhase.current && previousPhase.current !== "selesai" && room?.phase === "selesai") gameSound("victory");
+    previousPhase.current = room?.phase;
+  }, [room?.phase]);
+  useEffect(() => {
+    const remaining = (room?.deadline || 0) - time;
+    const key = room?.game + "-" + room?.turn + "-" + room?.phase;
+    if (room?.active === room?.me && remaining > 0 && remaining <= 5000 && warned.current !== key) {
+      warned.current = key;
+      gameSound("urgent");
+    }
+  }, [time, room?.deadline, room?.game, room?.turn, room?.phase, room?.active, room?.me]);
   const active = room?.players.find(p => p.id === room.active);
   const mine = room && room.me === room.active;
   const host = room && room.me === room.host;
@@ -110,7 +125,7 @@ export default function PartyPage() {
           {p.hero && <span>{p.hero} · {p.skin}</span>}
           {room.phase !== "lobi" && <small>{p.status === "main" ? p.lives + " nyawa" : p.status === "benar" ? "Berhasil" : p.status === "keluar" ? "Keluar" : "Nyawa habis"}</small>}
         </article>)}</div>
-        {room.phase === "lobi" && host && <label>Pilihan kartu<select value={room.skinMode} disabled={busy} onChange={e => send("skins", e.target.value)}><option value="all">Semua skin · acak</option><option value="simple">Latihan · satu gambar tetap per hero</option></select></label>}
+        {room.phase === "lobi" && host && <label>Pilihan kartu<select value={room.skinMode} disabled={busy} onChange={e => send("skins", e.target.value)}><option value="default">Default · semua hero</option><option value="mixed">Campuran · default lebih sering</option><option value="all">Semua skin · acak</option><option value="simple" hidden>Latihan</option></select></label>}
         {room.phase === "lobi" && host && <label>Tempo permainan<select value={room.pace} onChange={e => send("configure", e.target.value)}><option value="fast">Cepat · 30 / 15 / 15 detik</option><option value="relaxed">Santai · 90 / 30 / 45 detik</option></select></label>}
         {room.phase === "lobi" && (host ? <button disabled={busy || room.players.length < 2} onClick={() => send("start")}>Mulai permainan</button> : <p>Menunggu host memulai.</p>)}
         {room.phase === "lobi" && <button className="quiet" disabled={busy} onClick={() => send("leave")}>Keluar dari lobi</button>}

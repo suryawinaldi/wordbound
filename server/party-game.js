@@ -1,5 +1,6 @@
 import { randomInt, randomUUID } from "node:crypto";
 
+import defaults from "./default-skins.json" with { type: "json" };
 import skins from "./party-skins.json" with { type: "json" };
 export const choices = Object.keys(skins);
 export const votes = ["Ya", "Tidak", "Ragu"];
@@ -55,7 +56,7 @@ export function act(room, token, body, now = Date.now()) {
   check(me, "Kamu belum bergabung.");
   if (body.action === "skins") {
     check(room.phase === "lobi" && me === (room.players.find(p => p.status !== "keluar") || room.players[0]), "Pengaturan hanya untuk host.");
-    check(["all", "simple"].includes(body.value), "Pilihan kartu tidak valid.");
+    check(["all", "simple", "default", "mixed"].includes(body.value), "Pilihan kartu tidak valid.");
     room.skinMode = body.value;
     return;
   }
@@ -94,7 +95,10 @@ export function act(room, token, body, now = Date.now()) {
     const pool = [...choices];
     for (const p of room.players) {
       p.hero = pool.splice(randomInt(pool.length), 1)[0];
-      const variants = room.skinMode === "simple" ? skins[p.hero].filter(card => !card[2]).slice(0, 1) : skins[p.hero];
+      let variants = skins[p.hero];
+      if (["simple", "default"].includes(room.skinMode) || room.skinMode === "mixed" && randomInt(2) === 0) {
+        variants = variants.filter(card => card[1] === defaults[p.hero]);
+      }
       const [label, imageId, referenceId] = variants[randomInt(variants.length)];
       p.image = "/assets/party/splash/" + imageId + ".webp";
       if (referenceId) p.reference = "/assets/party/splash/" + referenceId + ".webp";

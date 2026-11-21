@@ -50,7 +50,7 @@ test("semua entri Splash dapat diundi dan merujuk ke kartu lokal", async () => {
       if (reference) assert.ok(cards.some(card => card[1] === reference && reference !== id));
     }
   }
-  assert.equal(count, 1061);
+  assert.equal(count, 1066);
 });
 
 test("fast rooms remove idle players and support rematches", () => {
@@ -72,4 +72,19 @@ test("fast rooms remove idle players and support rematches", () => {
   assert.equal(next.game, 2);
   assert.equal(next.phase, "lobi");
   assert.ok(next.players.every(p => !p.hero && p.lives === 3));
+});
+
+test("default deck maps every hero to an existing illustration", async () => {
+  const { default: defaults } = await import("../server/default-skins.json", { with: { type: "json" } });
+  const { default: deck } = await import("../server/party-skins.json", { with: { type: "json" } });
+  assert.equal(Object.keys(defaults).length, choices.length);
+  for (const hero of choices) {
+    assert.ok(deck[hero].some(card => card[1] === defaults[hero]), hero);
+    assert.ok(existsSync("public/assets/party/splash/" + defaults[hero] + ".webp"));
+  }
+  const room = create("654321", "A", "a");
+  act(room, "b", { action: "join", name: "B" });
+  act(room, "a", { action: "skins", value: "default" });
+  act(room, "a", { action: "start" });
+  for (const player of room.players) assert.equal(player.image, "/assets/party/splash/" + defaults[player.hero] + ".webp");
 });

@@ -167,6 +167,7 @@ export function gameSound(kind) {
   const notes = {
     tap: [1568, 2352], correct: [523, 784, 1046, 1568], wrong: [147, 110],
     lobby: [196, 294, 392, 349],
+    vote: [587, 880], urgent: [880], victory: [523, 659, 784, 1046, 1568],
   };
   try {
     const Audio = window.AudioContext || window.webkitAudioContext;
